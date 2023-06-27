@@ -4,18 +4,26 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getPrepairedMovies(query) {
+  let visibleMovies = [...moviesFromServer];
   const prepairedQuery = query.toLowerCase().trim();
 
-  return moviesFromServer.filter((movie) => {
+  if (query.length === 0) {
+    return visibleMovies;
+  }
+
+  visibleMovies = moviesFromServer.filter((movie) => {
     const { title, description } = movie;
 
     return title.trim().toLowerCase().includes(prepairedQuery)
       || description.trim().toLowerCase().includes(prepairedQuery);
   });
+
+  return visibleMovies;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const visibleMovies = getPrepairedMovies(query);
 
   return (
     <div className="page">
@@ -33,15 +41,13 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={getPrepairedMovies(query)} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
