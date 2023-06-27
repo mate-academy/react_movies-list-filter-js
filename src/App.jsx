@@ -4,18 +4,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getFilms(movies, querty1) {
-  let newMovies = [...movies];
-  const newQuerty = querty1.toLowerCase().trim();
+function getFilms(movies, query) {
+  const newQuery = query.toLowerCase().trim();
 
-  if (newQuerty) {
-    newMovies = newMovies.filter(element => (
-      element.title.toLowerCase().includes(newQuerty)
-      || element.description.toLowerCase().includes(newQuerty)
+  if (newQuery) {
+    return movies.filter(element => (
+      element.title.toLowerCase().includes(newQuery)
+        || element.description.toLowerCase().includes(newQuery)
     ));
   }
 
-  return newMovies;
+  return movies;
 }
 
 export const App = () => {
@@ -38,8 +37,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(querty2) => {
-                  setFilter(querty2.target.value);
+                onChange={(letter) => {
+                  setFilter(letter.target.value);
                 }}
               />
             </div>
