@@ -5,10 +5,6 @@ import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 import { SearchMovieBar } from './components/SearchMovieBar';
 
-// function filterByName(moviesList, query) {
-
-// }
-
 export const App = () => {
   const [query, setQuery] = useState('');
 
