@@ -8,7 +8,7 @@ import { SearchMovieBar } from './components/SearchMovieBar';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer].filter((movie) => {
+  const visibleMovies = moviesFromServer.filter((movie) => {
     const movieTitle = movie.title.toLowerCase();
     const movieDexcription = movie.description.toLowerCase();
 
@@ -19,7 +19,7 @@ export const App = () => {
     <div className="page">
       <div className="page-content">
         <SearchMovieBar
-          sortBy={value => setQuery(value)}
+          sortBy={setQuery}
         />
 
         <MoviesList movies={visibleMovies} />
