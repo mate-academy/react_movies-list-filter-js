@@ -6,10 +6,8 @@ import { MoviesList } from './components/MoviesList';
 import './App.scss';
 
 function getVisibleMovies(movies, { query }) {
-  let prepareMovies = [...movies];
-
   if (query) {
-    prepareMovies = prepareMovies.filter((movie) => {
+    return movies.filter((movie) => {
       const compareQuery = query.trim().toLowerCase();
 
       return movie.title.toLowerCase().includes(compareQuery)
@@ -17,7 +15,7 @@ function getVisibleMovies(movies, { query }) {
     });
   }
 
-  return prepareMovies;
+  return movies;
 }
 
 export const App = () => {
