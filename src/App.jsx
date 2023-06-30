@@ -5,13 +5,10 @@ import moviesFromServer from './api/movies.json';
 
 function sortMovie(query) {
   if (query) {
-    const moviesFromServerCopy
-    = [...moviesFromServer].filter(
+    return moviesFromServer.filter(
       movie => movie.title.toLocaleLowerCase().includes(query.trim())
       || movie.description.toLocaleLowerCase().includes(query.trim()),
     );
-
-    return moviesFromServerCopy;
   }
 
   return moviesFromServer;
@@ -34,7 +31,6 @@ export const App = () => {
 
             <div className="control">
               <input
-                // value={query}
                 type="text"
                 id="search-query"
                 className="input"
