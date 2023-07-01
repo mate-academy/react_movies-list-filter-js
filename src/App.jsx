@@ -17,9 +17,12 @@ export const App = () => {
       return title.includes(lowerQuery) || description.includes(lowerQuery);
     });
 
-    setQuery(queryValue);
-
     setVisibleMovies(filteredList);
+  };
+
+  const handleChange = (newValue) => {
+    filterList(newValue);
+    setQuery(newValue);
   };
 
   return (
@@ -39,7 +42,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => filterList(e.currentTarget.value)}
+                onChange={event => handleChange(event.currentTarget.value)}
               />
             </div>
           </div>
