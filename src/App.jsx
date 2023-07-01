@@ -17,7 +17,7 @@ function getVisibleMovies(movies, query) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getVisibleMovies(moviesFromServer, query);
+  const visibleMovies = getVisibleMovies(moviesFromServer, query.trim());
   const searchMovieHandler = (e) => {
     setQuery(e.target.value);
   };
