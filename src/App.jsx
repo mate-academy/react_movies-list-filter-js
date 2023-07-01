@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import './App.scss';
+import { useState, useMemo } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import './App.scss';
 
 function getFilteredMovies(movies, query) {
   return movies.filter(movie => (isContainText(movie.title, query)
@@ -14,14 +14,18 @@ function isContainText(str, search) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getFilteredMovies(moviesFromServer, query);
+  const visibleMovies
+  = useMemo(() => getFilteredMovies(moviesFromServer, query), [query]);
+
+  const handleSearchChange = (event) => {
+    setQuery(event.target.value.trim());
+  };
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -32,9 +36,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value.trim());
-                }}
+                onChange={handleSearchChange}
               />
             </div>
           </div>
