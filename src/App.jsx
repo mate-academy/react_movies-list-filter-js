@@ -22,8 +22,8 @@ export const App = () => {
     moviesFromServer, { query },
   );
 
-  const filterBy = (newQuery) => {
-    setQuery(newQuery);
+  const filterBy = (event) => {
+    setQuery(event.target.value);
   };
 
   return (
@@ -42,9 +42,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  filterBy(event.target.value);
-                }}
+                onChange={filterBy}
               />
             </div>
           </div>
@@ -52,7 +50,6 @@ export const App = () => {
 
         <MoviesList
           movies={visibleMovies}
-          filterBy={newQuery => setQuery(newQuery)}
         />
       </div>
 
