@@ -1,22 +1,26 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  let visibleMovies = [...moviesFromServer];
+  const visibleMovies = useMemo(() => {
+    let result = [...moviesFromServer];
 
-  if (searchQuery.length) {
-    visibleMovies = visibleMovies.filter((movie) => {
-      const title = movie.title.toLowerCase();
-      const description = movie.description.toLowerCase();
-      const query = searchQuery.trim().toLowerCase();
+    if (searchQuery.length) {
+      result = result.filter((movie) => {
+        const title = movie.title.toLowerCase();
+        const description = movie.description.toLowerCase();
+        const query = searchQuery.trim().toLowerCase();
 
-      return title.includes(query) || description.includes(query);
-    });
-  }
+        return title.includes(query) || description.includes(query);
+      });
+    }
+
+    return result;
+  }, [searchQuery.length]);
 
   function handleSearchQuery(event) {
     setSearchQuery(event.target.value);
