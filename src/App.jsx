@@ -15,6 +15,7 @@ function preparedMovies(movies, query) {
 export const App = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = preparedMovies(moviesFromServer, query);
+  const queryHandler = event => setQuery(event.target.value);
 
   return (
     <div className="page">
@@ -32,9 +33,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={queryHandler}
               />
             </div>
           </div>
