@@ -8,10 +8,17 @@ export const App = () => {
   const [query, setQuery] = useState('');
   const lowerQuery = query.toLowerCase().trim();
 
-  const visibleMovies = moviesFromServer.filter(
-    movie => movie.title.toLowerCase().includes(lowerQuery)
-    || movie.description.toLowerCase().includes(lowerQuery),
-  );
+  function handleInputChange(event) {
+    setQuery(event.currentTarget.value);
+  }
+
+  const visibleMovies
+    = query.length > 0
+      ? moviesFromServer.filter(
+        movie => movie.title.toLowerCase().includes(lowerQuery)
+          || movie.description.toLowerCase().includes(lowerQuery),
+      )
+      : moviesFromServer;
 
   return (
     <div className="page">
@@ -30,9 +37,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.currentTarget.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
           </div>
