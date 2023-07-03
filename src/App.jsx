@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getFilteredMovies(movies, query) {
+const getFilteredMovies = (movies, query) => {
   const normalizeQuery = query.toLowerCase().trim();
 
   return movies
