@@ -4,15 +4,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const changeToLowerCase = string => string.toLowerCase();
+const removeSpaca = query => query.toLowerCase().trim();
+
 function preperedMoviesFromServer(movies, { query }) {
   let preperedMovies = movies;
 
   if (query) {
     preperedMovies = preperedMovies.filter(
-      movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase().trim())
-         || movie.description.toLowerCase().includes(query.toLowerCase().trim())
-      ),
+      (movie) => {
+        const title = changeToLowerCase(movie.title);
+        const description = changeToLowerCase(movie.description);
+        const queryState = removeSpaca(query);
+
+        return title.includes(queryState) || description.includes(queryState);
+      },
     );
   }
 
