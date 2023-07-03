@@ -3,11 +3,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function makeCommonCase(strint) {
+  return strint.toLowerCase();
+}
+
 function prepareMovies(movies, searchFilter) {
   const moviesList = movies.filter((movie) => {
-    const commonMovieTitle = movie.title.toLowerCase();
-    const commonMovieDescription = movie.description.toLowerCase();
-    const commonFilter = searchFilter.toLowerCase().trim();
+    const commonMovieTitle = makeCommonCase(movie.title);
+    const commonMovieDescription = makeCommonCase(movie.description);
+    const commonFilter = makeCommonCase(searchFilter).trim();
 
     return commonMovieTitle.includes(commonFilter)
       || commonMovieDescription.includes(commonFilter);
