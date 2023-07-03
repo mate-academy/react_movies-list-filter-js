@@ -7,7 +7,7 @@ export const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const visibleMovies = useMemo(() => {
-    let result = [...moviesFromServer];
+    let result = moviesFromServer;
 
     if (searchQuery.length) {
       result = result.filter((movie) => {
