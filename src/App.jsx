@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getFiltredData(dataFromServer, query) {
-  const filtredDate = [...dataFromServer].filter((point) => {
+function getFilteredData(dataFromServer, query) {
+  const filteredData = [...dataFromServer].filter((point) => {
     const title = point.title.toLowerCase();
     const description = point.description.toLowerCase();
     const queryForSearch = query.trim().toLowerCase();
@@ -17,13 +17,16 @@ function getFiltredData(dataFromServer, query) {
     return false;
   });
 
-  return filtredDate;
+  return filteredData;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const [visibleMovies, setVisibleMovie] = useState(moviesFromServer);
 
-  const visibleMovies = getFiltredData(moviesFromServer, query);
+  function getVisibleMovie(newQuery) {
+    return getFilteredData(moviesFromServer, newQuery);
+  }
 
   return (
     <div className="page">
@@ -41,15 +44,17 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                // value={query}
+                value={query}
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  const newQuery = event.target.value;
+
+                  setQuery(newQuery);
+                  setVisibleMovie(getVisibleMovie(newQuery));
                 }}
               />
             </div>
           </div>
         </div>
-
         <MoviesList movies={visibleMovies} />
       </div>
 
