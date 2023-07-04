@@ -4,24 +4,22 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const normalizeString = value => value.toLowerCase().trim();
+
+function getFilteredMovies(words, letters) {
+  const filtered = words.filter((movie) => {
+    const title = normalizeString(movie.title);
+    const description = normalizeString(movie.description);
+    const searchLetter = normalizeString(letters);
+
+    return title.includes(searchLetter) || description.includes(searchLetter);
+  });
+
+  return filtered;
+}
+
 export const App = () => {
   const [query, setQuery] = useState('');
-
-  function getFilteredMovies(words, letters) {
-    const filtered = [];
-
-    words.forEach((movie) => {
-      const title = movie.title.toLowerCase().trim();
-      const description = movie.description.toLowerCase().trim();
-      const searchLetter = letters.toLowerCase().trim();
-
-      if (title.includes(searchLetter) || description.includes(searchLetter)) {
-        filtered.push(movie);
-      }
-    });
-
-    return filtered;
-  }
 
   const visibleMovies = getFilteredMovies(moviesFromServer, query);
 
