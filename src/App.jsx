@@ -5,17 +5,11 @@ import { MoviesList } from './components/MoviesList';
 import { SearchField } from './components/SearchField';
 
 function setVisibleMovies(movies, query) {
-  let visibleMovies = [...movies];
+  return movies.filter((movie) => {
+    const textForSearch = `${movie.title} ${movie.description}`;
 
-  if (query) {
-    visibleMovies = visibleMovies.filter((movie) => {
-      const textForSearch = `${movie.title} ${movie.description}`;
-
-      return textForSearch.toLowerCase().includes(query.toLowerCase().trim());
-    });
-  }
-
-  return visibleMovies;
+    return textForSearch.toLowerCase().includes(query.toLowerCase().trim());
+  });
 }
 
 export const App = () => {
