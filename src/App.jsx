@@ -9,7 +9,8 @@ const getFilteredMovies = (array, query) => {
   if (query) {
     copyMovies = copyMovies.filter(
       movie => movie.title.toLowerCase().includes(query.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trim()));
+      || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
+    );
   }
 
   return copyMovies;
@@ -35,7 +36,6 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={queryField}
                 type="text"
                 id="search-query"
                 className="input"
