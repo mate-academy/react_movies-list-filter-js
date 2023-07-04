@@ -14,7 +14,7 @@ function getMoviesFiltered(movies, { query }) {
     ));
   }
 
-  return filteredMovies || null;
+  return filteredMovies;
 }
 
 export const App = () => {
@@ -38,7 +38,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
