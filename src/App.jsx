@@ -4,13 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getFilteredMovies(movies, { query }) {
+  const normalizedQyery = query.trim().toLowerCase();
+
   return (
     movies.filter(movie => (movie.title
       .toLowerCase()
-      .includes(query.trim().toLowerCase()))
+      .includes(normalizedQyery))
     || (movie.description
       .toLowerCase()
-      .includes(query.trim().toLowerCase())))
+      .includes(normalizedQyery)))
   );
 }
 
