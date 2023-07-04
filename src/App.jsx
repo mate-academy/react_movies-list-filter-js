@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -22,6 +21,10 @@ function filterMovies(movies, filterField) {
 export const App = () => {
   const [searchField, setSearchField] = useState('');
 
+  const onChange = (event) => {
+    setSearchField(event.target.value);
+  };
+
   const visibleMovies = filterMovies(moviesFromServer, searchField);
 
   return (
@@ -29,7 +32,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -40,7 +42,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setSearchField(e.target.value)}
+                onChange={onChange}
                 value={searchField}
               />
             </div>
