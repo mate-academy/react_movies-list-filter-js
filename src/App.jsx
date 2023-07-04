@@ -4,15 +4,14 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 const filterMoviesByWord = (movies, query) => {
-  const filtered = movies.filter((movie) => {
+  return movies.filter((movie) => {
     const title = movie.title.toLowerCase();
     const desc = movie.description.toLowerCase();
-    const q = query.toLowerCase().trim();
+    const normalizedQuery = query.toLowerCase().trim();
 
-    return title.includes(q) || desc.includes(q);
+    return title.includes(normalizedQuery) || desc.includes(normalizedQuery);
   });
 
-  return filtered;
 };
 
 export const App = () => {
@@ -46,9 +45,7 @@ export const App = () => {
         <MoviesList movies={visibleMovies} />
       </div>
 
-      <div className="sidebar">
-        Sidebar goes here
-      </div>
+      <div className="sidebar">Sidebar goes here</div>
     </div>
   );
 };
