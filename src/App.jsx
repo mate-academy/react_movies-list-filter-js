@@ -5,25 +5,19 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [visibleMovies, setVisibleMovies] = useState([...moviesFromServer]);
   const [query, setQuery] = useState('');
 
-  const filterList = (queryValue) => {
-    const filteredList = moviesFromServer.filter((movie) => {
-      const title = movie.title.toLowerCase();
-      const description = movie.description.toLowerCase();
-      const lowerQuery = queryValue.toLowerCase().trim();
+  const filteredList = moviesFromServer.filter((movie) => {
+    if (!query) {
+      return movie;
+    }
 
-      return title.includes(lowerQuery) || description.includes(lowerQuery);
-    });
+    const title = movie.title.toLowerCase();
+    const description = movie.description.toLowerCase();
+    const lowerQuery = query.toLowerCase().trim();
 
-    setVisibleMovies(filteredList);
-  };
-
-  const handleChange = (newValue) => {
-    filterList(newValue);
-    setQuery(newValue);
-  };
+    return title.includes(lowerQuery) || description.includes(lowerQuery);
+  });
 
   return (
     <div className="page">
@@ -42,13 +36,13 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => handleChange(event.currentTarget.value)}
+                onChange={event => setQuery(event.currentTarget.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={filteredList} />
       </div>
 
       <div className="sidebar">
