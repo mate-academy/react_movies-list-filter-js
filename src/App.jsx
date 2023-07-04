@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -6,15 +7,17 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  function filterMovies(movies, currentquery) {
-    if (currentquery) {
+  function filterMovies(movies, currentQuery) {
+    if (currentQuery) {
+      const trimedQuery = currentQuery.trim().toLowerCase();
+
       return movies.filter(movie => (
         movie.title
           .toLowerCase()
-          .includes(currentquery.trim().toLowerCase())
+          .includes(trimedQuery)
         || movie.description
           .toLowerCase()
-          .includes(currentquery.trim().toLowerCase())
+          .includes(trimedQuery)
       ));
     }
 
