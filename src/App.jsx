@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function normalizeString(string) {
+  return string.toLowerCase().trim();
+}
+
 function filterMovies(movies, query) {
   return movies.filter(movie => (
-    movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query)
+    normalizeString(movie.title).includes(query)
+      || normalizeString(movie.description).includes(query)
   ));
 }
 
@@ -19,7 +23,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -31,7 +34,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(event.target.value.toLowerCase().trim());
+                  setQuery(normalizeString(event.target.value));
                 }}
               />
             </div>
