@@ -4,18 +4,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const changeToLowerCase = string => string.toLowerCase();
-const removeSpaca = query => query.toLowerCase().trim();
+const makeLowerCaseAndRemoveSpace = query => query.toLowerCase().trim();
 
-function preperedMoviesFromServer(movies, { query }) {
+function getPreperedMoviesFromServer(movies, { query }) {
   let preperedMovies = movies;
 
   if (query) {
     preperedMovies = preperedMovies.filter(
       (movie) => {
-        const title = changeToLowerCase(movie.title);
-        const description = changeToLowerCase(movie.description);
-        const queryState = removeSpaca(query);
+        const title = makeLowerCaseAndRemoveSpace(movie.title);
+        const description = makeLowerCaseAndRemoveSpace(movie.description);
+        const queryState = makeLowerCaseAndRemoveSpace(query);
 
         return title.includes(queryState) || description.includes(queryState);
       },
@@ -27,7 +26,9 @@ function preperedMoviesFromServer(movies, { query }) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = preperedMoviesFromServer(moviesFromServer, { query });
+  const visibleMovies = getPreperedMoviesFromServer(moviesFromServer, {
+    query,
+  });
 
   const setQueryChange = event => setQuery(event.currentTarget.value);
 
