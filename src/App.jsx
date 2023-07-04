@@ -5,8 +5,8 @@ import { MoviesList } from './components/MoviesList';
 import { SearchField } from './components/SearchField';
 
 function setVisibleMovies(movies, query) {
-  return movies.filter((movie) => {
-    const textForSearch = `${movie.title} ${movie.description}`;
+  return movies.filter(({ title, description }) => {
+    const textForSearch = `${title} ${description}`;
 
     return textForSearch.toLowerCase().includes(query.toLowerCase().trim());
   });
