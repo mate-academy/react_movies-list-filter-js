@@ -4,32 +4,29 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  // const [query, setQuery] = useState('');
-  const [movies, setMovies] = useState(moviesFromServer);
+  const [query, setQuery] = useState('');
+  // const [movies, setMovies] = useState(moviesFromServer);
 
-  // const visibleMovies = moviesFromServer.filter(item => (
-  //   item.description.toLowerCase().includes(query)
-  // || item.title.toLowerCase().includes(query)
-  // ));
+  const visibleMovies = moviesFromServer.filter(item => (
+    item.description.toLowerCase().includes(query)
+  || item.title.toLowerCase().includes(query)
+  ));
 
-  const searchFilter = (event) => {
-    const keyword = event.target.value.toLowerCase().trim();
+  // const searchFilter = (event) => {
+  //   const keyword = event.target.value.toLowerCase().trim();
 
-    const checkerFunc = (strToCheck) => {
-      const lowerCased = strToCheck.toLowerCase();
+  //   const checkerFunc = strToCheck => strToCheck
+  //     .toLowerCase().includes(keyword);
 
-      return lowerCased.includes(keyword);
-    };
+  //   if (keyword) {
+  //     const result = moviesFromServer.filter(l => checkerFunc(l.title)
+  //     || checkerFunc(l.description));
 
-    if (keyword) {
-      const result = moviesFromServer.filter(l => checkerFunc(l.title)
-      || checkerFunc(l.description));
-
-      setMovies(result);
-    } else {
-      setMovies(moviesFromServer);
-    }
-  };
+  //     setMovies(result);
+  //   } else {
+  //     setMovies(moviesFromServer);
+  //   }
+  // };
 
   return (
     <div className="page">
@@ -48,15 +45,15 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  searchFilter(event);
-                  // setQuery(event.target.value.toLowerCase().trim())
+                  // searchFilter(event);
+                  setQuery(event.target.value.toLowerCase().trim());
                 }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={movies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
