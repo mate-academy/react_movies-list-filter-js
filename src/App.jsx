@@ -3,14 +3,14 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filterMovies(movies, sortField) {
+function filterMovies(movies, query) {
   const copyMovies = [...movies];
-  const lowerFilter = sortField.toLowerCase().trim();
+  const normalizedQuery = query.toLowerCase().trim();
 
-  if (sortField) {
+  if (query) {
     return copyMovies.filter(
-      movie => movie.title.toLowerCase().trim().includes(lowerFilter)
-        || movie.description.toLowerCase().trim().includes(lowerFilter),
+      movie => movie.title.toLowerCase().trim().includes(normalizedQuery)
+        || movie.description.toLowerCase().trim().includes(normalizedQuery),
     );
   }
 
