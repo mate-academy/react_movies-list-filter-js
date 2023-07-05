@@ -10,7 +10,7 @@ function getPreparedMovies(movies, { query }) {
   if (query) {
     /* eslint-disable-next-line */
     preparedMovies = preparedMovies.filter(movie => movie.title.toLowerCase().includes(queryToLowerCase)
-    || movie.description.includes(queryToLowerCase));
+    || movie.description.toLowerCase().includes(queryToLowerCase));
   }
 
   return preparedMovies;
@@ -34,9 +34,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={(event) => {
-                  setQuery(event.currentTarget.value);
-                }}
+                onChange={event => setQuery(event.currentTarget.value)}
                 type="text"
                 id="search-query"
                 className="input"
