@@ -6,6 +6,19 @@ import { MoviesList } from './components/MoviesList';
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const trimmQuery = query.trim().toLowerCase();
+
+  const filteredMovies = moviesFromServer.filter((movie) => {
+    const title = movie.title
+      .toLowerCase()
+      .includes(trimmQuery);
+
+    const description = movie.description
+      .toLowerCase()
+      .includes(trimmQuery);
+
+    return title || description;
+  });
 
   return (
     <div className="page">
@@ -30,7 +43,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={filteredMovies} query={query} />
       </div>
 
       <div className="sidebar">
