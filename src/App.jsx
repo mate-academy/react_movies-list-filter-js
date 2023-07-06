@@ -3,22 +3,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function editText(text) {
+function getLowerCaseText(text) {
   return text.toLowerCase();
 }
 
 function getPreparedMovies(movies, query) {
   const editedQuery = query.toLowerCase().trim();
-  let preparedMovies = [...movies];
 
   if (query) {
-    preparedMovies = preparedMovies.filter(
-      movie => editText(movie.title).includes(editedQuery)
-        || editText(movie.description).includes(editedQuery),
+    return movies.filter(
+      movie => getLowerCaseText(movie.title).includes(editedQuery)
+        || getLowerCaseText(movie.description).includes(editedQuery),
     );
   }
 
-  return preparedMovies;
+  return movies;
 }
 
 export const App = () => {
@@ -42,9 +41,7 @@ export const App = () => {
                 value={query}
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.currentTarget.value);
-                }}
+                onChange={event => setQuery(event.currentTarget.value)}
               />
             </div>
           </div>
