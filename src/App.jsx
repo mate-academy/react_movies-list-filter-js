@@ -7,12 +7,21 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
+  const visibleMovies = moviesFromServer.filter((movie) => {
+    const { title, description } = movie;
+    const formattedTitle = title.toLowerCase();
+    const formattedDescription = description.toLowerCase();
+    const formattedQuery = query.trim().toLowerCase();
+
+    return formattedTitle.includes(formattedQuery)
+    || formattedDescription.includes(formattedQuery);
+  });
+
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -29,7 +38,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
