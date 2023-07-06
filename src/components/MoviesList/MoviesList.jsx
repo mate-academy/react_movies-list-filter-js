@@ -4,7 +4,7 @@ import { MovieCard } from '../MovieCard';
 export const MoviesList = ({ movies, query }) => {
   const trimmQuery = query.trim().toLowerCase();
 
-  const filteredMovies = [...movies].filter((movie) => {
+  const filteredMovies = movies.filter((movie) => {
     const title = movie.title
       .toLowerCase()
       .includes(trimmQuery);
