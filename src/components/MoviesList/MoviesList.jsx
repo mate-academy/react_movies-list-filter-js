@@ -2,9 +2,14 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, query }) => {
-  const visibleMovies = movies.filter(movie => movie.title
-    .toLowerCase().includes(query.trim().toLowerCase())
-  || movie.description.toLowerCase().includes(query.trim().toLowerCase()));
+  const visibleMovies = movies.filter((movie) => {
+    const formattedTitle = movie.title.toLowerCase();
+    const formattedDescription = movie.description.toLowerCase();
+    const formattedQuery = query.trim().toLowerCase();
+
+    return formattedTitle.includes(formattedQuery)
+    || formattedDescription.includes(formattedQuery);
+  });
 
   return (
     <div className="movies">
