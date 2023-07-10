@@ -1,26 +1,28 @@
 import './App.scss';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPrepaparedMovies(movies, { query }) {
-  let preparedMovies = [...movies];
-
-  if (query) {
-    preparedMovies = preparedMovies.filter(
-      movie => (
-        movie.title.toLowerCase().includes(query.toLowerCase())
-          || movie.description.toLowerCase().includes(query.toLowerCase())
-      ),
-    );
-  }
-
-  return preparedMovies;
-}
-
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPrepaparedMovies(moviesFromServer, { query });
+  const visibleMovies = useMemo(() => {
+    const preparedMovies = [...moviesFromServer];
+
+    if (query) {
+      return preparedMovies.filter(
+        movie => (
+          movie.title.toLowerCase().includes(query.toLowerCase())
+          || movie.description.toLowerCase().includes(query.toLowerCase())
+        ),
+      );
+    }
+
+    return preparedMovies;
+  }, [moviesFromServer, query]);
+
+  const trimmedInput = (e) => {
+    setQuery(e.currentTarget.value.trim());
+  };
 
   return (
     <div className="page">
@@ -38,14 +40,10 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  const trimmedInput
-                    = event.currentTarget.value.trim();
-
-                  setQuery(trimmedInput);
-                }}
+                onChange={trimmedInput}
               />
             </div>
+
           </div>
         </div>
 
