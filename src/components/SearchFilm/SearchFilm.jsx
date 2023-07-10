@@ -1,7 +1,7 @@
 export const SearchFilm = ({
   query,
-  setQuery,
   filterBy,
+  changeQuery = event => filterBy(event.target.value),
 }) => (
   <div className="field">
     <label htmlFor="search-query" className="label">
@@ -15,9 +15,7 @@ export const SearchFilm = ({
         className="input"
         placeholder="Type search word"
         value={query}
-        onChange={(event) => {
-          filterBy(event.target.value);
-        }}
+        onChange={changeQuery}
       />
     </div>
   </div>

@@ -8,12 +8,14 @@ import { SearchFilm } from './components/SearchFilm/SearchFilm';
 function filterFilms(films, query) {
   const searchQuery = query.trim().toLowerCase();
 
-  const findFilm = films.filter(
-    film => film.title.trim().toLowerCase().includes(searchQuery)
-    || film.description.trim().toLowerCase().includes(searchQuery),
-  );
+  if (query.length > 0) {
+    return films.filter(
+      film => film.title.trim().toLowerCase().includes(searchQuery)
+      || film.description.trim().toLowerCase().includes(searchQuery),
+    );
+  }
 
-  return findFilm;
+  return films;
 }
 
 export const App = () => {
