@@ -8,7 +8,7 @@ import { SearchFilm } from './components/SearchFilm/SearchFilm';
 function filterFilms(films, query) {
   const searchQuery = query.trim().toLowerCase();
 
-  if (query.length > 0) {
+  if (searchQuery.length) {
     return films.filter(
       film => film.title.trim().toLowerCase().includes(searchQuery)
       || film.description.trim().toLowerCase().includes(searchQuery),
