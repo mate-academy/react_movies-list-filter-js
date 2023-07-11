@@ -5,20 +5,12 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = useMemo(() => {
-    const preparedMovies = [...moviesFromServer];
 
-    if (query) {
-      return preparedMovies.filter(
-        movie => (
-          movie.title.toLowerCase().includes(query.toLowerCase())
-          || movie.description.toLowerCase().includes(query.toLowerCase())
-        ),
-      );
-    }
+  const isFiltered = text => text.toLowerCase().includes(query.toLowerCase());
 
-    return preparedMovies;
-  }, [moviesFromServer, query]);
+  const visibleMovies = useMemo(() => moviesFromServer.filter(movie => (
+    isFiltered(movie.title) || isFiltered(movie.description)
+  )), [moviesFromServer, query]);
 
   const trimmedInput = (e) => {
     setQuery(e.currentTarget.value.trim());
@@ -29,7 +21,7 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
