@@ -4,13 +4,15 @@ import './App.scss';
 import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
-function getFilteredMovies(movies, { query }) {
-  let filteredMovies = [...movies];
-  const trimedLowerQuery = query.toLowerCase().trim();
+function checkSubstring(string, someQuery) {
+  return string.toLowerCase().includes(someQuery);
+}
 
-  filteredMovies = filteredMovies.filter(movie => (
-    movie.title.toLowerCase().includes(trimedLowerQuery)
-      || movie.description.toLowerCase().includes(trimedLowerQuery)
+function getFilteredMovies(movies, { query }) {
+  const trimedLowerQuery = query.toLowerCase().trim();
+  const filteredMovies = movies.filter(movie => (
+    checkSubstring(movie.title, trimedLowerQuery)
+      || checkSubstring(movie.description, trimedLowerQuery)
   ));
 
   return filteredMovies;
