@@ -7,7 +7,7 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const setVisibleMovies = (movies, searchQuery) => {
+  const getVisibleMovies = (movies, searchQuery) => {
     let resultMovies = movies;
 
     if (searchQuery) {
