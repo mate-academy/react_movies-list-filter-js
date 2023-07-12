@@ -7,7 +7,7 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const setVisibleMovies = (movies, searchQuery) => {
+  const getVisibleMovies = (movies, searchQuery) => {
     let resultMovies = movies;
 
     if (searchQuery) {
@@ -22,7 +22,13 @@ export const App = () => {
     return resultMovies;
   };
 
-  const visibleMovies = setVisibleMovies(moviesFromServer, query);
+  const searchHandler = (event) => {
+    const value = event.currentTarget.value.trim().toLowerCase();
+
+    setQuery(value);
+  };
+
+  const visibleMovies = getVisibleMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -40,11 +46,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  const value = event.currentTarget.value.trim().toLowerCase();
-
-                  setQuery(value);
-                }}
+                onChange={searchHandler}
               />
             </div>
           </div>
