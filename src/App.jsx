@@ -6,12 +6,9 @@ import moviesFromServer from './api/movies.json';
 function getMovie(movies, query) {
   const searchQuery = query.trim().toLowerCase();
 
-  if (searchQuery.length > 0) {
-    return movies.filter(el => el.title.toLowerCase().includes(searchQuery)
-      || el.description.toLowerCase().includes(searchQuery));
-  }
 
-  return movies;
+  return movies.filter(el => el.title.toLowerCase().includes(searchQuery)
+    || el.description.toLowerCase().includes(searchQuery));
 }
 
 export const App = () => {
@@ -24,7 +21,7 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            <label htmlFor="search-qery" className="label">
+            <label htmlFor="search-query" className="label">
               Search movie
             </label>
 
