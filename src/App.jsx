@@ -5,32 +5,31 @@ import { MoviesList } from './components/MoviesList';
 
 import moviesFromServer from './api/movies.json';
 
-function getPrepfredGoods(movies, query) {
-  let preparedMovie = [...movies];
+function getVisibleMovies(movies, query) {
+  let visibleMovies = [...movies];
 
   if (query) {
     const preparedQuery = query.trim().toLowerCase();
 
-    preparedMovie = preparedMovie.filter((movie) => {
-      const movieInfo = {
-        title: movie.title,
-        description: movie.description,
-      };
+    visibleMovies = visibleMovies.filter((movie) => {
+      const { title, description } = movie;
 
-      return Object.values(movieInfo)
-        .join(' ')
-        .toLowerCase()
-        .includes(preparedQuery);
+      return title.toLowerCase().includes(preparedQuery)
+        || description.toLowerCase().includes(preparedQuery);
     });
   }
 
-  return preparedMovie;
+  return visibleMovies;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visionMovie = getPrepfredGoods(moviesFromServer, query);
+  const visibleMovie = getVisibleMovies(moviesFromServer, query);
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -49,13 +48,13 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={handleChange}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visionMovie} />
+        <MoviesList movies={visibleMovie} />
       </div>
 
       <div className="sidebar">
