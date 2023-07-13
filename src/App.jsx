@@ -1,12 +1,12 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, query) {
   const preparedQuery = query.toLowerCase().trim();
 
-  const filteredMovies = [...movies].filter((movie) => {
+  const filteredMovies = movies.filter((movie) => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
 
@@ -18,7 +18,10 @@ function getPreparedMovies(movies, query) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+  const visibleMovies = useMemo(
+    () => getPreparedMovies(moviesFromServer, query),
+    [query],
+  );
 
   return (
     <div className="page">
