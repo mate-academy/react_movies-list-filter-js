@@ -1,27 +1,26 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterMovies(movies, query) {
-  let filteredMovies = [...movies];
-
-  if (query) {
-    filteredMovies = filteredMovies.filter(movie => (
-      (movie.title.toLowerCase().includes(query.trim().toLowerCase()))
-      || (movie.description.toLowerCase()
-        .includes(query.trim().toLowerCase()))
-    ));
-  }
-
-  return filteredMovies;
+  return movies.filter(movie => (
+    (movie.title.toLowerCase().includes(query.trim().toLowerCase()))
+    || (movie.description.toLowerCase()
+      .includes(query.trim().toLowerCase()))
+  ));
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = filterMovies(moviesFromServer, query);
+  const visibleMovies = useMemo(() => filterMovies(moviesFromServer, query),
+    [moviesFromServer, query]);
+
+  const handleQueryChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -39,9 +38,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handleQueryChange}
               />
             </div>
           </div>
