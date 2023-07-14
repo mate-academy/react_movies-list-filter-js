@@ -7,9 +7,7 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  function filterFilmsByQuery(allMovies, filterQuery) {
-    const movies = [...allMovies];
-
+  function filterFilmsByQuery(filterQuery) {
     const paramToFilter = (param) => {
       const preparedParam = param.toLowerCase();
 
@@ -18,12 +16,12 @@ export const App = () => {
       );
     };
 
-    return movies.filter(movie => (
+    return moviesFromServer.filter(movie => (
       paramToFilter(movie.title) || paramToFilter(movie.description)
     ));
   }
 
-  const visibleMovies = filterFilmsByQuery(moviesFromServer, query);
+  const visibleMovies = filterFilmsByQuery(query);
 
   return (
     <div className="page">
