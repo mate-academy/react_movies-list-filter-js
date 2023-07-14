@@ -8,7 +8,8 @@ function getMovies(movies, query) {
 
   if (query) {
     oldMovies = oldMovies.filter(movie => movie.title.toLowerCase()
-      .includes(query) || movie.description.toLowerCase().includes(query));
+      .includes(query.trim())
+      || movie.description.toLowerCase().includes(query.trim()));
   }
 
   return oldMovies;
@@ -35,7 +36,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(event.target.value.trim());
+                  setQuery(event.target.value);
                 }}
               />
             </div>
