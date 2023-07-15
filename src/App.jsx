@@ -4,24 +4,21 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getNormalizedTExt(text, query) {
-  const normalizedText = text.toLowerCase().includes(query);
-
-  return normalizedText;
+  return (text
+    .toLowerCase()
+    .includes(query.trim().toLowerCase())
+  );
 }
 
 const getFilterFilms = (movies, query) => {
-  let preparedMovies = [...movies];
-  let newQuery = query;
-
-  if (newQuery) {
-    newQuery = newQuery.trim().toLowerCase();
-    preparedMovies = preparedMovies.filter(movie => (getNormalizedTExt(
-      movie.description, newQuery,
-    ) || getNormalizedTExt(movie.title, newQuery)
+  if (query) {
+    return movies.filter(movie => (getNormalizedTExt(
+      movie.description, query,
+    ) || getNormalizedTExt(movie.title, query)
     ));
   }
 
-  return preparedMovies;
+  return movies;
 };
 
 export const App = () => {
