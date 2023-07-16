@@ -7,8 +7,8 @@ import moviesFromServer from './api/movies.json';
 function findMovie(movies, query) {
   if (query) {
     return movies.filter((movie) => {
-      const title = movie.title.toLoverCase();
-      const description = movie.description.toLoverCase();
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
 
       return title.includes(query) || description.includes(query);
     });
