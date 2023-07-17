@@ -4,6 +4,10 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 const getFilteredMovies = (movies, query) => {
+  if (query === '') {
+    return movies;
+  }
+
   const preparedQuery = query.toLowerCase().trim();
 
   return movies.filter((movie) => {
@@ -18,6 +22,10 @@ const getFilteredMovies = (movies, query) => {
 export const App = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = getFilteredMovies(moviesFromServer, query);
+
+  function onInputHandle (e) {
+    setQuery(e.currentTarget.value);
+  }
 
   return (
     <div className="page">
@@ -36,9 +44,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => {
-                  setQuery(e.currentTarget.value);
-                }}
+                onChange={onInputHandle}
               />
             </div>
           </div>
