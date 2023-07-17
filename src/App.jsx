@@ -7,10 +7,11 @@ import moviesFromServer from './api/movies.json';
 function findMovie(movies, query) {
   if (query) {
     return movies.filter((movie) => {
-      const title = movie.title.toLowerCase();
-      const description = movie.description.toLowerCase();
+      const title = movie.title.toLowerCase().trim();
+      const description = movie.description.toLowerCase().trim();
 
-      return title.includes(query) || description.includes(query);
+      return title.includes(query.toLowerCase().trim())
+      || description.includes(query.toLowerCase().trim());
     });
   }
 
@@ -39,7 +40,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(event.target.value.toLowerCase().trim());
+                  setQuery(event.target.value);
                 }
                 }
               />
