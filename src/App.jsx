@@ -10,8 +10,12 @@ function hasQueryInString(string, query) {
 }
 
 function getFilteredMovies(movies, query) {
-  return movies.filter(movie => hasQueryInString(movie.title, query)
+  if (query) {
+    return movies.filter(movie => hasQueryInString(movie.title, query)
       || hasQueryInString(movie.description, query));
+  }
+
+  return movies;
 }
 
 export const App = () => {
