@@ -1,33 +1,27 @@
 import { useState } from 'react';
-import './App.scss';
-import { MoviesList } from './components/MoviesList';
+
 import moviesFromServer from './api/movies.json';
 
-// function getPreparedMovies(movies, { query }) {
-//   let preparedMovies = [...movies];
-//   const preparedQuery = query.toLowerCase().trim();
+import { MoviesList } from './components/MoviesList';
+import './App.scss';
 
-//   if (query) {
-//     preparedMovies = preparedMovies.filter(movie => (
-//       movie.title.toLowerCase().includes(preparedQuery)
-//       || movie.descriptions.toLowerCase().includes(preparedQuery)
-//     ));
-//   }
+function getPreparedMovies(movies, { query }) {
+  const preparedQuery = query.trim().toLowerCase();
 
-//   return preparedMovies;
-// }
+  if (query) {
+    return movies.filter(movie => (
+      movie.title.toLowerCase().includes(preparedQuery)
+      || movie.description.toLowerCase().includes(preparedQuery)
+    ));
+  }
+
+  return movies;
+}
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(
-    movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trim())
-    ),
-  );
-
-  // const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
@@ -41,7 +35,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={query}
+                query={query}
                 type="text"
                 onChange={event => setQuery(event.target.value)}
                 id="search-query"
