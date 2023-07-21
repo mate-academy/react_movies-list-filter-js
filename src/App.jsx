@@ -14,7 +14,7 @@ export const App = () => {
   );
 
   const filterBy = (newQuery) => {
-    setQuery(newQuery);
+    setQuery(newQuery ? newQuery.trim() : '');
   };
 
   return (
