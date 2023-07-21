@@ -10,11 +10,12 @@ export const App = () => {
 
   const visibleMovies = moviesFromServer.filter(
     movie => movie.title.toLowerCase().includes(adaptQery)
-    || movie.description.toLowerCase().includes(adaptQery),
+    || movie.description.toLowerCase().includes(adaptQery)
+    || null,
   );
 
   const filterBy = (newQuery) => {
-    setQuery(newQuery ? newQuery.trim() : '');
+    setQuery(newQuery.trim());
   };
 
   return (
