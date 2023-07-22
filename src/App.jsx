@@ -7,7 +7,7 @@ function filterMovie(goods, { query }) {
   let copyGoods = [...goods];
 
   if (query) {
-    const lowercaseQuery = query.toLowerCase();
+    const lowercaseQuery = query.toLowerCase().trim();
 
     copyGoods = copyGoods.filter(movie => (
       movie.title.toLowerCase().includes(lowercaseQuery)
