@@ -8,6 +8,8 @@ export const App = () => {
   const [condition, setCondition] = useState('');
   const visibleMovies = getvisibleMovies(moviesFromServer, condition);
 
+  const handleChangeQuery = event => setCondition(event.target.value);
+
   function getvisibleMovies(movies, query) {
     const filteredMovies = [...movies];
 
@@ -36,7 +38,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => setCondition(event.target.value)}
+                onChange={handleChangeQuery}
               />
             </div>
           </div>
