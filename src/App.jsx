@@ -11,15 +11,13 @@ export const App = () => {
   const handleChangeQuery = event => setCondition(event.target.value);
 
   function getvisibleMovies(movies, query) {
-    const filteredMovies = [...movies];
-
     if (query) {
-      return filteredMovies.filter(movie => movie.title
+      return movies.filter(movie => movie.title
         .toLowerCase().includes(query.toLowerCase().trim()) || movie.description
         .toLowerCase().includes(query.toLowerCase().trim()));
     }
 
-    return filteredMovies;
+    return movies;
   }
 
   return (
