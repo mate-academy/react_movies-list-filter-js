@@ -4,11 +4,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filterMovies = (movies, query) => [...movies].filter(
-  movie => movie.title.toLowerCase()
-    .includes(query.trim().toLowerCase())
-      || movie.description.toLowerCase().includes(query.trim().toLowerCase()),
-);
+const filterMovies = (movies, query) => {
+  const preparedQuery = query.trim().toLowerCase();
+
+  return movies.filter(
+    movie => movie.title.toLowerCase()
+      .includes(preparedQuery)
+      || movie.description.toLowerCase().includes(preparedQuery),
+  );
+};
 
 export const App = () => {
   const [query, setQuery] = useState('');
