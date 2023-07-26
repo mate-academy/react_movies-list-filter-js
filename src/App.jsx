@@ -4,22 +4,22 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getVisibleMovies(movies, query) {
-  let filtredMovies = [...movies];
-  const callbackForFilter = text => (
-    text.toLowerCase().trim().includes(query.toLowerCase().trim())
-  );
+export const App = () => {
+  function getVisibleMovies(movies, query) {
+    let filtredMovies = [...movies];
+    const callbackForFilter = text => (
+      text.toLowerCase().trim().includes(query.toLowerCase().trim())
+    );
 
-  if (query) {
-    filtredMovies = filtredMovies
-      .filter(movie => callbackForFilter(movie.title)
-        || callbackForFilter(movie.description));
+    if (query) {
+      filtredMovies = filtredMovies
+        .filter(movie => callbackForFilter(movie.title)
+          || callbackForFilter(movie.description));
+    }
+
+    return filtredMovies;
   }
 
-  return filtredMovies;
-}
-
-export const App = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = getVisibleMovies(moviesFromServer, query);
 
@@ -27,16 +27,16 @@ export const App = () => {
     <div className="page">
       <div className="page-content">
         <div className="box">
-          <div className="field">
-            <label htmlFor="search-query" className="label">
+          <div className="field box__field">
+            <label htmlFor="search-query" className="label field__label">
               Search movie
             </label>
 
-            <div className="control">
+            <div className="control field__control">
               <input
                 type="text"
                 id="search-query"
-                className="input"
+                className="input control__input"
                 placeholder="Type search word"
                 onChange={(event) => {
                   setQuery(event.target.value);
