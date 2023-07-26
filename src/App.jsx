@@ -6,11 +6,12 @@ import { MoviesList } from './components/MoviesList';
 
 function filterMovies(movies, { query }) {
   let preperedMovies = [...movies];
+  const processedQuery = query.trim().toLowerCase();
 
   if (query) {
     preperedMovies = preperedMovies.filter(movie => (
-      movie.title.toLowerCase().includes(query.trim().toLowerCase())
-      || movie.description.toLowerCase().includes(query.trim().toLowerCase())
+      movie.title.toLowerCase().includes(processedQuery)
+      || movie.description.toLowerCase().includes(processedQuery)
     ));
   }
 
@@ -20,6 +21,10 @@ function filterMovies(movies, { query }) {
 export const App = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = filterMovies(moviesFromServer, { query });
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -38,9 +43,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={handleInputChange}
               />
             </div>
           </div>
