@@ -17,6 +17,9 @@ function getVisibleMovies(movies, query) {
 export const App = () => {
   const [query, setQuery] = useState('');
   const visibleMovies = getVisibleMovies(moviesFromServer, query);
+  const newText = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -34,9 +37,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={newText}
               />
             </div>
           </div>
