@@ -3,7 +3,6 @@ import { useState } from 'react';
 import './App.scss';
 import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
-import { Search } from './components/Search';
 
 function filterMovies(movies, { query }) {
   let preperedMovies = [...movies];
@@ -25,12 +24,27 @@ export const App = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <Search
-          query={query}
-          filterBy={(newQuery) => {
-            setQuery(newQuery);
-          }}
-        />
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
+              />
+            </div>
+          </div>
+        </div>
         <MoviesList movies={visibleMovies} />
       </div>
       <div className="sidebar">
