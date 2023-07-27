@@ -5,13 +5,15 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = moviesFromServer.filter((movie) => {
-    const text = query.toLowerCase().trim();
-    const title = movie.title.toLowerCase();
-    const description = movie.description.toLowerCase();
+  const visibleMovies = query === ''
+    ? moviesFromServer
+    : moviesFromServer.filter((movie) => {
+      const text = query.toLowerCase().trim();
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
 
-    return title.includes(text) || description.includes(text);
-  });
+      return title.includes(text) || description.includes(text);
+    });
 
   return (
     <div className="page">
