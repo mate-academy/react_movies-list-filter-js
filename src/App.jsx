@@ -6,18 +6,19 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   function getVisibleMovies(movies, query) {
-    let filtredMovies = [...movies];
-    const callbackForFilter = text => (
-      text.toLowerCase().trim().includes(query.toLowerCase().trim())
+    const callbackForFilter = (text, seacrhedQuery) => (
+      text.toLowerCase().trim().includes(seacrhedQuery)
     );
 
     if (query) {
-      filtredMovies = filtredMovies
-        .filter(movie => callbackForFilter(movie.title)
-          || callbackForFilter(movie.description));
+      const seacrhedQuery = query.toLowerCase().trim();
+
+      return movies
+        .filter(movie => callbackForFilter(movie.title, seacrhedQuery)
+          || callbackForFilter(movie.description, seacrhedQuery));
     }
 
-    return filtredMovies;
+    return movies;
   }
 
   const [query, setQuery] = useState('');
