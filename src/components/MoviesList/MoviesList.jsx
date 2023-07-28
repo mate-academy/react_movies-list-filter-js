@@ -5,14 +5,12 @@ import { MovieCard } from '../MovieCard';
 export const MoviesList = ({ movies }) => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = movies.filter((movie) => {
-    const formattedQuery = query.trim().toLowerCase();
+  const formattedQuery = query.trim().toLowerCase();
 
-    return (
-      movie.title.toLowerCase().includes(formattedQuery)
-      || movie.description.toLowerCase().includes(formattedQuery)
-    );
-  });
+  const visibleMovies = movies.filter(
+    movie => movie.title.toLowerCase().includes(formattedQuery)
+    || movie.description.toLowerCase().includes(formattedQuery),
+  );
 
   return (
     <div>
