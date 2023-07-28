@@ -5,16 +5,14 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies, query) {
-  let visibleMovies = [...movies];
+  return movies.filter(
+    (movie) => {
+      const formattedQuery = query.toLowerCase().trim();
 
-  if (query) {
-    visibleMovies = visibleMovies.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase().trim())
-    || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
-    );
-  }
-
-  return visibleMovies;
+      return movie.title.toLowerCase().includes(formattedQuery)
+        || movie.description.toLowerCase().includes(formattedQuery);
+    },
+  );
 }
 
 export const App = () => {
