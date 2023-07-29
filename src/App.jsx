@@ -5,11 +5,13 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
+
+  const compareQueryWithMovieInfo = text => text.toLowerCase()
+    .includes(query.toLowerCase().trim());
+
   const filterMovies = movies => movies
-    .filter(({ title, description }) => title.toLowerCase()
-      .includes(query.toLowerCase().trim())
-      || description.toLowerCase()
-        .includes(query.toLowerCase().trim()));
+    .filter(({ title, description }) => compareQueryWithMovieInfo(title)
+      || compareQueryWithMovieInfo(description));
 
   const visibleMovies = filterMovies(moviesFromServer);
 
@@ -18,7 +20,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>

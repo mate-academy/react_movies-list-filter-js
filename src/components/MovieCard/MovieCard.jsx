@@ -2,7 +2,10 @@ import './MovieCard.scss';
 
 export const MovieCard = ({ movie }) => {
   const {
-    imdbUrl, imgUrl, description, title,
+    imdbUrl,
+    imgUrl,
+    description,
+    title,
   } = movie;
 
   return (
@@ -29,7 +32,7 @@ export const MovieCard = ({ movie }) => {
         <div className="content">
           {description}
           <br />
-          <a href={imdbUrl}>IMDB</a>
+          <a href={imdbUrl} target="blank">IMDB</a>
         </div>
       </div>
     </div>
