@@ -5,17 +5,16 @@ import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
 function filterMovies(movies, { query }) {
-  let preperedMovies = [...movies];
   const processedQuery = query.trim().toLowerCase();
 
   if (query) {
-    preperedMovies = preperedMovies.filter(movie => (
+    return movies.filter(movie => (
       movie.title.toLowerCase().includes(processedQuery)
       || movie.description.toLowerCase().includes(processedQuery)
     ));
   }
 
-  return preperedMovies;
+  return movies;
 }
 
 export const App = () => {
