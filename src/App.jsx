@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, React } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -19,7 +19,7 @@ export const App = () => {
             <div className="control">
               <input
                 onChange={event => (
-                  setQuery(event.target.value.toLowerCase().trim())
+                  setQuery(event.target.value.toLowerCase())
                 )}
                 type="text"
                 id="search-query"
@@ -32,7 +32,7 @@ export const App = () => {
 
         <MoviesList
           movies={moviesFromServer}
-          query={query}
+          query={query.trim()}
         />
       </div>
 
