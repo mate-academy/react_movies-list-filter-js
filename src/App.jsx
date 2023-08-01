@@ -6,16 +6,19 @@ import moviesFromServer from './api/movies.json';
 
 const defaultValue = '';
 
+function findQUERY(stringForQuery, queryFormat) {
+  return stringForQuery.toLowerCase().trim().includes(queryFormat);
+}
+
 function getPreparedMovies(movies, { query }) {
   let preparedMovies = [...movies];
   const formatQuery = query.toLowerCase().trim();
 
   if (query) {
     preparedMovies = preparedMovies
-      .filter(movie => movie.title
-        .toLowerCase().trim().includes(formatQuery)
-      || movie.description
-        .toLowerCase().trim().includes(formatQuery));
+      .filter(movie => (
+        findQUERY(movie.title, formatQuery)
+        || findQUERY(movie.description, formatQuery)));
   }
 
   return preparedMovies;
@@ -30,7 +33,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
