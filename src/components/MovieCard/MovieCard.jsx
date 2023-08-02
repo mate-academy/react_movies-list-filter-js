@@ -1,6 +1,6 @@
 import './MovieCard.scss';
 
-export const MovieCard = ({ key, movie }) => (
+export const MovieCard = ({ movie }) => (
   <div className="card">
     <div className="card-image">
       <figure className="image is-4by3">
