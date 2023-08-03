@@ -12,7 +12,12 @@ function getPreparedMovies(movies, query) {
         .toLowerCase()
         .includes(query
           .toLowerCase()
-          .trim()));
+          .trim())
+          || movie.description
+            .toLowerCase()
+            .includes(query
+              .toLowerCase()
+              .trim()));
   }
 
   return visibleMovies;
