@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filterMovies(movies, { query }) {
+function filterMovies(movies, query) {
   if (!query) {
     return movies;
   }
@@ -20,10 +20,7 @@ function filterMovies(movies, { query }) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = filterMovies(
-    moviesFromServer,
-    { query },
-  );
+  const visibleMovies = filterMovies(moviesFromServer, query);
 
   return (
     <div className="page">
