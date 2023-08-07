@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import './App.scss';
 import moviesFromServer from './api/movies.json';
@@ -25,7 +25,9 @@ function normalizeText(text) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getFilterMovies(moviesFromServer, query);
+  const visibleMovies = useMemo(
+    () => getFilterMovies(moviesFromServer, query), [moviesFromServer, query],
+  );
 
   return (
     <div className="page">
@@ -33,9 +35,7 @@ export const App = () => {
 
         <Header
           query={query}
-          filterBy={(newQuery) => {
-            setQuery(newQuery);
-          }}
+          filterBy={setQuery}
         />
         <MoviesList movies={visibleMovies} />
       </div>
