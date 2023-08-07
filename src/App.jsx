@@ -4,12 +4,17 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getFilteredMovies(movies, query) {
-  const universalQuery = query.toLowerCase().trim();
+function formatString(str) {
+  return str.trim().toLowerCase();
+}
 
-  // eslint-disable-next-line max-len
-  return [...movies].filter(movie => movie.title.toLowerCase().includes(universalQuery)
-    || movie.description.toLowerCase().includes(universalQuery));
+function getFilteredMovies(movies, query) {
+  const universalQuery = formatString(query);
+
+  return movies.filter(
+    movie => formatString(movie.title).includes(universalQuery)
+    || formatString(movie.description).includes(universalQuery),
+  );
 }
 
 export const App = () => {
