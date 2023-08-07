@@ -1,21 +1,27 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 const getMoviesFromServer = (moviesList, query) => {
-  if (!query) {
+  const trimmedQuery = query.trim().toLowerCase();
+
+  if (!trimmedQuery) {
     return moviesList;
   }
 
-  return moviesList.filter(movie => movie.title.toLowerCase()
-    .includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase()));
+  return moviesList.filter(movie => movie.title
+    .toLowerCase().includes(trimmedQuery)
+    || movie.description.toLowerCase().includes(trimmedQuery));
 };
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getMoviesFromServer(moviesFromServer, query);
+  const [visibleMovies, setVisibleMovies] = useState([]);
+
+  useEffect(() => {
+    setVisibleMovies(getMoviesFromServer(moviesFromServer, query));
+  }, [query]);
 
   return (
     <div className="page">
