@@ -3,19 +3,27 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+// const getFilterMovies = (movies, query) => {
+//   // let prepearedMovies = [...moviesFromServer];
+//   const lowerQuery = query.toLowerCase().trim();
+
+//   const prepearedMovies = prepearedMovies.filter(
+//     movie => movie.title.toLowerCase().includes(lowerQuery)
+//       || movie.description.toLowerCase().includes(lowerQuery),
+//   );
+
+//   return prepearedMovies;
+// };
+const getFilterMovies = (movies, query) => {
+  const lowerQuery = query.toLowerCase().trim();
+
+  return movies.filter(
+    movie => movie.title.toLowerCase().includes(lowerQuery)
+      || movie.description.toLowerCase().includes(lowerQuery),
+  );
+};
+
 export const App = () => {
-  const getFilterMovies = (movies, query) => {
-    let prepearedMovies = [...moviesFromServer];
-    const lowerQuery = query.toLowerCase().trim();
-
-    prepearedMovies = prepearedMovies.filter(
-      movie => movie.title.toLowerCase().includes(lowerQuery)
-        || movie.description.toLowerCase().includes(lowerQuery),
-    );
-
-    return prepearedMovies;
-  };
-
   const [query, setQuery] = useState('');
   const visibleMovies = getFilterMovies(moviesFromServer, query);
 
