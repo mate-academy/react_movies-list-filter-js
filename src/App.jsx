@@ -10,9 +10,9 @@ export const App = () => {
 
   if (query) {
     const newQuery = query.toLowerCase().trim();
+    const isQueryIncludes = el => el.toLowerCase().includes(newQuery);
 
-    visibleMovies = visibleMovies.filter(({ title, description }) => title.toLowerCase().includes(newQuery)
-      || description.toLowerCase().includes(newQuery));
+    visibleMovies = visibleMovies.filter(({ title, description }) => isQueryIncludes(title) || isQueryIncludes(description));
   }
 
   return (
