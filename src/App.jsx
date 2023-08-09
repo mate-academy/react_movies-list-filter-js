@@ -4,16 +4,24 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const getVisibleMovies = (query) => {
+  const newQuery = query.toLowerCase().trim();
+  const isQueryIncludes = el => el.toLowerCase().includes(newQuery);
+
+  if (!query) {
+    return moviesFromServer;
+  }
+
+  return moviesFromServer.filter(({ title, description }) => isQueryIncludes(title) || isQueryIncludes(description));
+};
+
 export const App = () => {
   const [query, setQuery] = useState('');
-  let visibleMovies = [...moviesFromServer];
+  const visibleMovies = getVisibleMovies(query);
 
-  if (query) {
-    const newQuery = query.toLowerCase().trim();
-    const isQueryIncludes = el => el.toLowerCase().includes(newQuery);
-
-    visibleMovies = visibleMovies.filter(({ title, description }) => isQueryIncludes(title) || isQueryIncludes(description));
-  }
+  const onInputChange = ({ target }) => {
+    setQuery(target.value);
+  };
 
   return (
     <div className="page">
@@ -32,7 +40,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={({ target }) => setQuery(target.value)}
+                onChange={onInputChange}
               />
             </div>
           </div>
