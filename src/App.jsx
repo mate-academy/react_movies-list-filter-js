@@ -6,15 +6,13 @@ import moviesFromServer from './api/movies.json';
 import { SearchField } from './components/SearchField/SearchField';
 
 function getPreparedMovies(movies, query) {
-  const preparedMovies = [...movies];
-
   if (!query) {
     return movies;
   }
 
   const searchCondition = query.toLowerCase().trim();
 
-  return preparedMovies.filter(
+  return movies.filter(
     movie => movie.title.toLowerCase().includes(searchCondition)
       || movie.description.toLowerCase().includes(searchCondition),
   );
