@@ -1,33 +1,69 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+let inputValue;
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+function callBackFilter(el) {
+  const title = el.title.split(' ').join('').toLocaleLowerCase();
+  const description = el.description.split(' ').join('').toLocaleLowerCase();
+  const titleWithDescription = title + description;
+
+  return titleWithDescription.includes(inputValue);
+}
+
+function filterMovies(query) {
+  let movies;
+
+  if (query) {
+    movies = [...moviesFromServer].filter(callBackFilter);
+  } else {
+    movies = [...moviesFromServer];
+  }
+
+  return movies;
+}
+
+export const App = () => {
+  const [query, setValue] = useState('');
+  const visibleMovies = filterMovies(query);
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                onChange={(target) => {
+                  inputValue = target.currentTarget.value.trim()
+                    .split(' ').join('').toLocaleLowerCase();
+
+                  setValue(inputValue);
+                }
+
+                }
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
     </div>
-
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
-  </div>
-);
+  );
+};
