@@ -4,22 +4,29 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function getMatches(query) {
+  return query
+    ? moviesFromServer.filter(movie => (
+      movie.title.toLowerCase().includes(query.toLowerCase().trim())
+      || movie.description.toLowerCase().includes(query.toLowerCase().trim())
+    ))
+    : moviesFromServer;
+}
+
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = query
-    ? moviesFromServer.filter(movie => (
-      movie.title.toLowerCase().includes(query.toLowerCase().trim())
-        || movie.description.toLowerCase().includes(query.toLowerCase().trim())
-    ))
-    : moviesFromServer;
+  const visibleMovies = getMatches(query);
+
+  const followChanges = (occasion) => {
+    setQuery(occasion.currentTarget.value);
+  };
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -30,9 +37,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.currentTarget.value);
-                }}
+                onChange={event => followChanges(event)}
               />
             </div>
           </div>
