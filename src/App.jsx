@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 const filteredMovies = (movies, query) => {
   const queryToLowerCase = query.trim().toLowerCase();
 
-  if (queryToLowerCase === '') {
+  if (!queryToLowerCase) {
     return movies;
   }
 
@@ -14,8 +14,8 @@ const filteredMovies = (movies, query) => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
 
-    return title.includes(query)
-    || description.includes(query);
+    return title.includes(queryToLowerCase)
+    || description.includes(queryToLowerCase);
   });
 };
 
