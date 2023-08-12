@@ -8,9 +8,8 @@ let inputValue;
 function callBackFilter(el) {
   const title = el.title.split(' ').join('').toLocaleLowerCase();
   const description = el.description.split(' ').join('').toLocaleLowerCase();
-  const titleWithDescription = title + description;
 
-  return titleWithDescription.includes(inputValue);
+  return title.includes(inputValue) || description.includes(inputValue);
 }
 
 function filterMovies(query) {
@@ -28,6 +27,12 @@ function filterMovies(query) {
 export const App = () => {
   const [query, setValue] = useState('');
   const visibleMovies = filterMovies(query);
+  const setValueInput = (target) => {
+    inputValue = target.currentTarget.value.trim()
+      .split(' ').join('').toLocaleLowerCase();
+
+    setValue(inputValue);
+  };
 
   return (
     <div className="page">
@@ -45,14 +50,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(target) => {
-                  inputValue = target.currentTarget.value.trim()
-                    .split(' ').join('').toLocaleLowerCase();
+                onChange={target => setValueInput(target)}
 
-                  setValue(inputValue);
-                }
-
-                }
               />
             </div>
           </div>
