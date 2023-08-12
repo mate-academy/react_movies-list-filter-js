@@ -18,7 +18,7 @@ export const App = () => {
 
   const visibleMovies = getMatches(query);
 
-  const followChanges = (occasion) => {
+  const handleChange = (occasion) => {
     setQuery(occasion.currentTarget.value);
   };
 
@@ -37,7 +37,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => followChanges(event)}
+                onChange={handleChange}
               />
             </div>
           </div>
