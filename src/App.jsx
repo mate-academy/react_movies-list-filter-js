@@ -8,11 +8,10 @@ function getVisibleMovies(movies, { searchInput }) {
 
   if (searchInput) {
     visibleMovies = visibleMovies.filter((movie) => {
-      const input = searchInput.trim().toLowerCase();
       const movieTitle = movie.title.toLowerCase();
       const movieDescription = movie.description.toLowerCase();
-      const isMatch = movieTitle.includes(input)
-        || movieDescription.includes(input);
+      const isMatch = movieTitle.includes(searchInput)
+        || movieDescription.includes(searchInput);
 
       return isMatch;
     });
@@ -21,9 +20,14 @@ function getVisibleMovies(movies, { searchInput }) {
   return visibleMovies;
 }
 
+
 export const App = () => {
   const [searchInput, setSearchInput] = useState('');
   const visibleMovies = getVisibleMovies(moviesFromServer, { searchInput });
+
+  function setInput(event) {
+    setSearchInput(event.currentTarget.value.trim().toLowerCase());
+  }
 
   return (
     <div className="page">
@@ -41,9 +45,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setSearchInput(event.currentTarget.value);
-                }}
+                onChange={setInput}
               />
             </div>
           </div>
