@@ -5,10 +5,14 @@ import { Search } from './components/Search';
 import moviesFromServer from './api/movies.json';
 
 function prepareMovies(movies, { query }) {
-  if (query) {
+  const trimedQuery = query.trim();
+
+  if (trimedQuery) {
+    const lowerQuery = trimedQuery.toLowerCase();
+
     return movies.filter(movie => (
-      movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query)
+      movie.title.toLowerCase().includes(lowerQuery)
+      || movie.description.toLowerCase().includes(lowerQuery)
     ));
   }
 
@@ -17,9 +21,8 @@ function prepareMovies(movies, { query }) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const lowerQuery = query.trim().toLowerCase();
 
-  const visibleMovies = prepareMovies(moviesFromServer, { query: lowerQuery });
+  const visibleMovies = prepareMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
