@@ -5,13 +5,12 @@ import moviesFromServer from './api/movies.json';
 
 function filterBy(query) {
   let filteredMovies = [...moviesFromServer];
-
+  const readyQuery = query.toLowerCase().trim();
   if (query) {
     filteredMovies = filteredMovies.filter(
-      movie => {
-        return movie.title.toLowerCase().includes(query.toLowerCase())
-          || movie.description.toLowerCase().includes(query.toLowerCase())
-    });
+      movie => movie.title.toLowerCase().includes(readyQuery)
+      || movie.description.toLowerCase().includes(readyQuery),
+    );
   }
 
   return filteredMovies;
@@ -28,9 +27,7 @@ export const App = () => {
         <MoviesList
           movies={visibleMovies}
           query={query}
-          filterQuery={(newQuery) => {
-            setQuery(newQuery);
-          }}
+          filterQuery={setQuery}
         />
       </div>
 
@@ -40,5 +37,3 @@ export const App = () => {
     </div>
   );
 };
-
-
