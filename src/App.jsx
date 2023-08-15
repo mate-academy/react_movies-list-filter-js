@@ -7,9 +7,9 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const changeString = ({ string }) => (
-    string.trim().toLowerCase()
-  );
+  function changeString(string) {
+    return string.trim().toLowerCase();
+  }
 
   const visibleMovies = moviesFromServer
     .filter((m) => {
