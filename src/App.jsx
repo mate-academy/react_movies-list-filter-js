@@ -24,6 +24,7 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   const visibleMovies = getFilteredMovies(moviesFromServer, query);
+  const toggleChange = event => setQuery(event.currentTarget.value);
 
   return (
     <div className="page">
@@ -41,9 +42,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.currentTarget.value);
-                }}
+                onChange={toggleChange}
               />
             </div>
           </div>
