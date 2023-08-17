@@ -2,7 +2,7 @@ export const SearchBar = ({ setQuery }) => (
   <div className="box">
     <div className="field">
 
-      <h3 htmlFor="search-query" className="label">
+      <h3 className="label">
         Search movie
       </h3>
 
