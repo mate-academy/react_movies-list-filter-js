@@ -1,10 +1,10 @@
 export const SearchBar = ({ setQuery }) => (
   <div className="box">
     <div className="field">
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor="search-query" className="label">
+
+      <h3 htmlFor="search-query" className="label">
         Search movie
-      </label>
+      </h3>
 
       <div className="control">
         <input
