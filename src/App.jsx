@@ -19,10 +19,7 @@ export const App = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <SearchBar setQuery={(newQuery) => {
-          setQuery(newQuery);
-        }}
-        />
+        <SearchBar setQuery={setQuery} />
         <MoviesList movies={visibleMovies} />
       </div>
 
