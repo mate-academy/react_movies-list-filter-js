@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
@@ -6,16 +6,21 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const queryToLowerCase = query.trim().toLowerCase();
-  const visibleMovies = moviesFromServer.filter((movie) => {
+
+  const visibleMovies = useMemo(() => moviesFromServer.filter((movie) => {
+    const queryToLowerCase = query.trim().toLowerCase();
     const titleToLowerCase = movie.title.toLowerCase();
     const descrToLowerCase = movie.description.toLowerCase();
 
     return (
       titleToLowerCase.includes(queryToLowerCase)
-        || descrToLowerCase.includes(queryToLowerCase)
+      || descrToLowerCase.includes(queryToLowerCase)
     );
-  });
+  }), [moviesFromServer, query]);
+
+  const filterHandler = (event) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className="page">
@@ -29,13 +34,12 @@ export const App = () => {
 
             <div className="control">
               <input
+                value={query}
                 type="text"
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={filterHandler}
               />
             </div>
           </div>
