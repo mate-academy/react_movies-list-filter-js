@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { MoviesList } from './components/MoviesList';
 import './App.scss';
 import moviesFromServer from './api/movies.json';
@@ -14,7 +14,7 @@ function getPreparedMovies(movies, { query }) {
       const lowercaseDescription = description.toLowerCase();
 
       return lowercaseTitle.includes(trimmedQuery)
-      || lowercaseDescription.includes(trimmedQuery);
+        || lowercaseDescription.includes(trimmedQuery);
     });
   }
 
@@ -23,7 +23,10 @@ function getPreparedMovies(movies, { query }) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = useMemo(
+    () => getPreparedMovies(moviesFromServer, { query }),
+    [query],
+  );
   const changeQuery = (event) => {
     setQuery(event.target.value);
   };
@@ -53,7 +56,7 @@ export const App = () => {
 
         <MoviesList
           movies={visibleMovies}
-          filerBy={(newQuery) => {
+          filterBy={(newQuery) => {
             setQuery(newQuery);
           }}
         />
