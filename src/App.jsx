@@ -4,21 +4,19 @@ import './App.scss';
 import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, { query }) {
-  let preparedMovies = [...movies];
-
   if (query) {
     const trimmedQuery = query.toLowerCase().trim();
 
-    preparedMovies = preparedMovies.filter(({ title, description }) => {
+    return movies.filter(({ title, description }) => {
       const lowercaseTitle = title.toLowerCase();
       const lowercaseDescription = description.toLowerCase();
 
       return lowercaseTitle.includes(trimmedQuery)
-        || lowercaseDescription.includes(trimmedQuery);
+      || lowercaseDescription.includes(trimmedQuery);
     });
   }
 
-  return preparedMovies;
+  return movies;
 }
 
 export const App = () => {
@@ -56,9 +54,7 @@ export const App = () => {
 
         <MoviesList
           movies={visibleMovies}
-          filterBy={(newQuery) => {
-            setQuery(newQuery);
-          }}
+          filterBy={setQuery}
         />
       </div>
 
