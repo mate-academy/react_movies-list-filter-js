@@ -7,7 +7,6 @@ export const MovieCard = ({ movie }) => (
         <img src={movie.imgUrl} alt="Film logo" />
       </figure>
     </div>
-
     <div className="card-content">
       <div className="media">
         <div className="media-left">
