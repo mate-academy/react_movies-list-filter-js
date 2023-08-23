@@ -7,7 +7,7 @@ import moviesFromServer from './api/movies.json';
 const getValidatedStr = string => string.toLowerCase().trim();
 
 const filterMovies = (movies, { query }) => (
-  [...movies].filter(({ title, description }) => (
+  movies.filter(({ title, description }) => (
     getValidatedStr(title).includes(getValidatedStr(query))
       || getValidatedStr(description).includes(getValidatedStr(query))
   ))
