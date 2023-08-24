@@ -3,17 +3,17 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function stringTitleDescription(str, substr) {
+  return str.toLowerCase().includes(substr.toLowerCase().trim());
+}
+
 function preparedToFilter(movies, query) {
-  let copyMovies = [...movies];
+  const copyMovies = movies.filter((movie) => {
+    const { title, description } = movie;
 
-  if (query) {
-    copyMovies = copyMovies.filter((movie) => {
-      const { title, description } = movie;
-
-      return title.toLowerCase().includes(query.toLowerCase().trim())
-        || description.toLowerCase().includes(query.toLowerCase().trim());
-    });
-  }
+    return stringTitleDescription(title, query)
+      || stringTitleDescription(description, query);
+  });
 
   return copyMovies;
 }
