@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -11,11 +11,13 @@ const findLowQuery = (text, query) => (
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = moviesFromServer.filter(movie => (
-    findLowQuery(movie.title, query)
-    || findLowQuery(movie.description, query)
-    || null
-  ));
+  const visibleMovies = useMemo(() => (
+    moviesFromServer.filter(movie => (
+      findLowQuery(movie.title, query)
+      || findLowQuery(movie.description, query)
+    ))), [query]);
+
+  const onChange = event => setQuery(event.target.value);
 
   return (
     <div className="page">
@@ -29,10 +31,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                }}
+                onChange={onChange}
                 type="text"
                 id="search-query"
                 className="input"
