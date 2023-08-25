@@ -7,12 +7,18 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (event) => {
-    setQuery(event.target.value.trim());
+    setQuery(event.target.value);
   };
 
   const filteredMovies = moviesFromServer.filter(
-    movie => movie.title.toLowerCase().includes(query.toLowerCase())
-      || movie.description.toLowerCase().includes(query.toLowerCase()),
+    (movie) => {
+      const lowerCaseQuery = query.toLowerCase().trim();
+
+      return (
+        movie.title.toLowerCase().includes(lowerCaseQuery)
+        || movie.description.toLowerCase().includes(lowerCaseQuery)
+      );
+    },
   );
 
   return (
