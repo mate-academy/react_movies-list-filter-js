@@ -7,10 +7,14 @@ function getPreparedMoviesList(movies, { query }) {
   let filteredMovies = [...movies];
 
   if (query) {
-    filteredMovies = filteredMovies.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase().trim())
-        || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
-    );
+    filteredMovies = filteredMovies.filter((movie) => {
+      const optimizedQuery = query.toLowerCase().trim();
+      const title = movie.title.toLowerCase();
+      const description = movie.description.toLowerCase();
+
+      return title.includes(optimizedQuery)
+        || description.includes(optimizedQuery);
+    });
   }
 
   return filteredMovies;
