@@ -22,7 +22,7 @@ function getPreparedMoviesList(movies, { query }) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const sortBy = newQuery => setQuery(newQuery);
+  const handleQueveryChange = event => setQuery(event.target.value);
   const visiableMovies = getPreparedMoviesList(moviesFromServer, { query });
 
   return (
@@ -41,9 +41,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  sortBy(event.target.value);
-                }}
+                onChange={handleQueveryChange}
               />
             </div>
           </div>
