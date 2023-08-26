@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const search = movies => (
+  const getSearchedMovies = movies => (
     movies.filter(movie => (
       movie.title.toLowerCase().includes(query.trim().toLowerCase())
       || movie.description.toLowerCase().includes(query.trim().toLowerCase())
@@ -34,7 +34,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={search(moviesFromServer)} />
+        <MoviesList movies={getSearchedMovies(moviesFromServer)} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
