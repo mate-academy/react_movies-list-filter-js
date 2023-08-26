@@ -7,8 +7,20 @@ export const App = () => {
   const [query, setQuery] = useState('');
   const getSearchedMovies = movies => (
     movies.filter(movie => (
-      movie.title.toLowerCase().includes(query.trim().toLowerCase())
-      || movie.description.toLowerCase().includes(query.trim().toLowerCase())
+      movie.title
+        .toLowerCase()
+        .includes(
+          query
+            .trim()
+            .toLowerCase(),
+        )
+      || movie.description
+        .toLowerCase()
+        .includes(
+          query
+            .trim()
+            .toLowerCase(),
+        )
     )));
 
   return (
