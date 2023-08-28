@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-// import { SearchField } from './components/SearchField/SearchField';
 import { SearchField } from './components/SearchField';
 
 function getPreparedMovies(movies, query) {
