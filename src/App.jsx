@@ -7,7 +7,8 @@ export const App = () => {
   const [query, setQuery] = useState('');
   const [visibleMovies, setVisiblesMovies] = useState(moviesFromServer);
 
-  const eventInput = event => setQuery(event.target.value.trim().toLowerCase());
+  const handleQueryChange = event => setQuery(event.target.value
+    .trim().toLowerCase());
 
   return (
     <div className="page">
@@ -20,7 +21,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={event => eventInput(event)}
+                onChange={event => handleQueryChange(event)}
                 type="text"
                 id="search-query"
                 className="input"

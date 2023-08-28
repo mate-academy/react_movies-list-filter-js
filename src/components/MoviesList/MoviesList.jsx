@@ -2,7 +2,7 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, query }) => {
-  let preparedMovies = [...movies];
+  let preparedMovies;
 
   if (query) {
     preparedMovies = movies
