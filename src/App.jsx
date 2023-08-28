@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import './App.scss';
-import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
-import { SearchField } from './components/SearchField';
+import React, { useState } from "react";
+import "./App.scss";
+import { MoviesList } from "./components/MoviesList";
+import moviesFromServer from "./api/movies.json";
+import { SearchField } from "./components/SearchField";
+
+// Utility function to check if a string includes the search prompt
+function includesSearchPrompt(str, searchPrompt) {
+  return str.toLowerCase().includes(searchPrompt);
+}
 
 function getPreparedMovies(movies, query) {
-  const preparedMovies = [...movies];
-
   if (!query) {
     return movies;
   }
 
-  const searchPropmpt = query.toLowerCase().trim();
+  const searchPrompt = query.toLowerCase().trim();
 
-  return preparedMovies.filter(
-    movie => movie.title.toLowerCase().includes(searchPropmpt)
-      || movie.description.toLowerCase().includes(searchPropmpt),
+  return movies.filter(
+    (movie) =>
+      includesSearchPrompt(movie.title, searchPrompt) ||
+      includesSearchPrompt(movie.description, searchPrompt)
   );
 }
 
 export const App = () => {
-  const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+  const [query, setQuery] = useState("");
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -36,7 +38,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={getPreparedMovies(moviesFromServer, query)} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
