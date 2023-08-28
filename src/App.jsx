@@ -3,21 +3,19 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import './App.scss';
 
+const transformStr = str => str
+  .toLowerCase()
+  .trim();
+
+const filterMovies = input => (
+  moviesFromServer.filter(({ title, description }) => (
+    transformStr(title).includes(transformStr(input))
+    || transformStr(description).includes(transformStr(input))
+  ))
+);
+
 export const App = () => {
   const [query, setQuery] = useState('');
-
-  const transformStr = str => str
-    .toLowerCase()
-    .trim();
-
-  const filterMovies = (input) => {
-    const filteredMovies = moviesFromServer.filter(movie => (
-      transformStr(movie.title).includes(transformStr(input))
-      || transformStr(movie.description).includes(transformStr(input))
-    ));
-
-    return filteredMovies;
-  };
 
   return (
     <div className="page">
