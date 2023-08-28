@@ -1,33 +1,46 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
+import { Header } from './components/Header';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function prepareString(string) {
+  return string.toLowerCase().trim();
+}
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
-          </div>
-        </div>
+function getPreparedMovies(movies, { query }) {
+  let preparedMovies = [...movies];
+
+  if (query) {
+    preparedMovies = preparedMovies.filter(
+      movie => prepareString(movie.title).includes(prepareString(query))
+        || prepareString(movie.description).includes(prepareString(query)),
+    );
+  }
+
+  return preparedMovies;
+}
+
+export const App = () => {
+  const [query, setQuery] = useState('');
+
+  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <Header
+          filterBy={(newQuery) => {
+            setQuery(newQuery);
+          }}
+        />
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
     </div>
-
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
-  </div>
-);
+  );
+};
