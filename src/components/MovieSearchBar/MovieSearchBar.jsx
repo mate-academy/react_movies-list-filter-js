@@ -1,4 +1,4 @@
-export const MovieSearchBar = ({ filterBy }) => (
+export const MovieSearchBar = ({ filterBy, query }) => (
   <div className="box">
     <div className="field">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -8,6 +8,7 @@ export const MovieSearchBar = ({ filterBy }) => (
 
       <div className="control">
         <input
+          value={query}
           type="text"
           id="search-query"
           className="input"

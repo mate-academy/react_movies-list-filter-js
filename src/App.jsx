@@ -25,7 +25,7 @@ export const App = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <MovieSearchBar filterBy={setQuery} />
+        <MovieSearchBar filterBy={setQuery} query={query} />
         <MoviesList movies={filteredMovies} />
       </div>
 
