@@ -18,16 +18,14 @@ const getPreparedMovies = (movies, query) => {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const handleQueryChange = (event) => {
     const newQuery = event.target.value;
 
     setQuery(newQuery);
-    const filteredMovies = getPreparedMovies(moviesFromServer, newQuery);
-
-    setVisibleMovies(filteredMovies);
   };
+
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   return (
     <div className="page">
