@@ -3,23 +3,27 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPrepearedMovies(movies, query) {
-  let prepearedMovies = [...movies];
+function getPreparedMovies(movies, query) {
+  const queryIncludes = value => (
+    value.toLowerCase().includes(query.toLowerCase().trim())
+  );
+
+  let preparedMovies = movies;
 
   if (query !== '') {
-    prepearedMovies = prepearedMovies.filter(
-      movie => movie.title.toLowerCase().includes(query.toLowerCase().trim())
-      || movie.description.toLowerCase().includes(query.toLowerCase().trim()),
+    preparedMovies = preparedMovies.filter(
+      movie => queryIncludes(movie.title)
+      || queryIncludes(movie.description),
     );
   }
 
-  return prepearedMovies;
+  return preparedMovies;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = getPrepearedMovies(
+  const visibleMovies = getPreparedMovies(
     moviesFromServer,
     query,
   );
