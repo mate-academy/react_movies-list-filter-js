@@ -5,23 +5,22 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const getIncludedString = string => (
+    string
+      .toLowerCase()
+      .includes(
+        query
+          .trim()
+          .toLowerCase(),
+      )
+  );
+
   const getSearchedMovies = movies => (
-    movies.filter(movie => (
-      movie.title
-        .toLowerCase()
-        .includes(
-          query
-            .trim()
-            .toLowerCase(),
-        )
-      || movie.description
-        .toLowerCase()
-        .includes(
-          query
-            .trim()
-            .toLowerCase(),
-        )
+    movies.filter(({ title, description }) => (
+      getIncludedString(title)
+      || getIncludedString(description)
     )));
+  const searchedMovies = getSearchedMovies(moviesFromServer);
 
   return (
     <div className="page">
@@ -46,7 +45,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={getSearchedMovies(moviesFromServer)} />
+        <MoviesList movies={searchedMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
