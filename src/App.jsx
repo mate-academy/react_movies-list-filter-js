@@ -4,7 +4,8 @@ import './App.scss';
 import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
-function getPreparedMovies(movies, preparedQuery) {
+function getPreparedMovies(movies, query) {
+  const preparedQuery = query.toLowerCase().trim();
   const preparedMovies = movies.filter(
     ({ title, description }) => title.toLowerCase().includes(preparedQuery)
     || description.toLowerCase().includes(preparedQuery),
@@ -32,7 +33,7 @@ export const App = () => {
               <input
                 type="text"
                 onChange={(event) => {
-                  setQuery(event.target.value.toLowerCase().trim());
+                  setQuery(event.target.value);
                 }}
                 id="search-query"
                 className="input"
