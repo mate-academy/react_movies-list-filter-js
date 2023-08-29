@@ -19,12 +19,6 @@ const getPreparedMovies = (movies, query) => {
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const handleQueryChange = (event) => {
-    const newQuery = event.target.value;
-
-    setQuery(newQuery);
-  };
-
   const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   return (
@@ -40,7 +34,9 @@ export const App = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={handleQueryChange}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
                 type="text"
                 id="search-query"
                 className="input"
