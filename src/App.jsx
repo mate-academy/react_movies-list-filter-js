@@ -1,33 +1,64 @@
+import { useState } from 'react';
 import './App.scss';
+// import { set } from 'cypress/types/lodash';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+const TITLE = 'title';
+const DESCRIPTION = 'description';
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+function getMoviesToRender(movies, filterValue) {
+  let preparedMovies = [...movies];
+
+  if (filterValue !== '') {
+    const normalizedFilterValue = filterValue.trim().toLowerCase();
+
+    preparedMovies = preparedMovies.filter(movie => (
+      movie[TITLE].toLowerCase().includes(normalizedFilterValue)
+      || movie[DESCRIPTION].toLowerCase().includes(normalizedFilterValue)
+    ));
+  }
+
+  return preparedMovies;
+}
+
+export const App = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = getMoviesToRender(moviesFromServer, query);
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                }}
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList
+          movies={visibleMovies}
+        />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
     </div>
-
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
-  </div>
-);
+  );
+};
