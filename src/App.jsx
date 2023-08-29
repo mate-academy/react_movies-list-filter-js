@@ -14,6 +14,7 @@ function getPrepareMovies(getMovies, query) {
       || movie.description.toLowerCase().includes(query.toLowerCase()),
     );
   }
+
   return movies;
 }
 
