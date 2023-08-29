@@ -5,10 +5,14 @@ import moviesFromServer from './api/movies.json';
 import { MoviesList } from './components/MoviesList';
 
 function getPreparedMovies(movies, query) {
+  function isQueryThere(key) {
+    return key.toLowerCase().includes(preparedQuery);
+  }
+
   const preparedQuery = query.toLowerCase().trim();
   const preparedMovies = movies.filter(
-    ({ title, description }) => title.toLowerCase().includes(preparedQuery)
-    || description.toLowerCase().includes(preparedQuery),
+    ({ title, description }) => isQueryThere(title)
+    || isQueryThere(description),
   );
 
   return preparedMovies;
