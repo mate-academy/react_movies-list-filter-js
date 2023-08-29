@@ -4,7 +4,6 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getPrepareMovies(movies, query) {
-
   if (query) {
     const filteredMovies = movies.filter(
       movie => movie.title
@@ -12,6 +11,7 @@ function getPrepareMovies(movies, query) {
         .includes(query.toLowerCase())
       || movie.description.toLowerCase().includes(query.toLowerCase()),
     );
+
     return filteredMovies;
   }
 
