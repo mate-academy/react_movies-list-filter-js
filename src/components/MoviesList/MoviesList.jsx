@@ -2,13 +2,12 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, query }) => {
-  let preparedMovies = [...movies];
-
-  if (query) {
-    preparedMovies = preparedMovies
-      .filter(({ title, description }) => title.toLowerCase().includes(query)
-      || description.toLowerCase().includes(query));
-  }
+  const preparedMovies = [...movies].filter(({ title, description }) => title
+      .toLowerCase()
+      .includes(query)
+      || description
+        .toLowerCase()
+        .includes(query)) || [...movies];
 
   return (
     <div className="movies">
