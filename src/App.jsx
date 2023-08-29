@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function isSatisfiesQuery(text, query) {
+  return text.toLowerCase().includes(query);
+}
+
 function getPreparedMovies(movies, query) {
   const preparedMovies = movies
-    .filter(movie => movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query));
+    .filter(movie => isSatisfiesQuery(movie.title, query)
+      || isSatisfiesQuery(movie.description, query));
 
   return preparedMovies;
 }
