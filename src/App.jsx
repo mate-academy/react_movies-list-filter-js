@@ -3,16 +3,16 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPrepareMovies(getMovies, query) {
-  let movies = [...getMovies];
+function getPrepareMovies(movies, query) {
 
   if (query) {
-    movies = movies.filter(
+    const filteredMovies = movies.filter(
       movie => movie.title
         .toLowerCase()
         .includes(query.toLowerCase())
       || movie.description.toLowerCase().includes(query.toLowerCase()),
     );
+    return filteredMovies;
   }
 
   return movies;
