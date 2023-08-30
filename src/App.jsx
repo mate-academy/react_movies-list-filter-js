@@ -4,25 +4,23 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const getValidatedStr = str => str.toLowerCase().trim();
+
+const filteredMovies = (movies, { query }) => (
+  movies.filter(({ title, description }) => (
+    getValidatedStr(title).includes(getValidatedStr(query))
+  || getValidatedStr(description).includes(getValidatedStr(query))
+  ))
+);
+
 export const App = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
+  const visibleMovies = filteredMovies(moviesFromServer, { query });
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
 
     setQuery(inputValue);
-    updateVisibleMovies(inputValue);
-  };
-
-  const updateVisibleMovies = (searchQuery) => {
-    const validatedQuery = searchQuery.toLowerCase().trim();
-    const filteredMovies = moviesFromServer.filter(
-      movie => movie.title.toLowerCase().trim().includes(validatedQuery)
-       || movie.description.toLowerCase().trim().includes(validatedQuery),
-    );
-
-    setVisibleMovies(filteredMovies);
   };
 
   return (
