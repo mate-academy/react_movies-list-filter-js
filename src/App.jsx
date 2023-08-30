@@ -3,14 +3,26 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function getPreparedMovies(allMovies, queryFind) {
+  const prepareText = (text, queryInput) => text
+    .toLowerCase().includes(queryInput);
+
+  return allMovies
+    .filter(({ title, description }) => prepareText(title, queryFind)
+        || prepareText(description, queryFind))
+    || allMovies;
+}
+
 export const App = () => {
   const [query, setQuery] = useState('');
-  const [visibleMovies, setVisiblesMovies] = useState(moviesFromServer);
+  const visibleMovies = [...moviesFromServer];
   const handleQueryChange = event => setQuery(
     event.target.value
       .trim()
       .toLowerCase(),
   );
+
+  const preparedMovies = getPreparedMovies(visibleMovies, query);
 
   return (
     <div className="page">
@@ -27,16 +39,14 @@ export const App = () => {
                 type="text"
                 id="search-query"
                 className="input"
-                placeholder="Type search word"
+                placeholder="Type to start search"
               />
             </div>
           </div>
         </div>
 
         <MoviesList
-          query={query}
-          movies={visibleMovies}
-          setVisiblesMovies={setVisiblesMovies}
+          movies={preparedMovies}
         />
       </div>
 
