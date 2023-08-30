@@ -4,29 +4,44 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function filterMovie({ title, description }, query) {
-  const queryLower = query.toLowerCase();
-  const titleLower = title.toLowerCase();
-  const descriptionLower = description.toLowerCase();
+// function filterMovie({ title, description }, query) {
+//   const queryLower = query.toLowerCase();
+//   const titleLower = title.toLowerCase();
+//   const descriptionLower = description.toLowerCase();
 
-  return titleLower.includes(queryLower)
-    || descriptionLower.includes(queryLower);
-}
+//   return titleLower.includes(queryLower)
+//     || descriptionLower.includes(queryLower);
+// }
 
-function getPrepareMovies(movies, query) {
-  let preparedMovies = [...movies];
+// function getPrepareMovies(movies, query) {
+//   let preparedMovies = [...movies];
 
-  if (query) {
-    preparedMovies = preparedMovies
-      .filter(movie => filterMovie(movie, query));
+//   if (query) {
+//     preparedMovies = preparedMovies
+//       .filter(movie => filterMovie(movie, query));
+//   }
+
+//   return preparedMovies;
+// }
+
+function getFilteredMovies(movies, query) {
+  if (!query) {
+    return movies;
   }
 
-  return preparedMovies;
+  return movies.filter((movie) => {
+    const queryLower = query.trim().toLowerCase();
+    const titleLower = movie.title.toLowerCase();
+    const descriptionLower = movie.description.toLowerCase();
+
+    return titleLower.includes(queryLower)
+      || descriptionLower.includes(queryLower);
+  });
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPrepareMovies(moviesFromServer, query);
+  const visibleMovies = getFilteredMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -45,7 +60,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(event) => {
-                  setQuery(event.target.value.trim());
+                  setQuery(event.target.value);
                 }}
               />
             </div>
