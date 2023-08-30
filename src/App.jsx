@@ -5,17 +5,19 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, preparedQuery) {
-  const preparedMovies = movies.filter(
-    ({ title, description }) => title.toLowerCase().includes(preparedQuery)
-      || description.toLowerCase().includes(preparedQuery),
-  );
+  return movies.toLowerCase().includes(preparedQuery.toLowerCase().trim());
+}
 
-  return preparedMovies;
+function filterMovie(movie, query) {
+  return movie.filter(({ title, description }) => (
+    getPreparedMovies(title, query)
+    || getPreparedMovies(description, query)
+  ));
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+  const visibleMovies = filterMovie(moviesFromServer, query);
 
   return (
     <div className="page">
