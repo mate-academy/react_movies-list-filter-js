@@ -1,13 +1,17 @@
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies, query }) => {
-  const preparedMovies = [...movies].filter(({ title, description }) => title
+function getPreparedMovies(allMovies, queryFind) {
+  return [...allMovies].filter(({ title, description }) => title
+    .toLowerCase()
+    .includes(queryFind)
+    || description
       .toLowerCase()
-      .includes(query)
-      || description
-        .toLowerCase()
-        .includes(query)) || [...movies];
+      .includes(queryFind)) || [...allMovies];
+}
+
+export const MoviesList = ({ movies, query }) => {
+  const preparedMovies = getPreparedMovies(movies, query);
 
   return (
     <div className="movies">
