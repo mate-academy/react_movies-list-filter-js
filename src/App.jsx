@@ -3,24 +3,27 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getVisibleMovies(movies, { filterField }) {
-  let initialMovies = movies;
+function getVisibleMovies(movies, { query }) {
+  const initialMovies = movies;
+  const cleanedQuery = query.trim().toLowerCase();
 
-  if (filterField) {
-    initialMovies = initialMovies
-      .filter(movie => movie.title.toLowerCase()
-        .includes(filterField.trim().toLowerCase())
-      || movie.description.toLowerCase()
-        .includes(filterField.trim().toLowerCase()));
+  if (!query) {
+    return initialMovies;
   }
 
-  return initialMovies;
+  return initialMovies
+    .filter(({ title, description }) => (
+      title.toLowerCase()
+        .includes(cleanedQuery)
+      || description.toLowerCase()
+        .includes(cleanedQuery)
+    ));
 }
 
 export const App = () => {
-  const [filterField, setFilterField] = useState('');
+  const [query, setQuery] = useState('');
 
-  const visibleMovies = getVisibleMovies(moviesFromServer, { filterField });
+  const visibleMovies = getVisibleMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
@@ -33,14 +36,12 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={filterField}
+                value={query}
                 type="text"
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
-                  setFilterField(event.currentTarget.value);
-                }}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
