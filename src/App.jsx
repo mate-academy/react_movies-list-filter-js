@@ -4,21 +4,22 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const getVisibleMovies = (movies, userQuery) => {
+  const preparedQuery = userQuery.trim().toLowerCase();
+
+  return movies.filter((movie) => {
+    const title = movie.title.toLowerCase();
+    const description = movie.description.toLowerCase();
+
+    return title.includes(preparedQuery)
+      || description.includes(preparedQuery);
+  });
+};
+
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = (movies, userQuery) => {
-    const userQueryLowerCase = userQuery.trim().toLowerCase();
 
-    return movies.filter((movie) => {
-      const title = movie.title.toLowerCase();
-      const description = movie.description.toLowerCase();
-
-      return title.includes(userQueryLowerCase)
-        || description.includes(userQueryLowerCase);
-    });
-  };
-
-  const moviesToRender = visibleMovies(moviesFromServer, query);
+  const visibleMovies = getVisibleMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -42,7 +43,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesToRender} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
