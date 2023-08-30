@@ -8,18 +8,22 @@ const TITLE = 'title';
 const DESCRIPTION = 'description';
 
 function getMoviesToRender(movies, filterValue) {
-  let preparedMovies = [...movies];
+  let preparedMovies = movies;
 
-  if (filterValue !== '') {
-    const normalizedFilterValue = filterValue.trim().toLowerCase();
-
-    preparedMovies = preparedMovies.filter(movie => (
-      movie[TITLE].toLowerCase().includes(normalizedFilterValue)
-      || movie[DESCRIPTION].toLowerCase().includes(normalizedFilterValue)
+  if (filterValue) {
+    preparedMovies = movies.filter(movie => (
+      getPreparedMivieSection(movie[TITLE], filterValue)
+      || getPreparedMivieSection(movie[DESCRIPTION], filterValue)
     ));
   }
 
   return preparedMovies;
+}
+
+function getPreparedMivieSection(movieSection, filterValue) {
+  const normalizedFilterValue = filterValue.trim().toLowerCase();
+
+  return movieSection.toLowerCase().includes(normalizedFilterValue);
 }
 
 export const App = () => {
@@ -31,7 +35,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -51,9 +54,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={visibleMovies}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
