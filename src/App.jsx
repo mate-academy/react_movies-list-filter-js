@@ -45,6 +45,7 @@ export const App = () => {
         <MoviesList movies={visibleMovies} />
       </div>
 
+
       <div className="sidebar">
         Sidebar goes here
       </div>
