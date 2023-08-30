@@ -4,35 +4,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-// function filterMovie({ title, description }, query) {
-//   const queryLower = query.toLowerCase();
-//   const titleLower = title.toLowerCase();
-//   const descriptionLower = description.toLowerCase();
-
-//   return titleLower.includes(queryLower)
-//     || descriptionLower.includes(queryLower);
-// }
-
-// function getPrepareMovies(movies, query) {
-//   let preparedMovies = [...movies];
-
-//   if (query) {
-//     preparedMovies = preparedMovies
-//       .filter(movie => filterMovie(movie, query));
-//   }
-
-//   return preparedMovies;
-// }
-
 function getFilteredMovies(movies, query) {
   if (!query) {
     return movies;
   }
 
-  return movies.filter((movie) => {
+  return movies.filter(({ title, description }) => {
     const queryLower = query.trim().toLowerCase();
-    const titleLower = movie.title.toLowerCase();
-    const descriptionLower = movie.description.toLowerCase();
+    const titleLower = title.toLowerCase();
+    const descriptionLower = description.toLowerCase();
 
     return titleLower.includes(queryLower)
       || descriptionLower.includes(queryLower);
