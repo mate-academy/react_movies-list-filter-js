@@ -1,34 +1,35 @@
 import { useState } from 'react';
 import './App.scss';
-// import { set } from 'cypress/types/lodash';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const TITLE = 'title';
-const DESCRIPTION = 'description';
+// const TITLE = 'title';
+// const DESCRIPTION = 'description';
 
-function getMoviesToRender(movies, filterValue) {
-  let preparedMovies = movies;
-
-  if (filterValue) {
-    preparedMovies = movies.filter(movie => (
-      getPreparedMivieSection(movie[TITLE], filterValue)
-      || getPreparedMivieSection(movie[DESCRIPTION], filterValue)
-    ));
+function filterMoviesByQuery(movies, query) {
+  if (!query) {
+    return movies;
   }
 
-  return preparedMovies;
+  return movies.filter(({ title, description }) => (
+    hasQueryInContent(title, query)
+    || hasQueryInContent(description, query)
+  ));
 }
 
-function getPreparedMivieSection(movieSection, filterValue) {
-  const normalizedFilterValue = filterValue.trim().toLowerCase();
+function hasQueryInContent(content, query) {
+  const normalizedQuery = query.trim().toLowerCase();
 
-  return movieSection.toLowerCase().includes(normalizedFilterValue);
+  return content.toLowerCase().includes(normalizedQuery);
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getMoviesToRender(moviesFromServer, query);
+  const visibleMovies = filterMoviesByQuery(moviesFromServer, query);
+
+  function onChange(inputText) {
+    setQuery(inputText);
+  }
 
   return (
     <div className="page">
@@ -47,7 +48,7 @@ export const App = () => {
                 placeholder="Type search word"
                 value={query}
                 onChange={(event) => {
-                  setQuery(event.target.value);
+                  onChange(event.target.value);
                 }}
               />
             </div>
