@@ -35,7 +35,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={event => handleQueryChange(event)}
+                onChange={handleQueryChange}
                 type="text"
                 id="search-query"
                 className="input"
