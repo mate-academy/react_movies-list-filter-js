@@ -4,10 +4,14 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+const inText = (text, query) => (
+  text.toLowerCase().includes(query)
+);
+
 function getPreparedMovies(movies, query) {
   const preparedMovies = movies
-    .filter(movie => movie.title.toLowerCase().includes(query)
-      || movie.description.toLowerCase().includes(query));
+    .filter(movie => inText(movie.title, query)
+      || inText(movie.description, query));
 
   return preparedMovies;
 }
@@ -33,9 +37,9 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={
-                  event => setQuery(event.target.value.trim().toLowerCase())
-                }
+                onChange={event => (
+                  setQuery(event.target.value.trim().toLowerCase())
+                )}
               />
             </div>
           </div>
