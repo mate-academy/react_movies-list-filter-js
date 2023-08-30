@@ -4,8 +4,18 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function getPreparedMovies(movies, preparedQuery) {
+  const preparedMovies = movies.filter(
+    ({ title, description }) => title.toLowerCase().includes(preparedQuery)
+      || description.toLowerCase().includes(preparedQuery),
+  );
+
+  return preparedMovies;
+}
+
 export const App = () => {
   const [query, setQuery] = useState('');
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -31,8 +41,7 @@ export const App = () => {
         </div>
 
         <MoviesList
-          movies={moviesFromServer}
-          query={query}
+          movies={visibleMovies}
         />
       </div>
 
