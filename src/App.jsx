@@ -5,9 +5,9 @@ import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(query) {
   const preparedQuery = query.trim().toLowerCase();
-  const movies = [...moviesFromServer].filter((movie) => {
-    const formatedTitle = movie.title.toLowerCase();
-    const formatedDescription = movie.description.toLowerCase();
+  const movies = moviesFromServer.filter(({ title, description }) => {
+    const formatedTitle = title.toLowerCase();
+    const formatedDescription = description.toLowerCase();
 
     return formatedTitle.includes(preparedQuery)
      || formatedDescription.includes(preparedQuery);
@@ -45,9 +45,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList
-          movies={visibleMovies}
-        />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">
