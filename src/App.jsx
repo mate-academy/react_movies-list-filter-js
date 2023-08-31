@@ -4,15 +4,15 @@ import moviesFromServer from './api/movies.json';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 
-const includesQuery = (str, query) => {
-  const strToLowerCase = str.toLowerCase();
-  const queryToLowerCase = query.toLowerCase();
+const includesQuery = (text, query) => {
+  const preparedText = text.toLowerCase();
+  const preparedQuery = query.toLowerCase();
 
-  return strToLowerCase.includes(queryToLowerCase);
+  return preparedText.includes(preparedQuery);
 };
 
 function getPreparedMovies(movies, query) {
-  const queryToLowerCase = query.toLowerCase().trim();
+  const queryToLowerCase = query.trim();
 
   return movies.filter(({ title, description }) => {
     const hasSuitableTitle = includesQuery(title, queryToLowerCase);
@@ -30,7 +30,6 @@ export const App = () => {
   );
 
   return (
-
     <div className="page">
       <div className="page-content">
         <div className="box">
