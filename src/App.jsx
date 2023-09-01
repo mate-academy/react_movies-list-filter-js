@@ -4,21 +4,22 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedMovies(movies, query) {
-  let preparedMovies = [...movies];
-
+const includesQuery = (input, query) => {
   const preparedQuery = query.toLowerCase().trim();
-  const includesQuery = input => (
-    input.toLowerCase().includes(preparedQuery)
-  );
 
-  if (query) {
-    preparedMovies = preparedMovies.filter(
-      ({ title, description }) => (
-        includesQuery(title) || includesQuery(description)
-      ),
-    );
+  return input.toLowerCase().includes(preparedQuery);
+};
+
+function getPreparedMovies(movies, query) {
+  if (!query) {
+    return movies;
   }
+
+  const preparedMovies = movies.filter(
+    ({ title, description }) => (
+      includesQuery(title, query) || includesQuery(description, query)
+    ),
+  );
 
   return preparedMovies;
 }
