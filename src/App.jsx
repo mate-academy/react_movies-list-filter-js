@@ -28,10 +28,6 @@ export const App = () => {
     query,
   );
 
-  function filterBy(newQuery) {
-    setQuery(newQuery);
-  }
-
   return (
     <div className="page">
       <div className="page-content">
@@ -46,7 +42,7 @@ export const App = () => {
               <input
                 type="text"
                 onChange={(event) => {
-                  filterBy(event.target.value);
+                  setQuery(event.target.value);
                 }}
                 id="search-query"
                 className="input"
