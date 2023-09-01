@@ -12,8 +12,8 @@ function getPreparedMovies(movies, query) {
 
   if (query !== '') {
     preparedMovies = preparedMovies.filter(
-      movie => queryIncludes(movie.title)
-      || queryIncludes(movie.description),
+      ({ title, description }) => queryIncludes(title)
+        || queryIncludes(description),
     );
   }
 
@@ -44,7 +44,6 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={query}
                 type="text"
                 onChange={(event) => {
                   filterBy(event.target.value);
