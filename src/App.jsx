@@ -3,18 +3,25 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getMovie(movies, query) {
+function getVisibleMovies(movies, query) {
   const destinationMovie
-  = movies.filter(movie => movie.title.toLowerCase().includes(query.trim())
-    || movie.description.toLowerCase().includes(query.trim()));
+  = movies.filter(({ title, description }) => (
+    lowerCaseMovie(title, query)
+    || lowerCaseMovie(description, query)
+  ));
 
   return destinationMovie;
 }
 
+function lowerCaseMovie(item, query) {
+  const trimmedLowerQuery = query.trim().toLowerCase();
+
+  return item.toLowerCase().includes(trimmedLowerQuery);
+}
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = getMovie(moviesFromServer, query);
+  const visibleMovies = getVisibleMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -32,10 +39,9 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={
-                  (changeEvent) => {
-                    setQuery(changeEvent.target.value.toLowerCase());
-                  }}
+                onChange={(changeEvent) => {
+                  setQuery(changeEvent.target.value.toLowerCase());
+                }}
               />
             </div>
           </div>
