@@ -4,21 +4,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const preparedFilter = (movie, query) => movie
+const checkQuery = (string, query) => string
   .trim()
   .toLowerCase()
-  .includes(
-    query
-      .trim()
-      .toLowerCase(),
-  );
+  .includes(query);
 
 function getPreparedMovies(movies, { query }) {
-  const prepearedQuery = query.trim().toLowerCase();
-
   return movies.filter(
-    ({ title, description }) => preparedFilter(title, prepearedQuery)
-    || preparedFilter(description, prepearedQuery),
+    ({ title, description }) => checkQuery(title, query)
+    || checkQuery(description, query),
   );
 }
 
