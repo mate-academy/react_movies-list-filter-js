@@ -8,31 +8,31 @@ function prepareString(string) {
   return string.toLowerCase().trim();
 }
 
-function getPreparedMovies(movies, { query }) {
-  let preparedMovies = [...movies];
-
-  if (query) {
-    preparedMovies = preparedMovies.filter(
-      movie => prepareString(movie.title).includes(prepareString(query))
-        || prepareString(movie.description).includes(prepareString(query)),
-    );
+function getPreparedMovies(movies, query) {
+  if (!query) {
+    return movies;
   }
 
-  return preparedMovies;
+  return movies.filter(
+    movie => prepareString(movie.title).includes(prepareString(query))
+    || prepareString(movie.description).includes(prepareString(query)),
+  );
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+
+  const filterByHandler = (newQuery) => {
+    setQuery(newQuery);
+  };
 
   return (
     <div className="page">
       <div className="page-content">
         <Header
-          filterBy={(newQuery) => {
-            setQuery(newQuery);
-          }}
+          filterBy={filterByHandler}
         />
 
         <MoviesList movies={visibleMovies} />

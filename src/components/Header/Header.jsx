@@ -12,9 +12,7 @@ export const Header = ({ filterBy }) => (
           id="search-query"
           className="input"
           placeholder="Type search word"
-          onChange={(event) => {
-            filterBy(event.target.value);
-          }}
+          onChange={event => filterBy(event.target.value)}
         />
       </div>
     </div>
