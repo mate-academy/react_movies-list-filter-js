@@ -4,10 +4,8 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies, query) {
-  const destinationMovie
-  = movies.filter(({ title, description }) => (
-    lowerCaseMovie(title, query)
-    || lowerCaseMovie(description, query)
+  const destinationMovie = movies.filter(({ title, description }) => (
+    lowerCaseMovie(title, query) || lowerCaseMovie(description, query)
   ));
 
   return destinationMovie;
@@ -18,6 +16,7 @@ function lowerCaseMovie(item, query) {
 
   return item.toLowerCase().includes(trimmedLowerQuery);
 }
+
 export const App = () => {
   const [query, setQuery] = useState('');
 
