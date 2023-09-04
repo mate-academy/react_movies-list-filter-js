@@ -4,21 +4,21 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const checkQuery = (string, query) => string
-  .trim()
-  .toLowerCase()
-  .includes(query);
+const checkQueryMatch = (string, query) => (
+  string
+    .toLowerCase()
+    .includes(query.trim().toLowerCase())
+);
 
-function getPreparedMovies(movies, { query }) {
-  return movies.filter(
-    ({ title, description }) => checkQuery(title, query)
-    || checkQuery(description, query),
-  );
+function getPreparedMovies(movies, query) {
+  return movies.filter(({ title, description }) => (
+    checkQueryMatch(title, query) || checkQueryMatch(description, query)
+  ));
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
   return (
     <div className="page">
