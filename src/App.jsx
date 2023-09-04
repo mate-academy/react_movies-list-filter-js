@@ -19,11 +19,8 @@ export const App = () => {
         <div className="box">
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
+            <label htmlFor="search-query" className="control label">
               Search movie
-            </label>
-
-            <div className="control">
               <input
                 onChange={event => setQuery(event.target.value)}
                 type="text"
@@ -31,7 +28,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
               />
-            </div>
+            </label>
           </div>
         </div>
 
