@@ -3,17 +3,19 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedMovies(movies, query) {
-  if (query) {
-    const normalizedQuery = query.toLowerCase().trim();
+function includesQuery(text, normalizedQuery) {
+  return text.toLowerCase().includes(normalizedQuery);
+}
 
-    return movies.filter(
-      movie => movie.title.toLowerCase().includes(normalizedQuery)
-        || movie.description.toLowerCase().includes(normalizedQuery),
-    );
+function getPreparedMovies(movies, query) {
+  const normalizedQuery = query.toLowerCase().trim();
+
+  if (!query) {
+    return movies;
   }
 
-  return movies;
+  return movies.filter(movie => includesQuery(movie.title, normalizedQuery)
+    || includesQuery(movie.description, normalizedQuery));
 }
 
 export const App = () => {
