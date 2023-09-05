@@ -3,15 +3,19 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function isContainingQuery(movie, query) {
-  const lowercaseQuery = query.toLowerCase();
+function hasSearchQuery(movie, query) {
+  return checkQuery(movie.title, query)
+    || checkQuery(movie.description, query);
+}
 
-  return movie.title.toLowerCase().includes(lowercaseQuery)
-    || movie.description.toLowerCase().includes(lowercaseQuery);
+function checkQuery(string, query) {
+  const lowercasedQuery = query.toLowerCase();
+
+  return string.toLowerCase().includes(lowercasedQuery);
 }
 
 function getMoviesToRender(movies, query) {
-  return movies.filter(movie => isContainingQuery(movie, query));
+  return movies.filter(movie => hasSearchQuery(movie, query));
 }
 
 export const App = () => {
