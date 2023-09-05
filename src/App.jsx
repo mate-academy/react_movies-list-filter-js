@@ -4,17 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies, query) {
-  const destinationMovie = movies.filter(({ title, description }) => (
-    lowerCaseMovie(title, query) || lowerCaseMovie(description, query)
+  return movies.filter(({ title, description }) => (
+    checkQueryIsTextSubstring(title, query)
+    || checkQueryIsTextSubstring(description, query)
   ));
-
-  return destinationMovie;
 }
 
-function lowerCaseMovie(item, query) {
+function checkQueryIsTextSubstring(text, query) {
   const trimmedLowerQuery = query.trim().toLowerCase();
 
-  return item.toLowerCase().includes(trimmedLowerQuery);
+  return text.toLowerCase().includes(trimmedLowerQuery);
 }
 
 export const App = () => {
@@ -39,7 +38,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={(changeEvent) => {
-                  setQuery(changeEvent.target.value.toLowerCase());
+                  setQuery(changeEvent.target.value);
                 }}
               />
             </div>
