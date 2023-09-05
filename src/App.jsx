@@ -4,8 +4,11 @@ import { MoviesList } from './components/MoviesList';
 import { Header } from './components/Header';
 import moviesFromServer from './api/movies.json';
 
-function prepareString(string) {
-  return string.toLowerCase().trim();
+function checkQuery(string, query) {
+  const preparedString = string.toLowerCase().trim();
+  const preparedQuery = query.toLowerCase().trim();
+
+  return preparedString.includes(preparedQuery);
 }
 
 function getPreparedMovies(movies, query) {
@@ -14,8 +17,8 @@ function getPreparedMovies(movies, query) {
   }
 
   return movies.filter(
-    movie => prepareString(movie.title).includes(prepareString(query))
-    || prepareString(movie.description).includes(prepareString(query)),
+    movie => checkQuery(movie.title, query)
+    || checkQuery(movie.description, query),
   );
 }
 
@@ -24,16 +27,14 @@ export const App = () => {
 
   const visibleMovies = getPreparedMovies(moviesFromServer, query);
 
-  const filterByHandler = (newQuery) => {
-    setQuery(newQuery);
+  const handleInputChange = (event) => {
+    setQuery(event.target.value);
   };
 
   return (
     <div className="page">
       <div className="page-content">
-        <Header
-          filterBy={filterByHandler}
-        />
+        <Header inputChange={handleInputChange} />
 
         <MoviesList movies={visibleMovies} />
       </div>

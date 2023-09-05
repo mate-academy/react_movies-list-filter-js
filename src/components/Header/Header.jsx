@@ -1,4 +1,4 @@
-export const Header = ({ filterBy }) => (
+export const Header = ({ inputChange }) => (
   <div className="box">
     <div className="field">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -12,9 +12,10 @@ export const Header = ({ filterBy }) => (
           id="search-query"
           className="input"
           placeholder="Type search word"
-          onChange={event => filterBy(event.target.value)}
+          onChange={inputChange}
         />
       </div>
     </div>
   </div>
+
 );
