@@ -4,7 +4,7 @@ import { MoviesList } from './components/MoviesList';
 import { Header } from './components/Header';
 import moviesFromServer from './api/movies.json';
 
-function checkQuery(string, query) {
+function checkString(string, query) {
   const preparedString = string.toLowerCase().trim();
   const preparedQuery = query.toLowerCase().trim();
 
@@ -17,8 +17,8 @@ function getPreparedMovies(movies, query) {
   }
 
   return movies.filter(
-    movie => checkQuery(movie.title, query)
-    || checkQuery(movie.description, query),
+    movie => checkString(movie.title, query)
+    || checkString(movie.description, query),
   );
 }
 
