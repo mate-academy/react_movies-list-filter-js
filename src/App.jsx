@@ -3,17 +3,25 @@ import './App.scss';
 import moviesFromServer from './api/movies.json';
 import { Page } from './components/Page/Page';
 
-function findQuery(string, query) {
-  return string.toLowerCase().trim().includes(query);
-}
+// function findQuery(string, query) {
+//   return string.toLowerCase().trim().includes(query);
+// }
 
 function getPreparedMovies(movies, { query }) {
   let preparedMovies = [...movies];
 
-  if (query) {
+  const preparedQuery = query.trim().toLowerCase();
+
+  // if (query) {
+  //   preparedMovies
+  //   = preparedMovies.filter(movie => findQuery(movie.title, query)
+  //   || findQuery(movie.description, query));
+  // }
+  if (preparedQuery) {
     preparedMovies
-    = preparedMovies.filter(movie => findQuery(movie.title, query)
-    || findQuery(movie.description, query));
+    = preparedMovies.filter(movie => movie.title.toLowerCase()
+        .includes(preparedQuery)
+    || movie.description.toLowerCase().includes(preparedQuery));
   }
 
   return preparedMovies;
