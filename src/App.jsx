@@ -1,33 +1,34 @@
+import { useState } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { Page } from './components/Page/Page';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function getPreparedMovies(movies, { query }) {
+  let preparedMovies = [...movies];
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
-          </div>
-        </div>
-      </div>
+  const preparedQuery = query.trim().toLowerCase();
 
-      <MoviesList movies={moviesFromServer} />
-    </div>
+  if (preparedQuery) {
+    preparedMovies
+    = preparedMovies.filter(movie => movie.title.toLowerCase()
+        .includes(preparedQuery)
+    || movie.description.toLowerCase().includes(preparedQuery));
+  }
 
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
-  </div>
-);
+  return preparedMovies;
+}
+
+export const App = () => {
+  const [query, setQuery] = useState('');
+
+  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+
+  return (
+    <Page
+      visibleMovies={visibleMovies}
+      filterBy={(value) => {
+        setQuery(value);
+      }}
+    />
+  );
+};
