@@ -8,15 +8,15 @@ function getPreparedMovies(movies, query) {
   let preparedMovies = [...movies];
 
   if (query) {
-    let queryEdited = query;
+    const queryEdited = query.trim();
 
-    if (queryEdited.startsWith(' ')) {
-      queryEdited = queryEdited.slice(1);
-    }
+    // if (queryEdited.startsWith(' ')) {
+    //   queryEdited = queryEdited.slice(1);
+    // }
 
-    if (queryEdited.endsWith(' ')) {
-      queryEdited = queryEdited.slice(0, -1);
-    }
+    // if (queryEdited.endsWith(' ')) {
+    //   queryEdited = queryEdited.slice(0, -1);
+    // }
 
     const lowerCaseQuery = queryEdited.toLowerCase();
 
