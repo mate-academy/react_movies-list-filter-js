@@ -8,7 +8,17 @@ function getPreparedMovies(movies, query) {
   let preparedMovies = [...movies];
 
   if (query) {
-    const lowerCaseQuery = query.toLowerCase();
+    let queryEdited = query;
+
+    if (queryEdited.startsWith(' ')) {
+      queryEdited = queryEdited.slice(1);
+    }
+
+    if (queryEdited.endsWith(' ')) {
+      queryEdited = queryEdited.slice(0, -1);
+    }
+
+    const lowerCaseQuery = queryEdited.toLowerCase();
 
     preparedMovies = movies.filter(({ title, description }) => (
       title.toLowerCase().includes(lowerCaseQuery)
