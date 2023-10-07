@@ -5,13 +5,14 @@ import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, { query }) {
   let preparedMovies = [...movies];
+  const transformedQuery = query.toLowerCase().trim();
 
   if (query) {
     preparedMovies = preparedMovies.filter(
       movie => (
-        movie.title.toLowerCase().trim().includes(query)
-        || movie.description.toLowerCase().trim().includes(query)
-      ),
+        movie.title.toLowerCase().trim().includes(transformedQuery)
+        || movie.description
+          .toLowerCase().trim().includes(transformedQuery)),
     );
   }
 
@@ -19,10 +20,10 @@ function getPreparedMovies(movies, { query }) {
 }
 
 export const App = () => {
-  const [searchField, setSearchField] = useState('');
+  const [query, setSearchField] = useState('');
 
   const visibleMovies = getPreparedMovies(
-    moviesFromServer, { searchField },
+    moviesFromServer, { query },
   );
 
   return (
