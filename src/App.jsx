@@ -34,10 +34,10 @@ export const App = () => {
             <div className="control">
               <input
                 type="text"
+                id="search-query"
                 onChange={(event) => {
                   setQuery(event.currentTarget.value);
                 }}
-                id="search-query"
                 className="input"
                 placeholder="Type search word"
               />
