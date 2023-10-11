@@ -4,14 +4,12 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-const filterMovies = (movies, query) => {
-  const array = [...movies];
-
-  return array.filter(
+const filterMovies = (movies, query) => (
+  movies.filter(
     elem => elem.title.toLowerCase().includes(query.toLowerCase().trim())
       || elem.description.toLowerCase().includes(query.toLowerCase().trim()),
-  );
-};
+  )
+);
 
 export const App = () => {
   const [query, setQuery] = useState('');
