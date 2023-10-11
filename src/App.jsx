@@ -5,7 +5,6 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  console.log(query);
 
   return (
     <div className="page">
