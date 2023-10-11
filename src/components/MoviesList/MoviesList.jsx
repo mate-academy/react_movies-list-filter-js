@@ -17,11 +17,11 @@ const filterList = (movies, query) => {
 };
 
 export const MoviesList = ({ movies, query }) => {
-  const filteredMovies = filterList(movies, query);
+  const visibleMovies = filterList(movies, query);
 
   return (
     <div className="movies">
-      {filteredMovies.map(movie => (
+      {visibleMovies.map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
     </div>
