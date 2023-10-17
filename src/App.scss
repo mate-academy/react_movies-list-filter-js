@@ -2,6 +2,12 @@ iframe {
   display: none;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+  background-color: #141414;
+}
+
 .page {
   display: grid;
   grid-template: auto / 1fr 400px;
@@ -15,15 +21,24 @@ iframe {
 
 .sidebar {
   padding: 20px;
-  border-left: 1px solid lightgray;
+  color: #d3d3d3;
+  border-left: 1px solid #d3d3d3;
 }
 
-.movies {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+.box {
+  background-color: #141414;
 }
 
-.card-image img {
-  object-fit: contain;
+.label {
+  color: #d3d3d3;
+}
+
+.input {
+  color: #d3d3d3;
+  border-color: #9b9999;
+  background-color: #141414;
+}
+
+.input::placeholder {
+  color: #9b9999;
 }
