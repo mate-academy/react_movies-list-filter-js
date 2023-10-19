@@ -8,7 +8,7 @@ import { MoviesList } from './components/MoviesList';
 import { SearchBar } from './components/SearchBar/SearchBar';
 
 function getPreparedMovies(movies, { query }) {
-  let preparedMovies = [...movies];
+  let preparedMovies = movies;
 
   if (query) {
     preparedMovies = movies.filter(
