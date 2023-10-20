@@ -6,8 +6,8 @@ import moviesFromServer from './api/movies.json';
 
 function getFilteredMovies(movies, query) {
   return movies.filter(movie => (
-    movie.title.toLowerCase().includes(query.toLowerCase())
-    || movie.description.toLowerCase().includes(query.toLowerCase())
+    movie.title.toLowerCase().includes(query.toLowerCase().trim(' '))
+    || movie.description.toLowerCase().includes(query.toLowerCase().trim(' '))
   ));
 }
 
