@@ -1,7 +1,7 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
 
 export const App = () => {
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
