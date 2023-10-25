@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import './App.scss';
 import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
@@ -8,8 +9,9 @@ function getPrepearedMovies(movies, { query }) {
   let sortingMovies = [...movies];
 
   sortingMovies
-    = sortingMovies.filter(movie => movie.title.includes(query)
-      && movie.description.includes(query));
+    // eslint-disable-next-line max-len
+    = sortingMovies.filter(movie => movie.title.trim().toLowerCase().includes(query.trim().toLowerCase())
+      || movie.description.trim().toLowerCase().includes(query.trim().toLowerCase()));
 
   return sortingMovies;
 }
