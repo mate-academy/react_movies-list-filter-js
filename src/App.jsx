@@ -8,13 +8,13 @@ export const App = () => {
   const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
 
   const handleChangeMovies = (event) => {
-    const query = event.target.value;
+    const query = event.target.value.trim().toLowerCase();
 
     if (query === '') {
       setVisibleMovies(moviesFromServer);
     } else {
       setVisibleMovies(() => (
-        filterMoviesList(query.trim().toLowerCase(), moviesFromServer)
+        filterMoviesList(query, moviesFromServer)
       ));
     }
   };
