@@ -7,12 +7,15 @@ function getPreparedGoods(movies, { query }) {
   let preparedGoods = [...movies];
 
   if (query) {
-    const lowercaseQuery = query.toLowerCase();
+    const trimmedQuery = query.trim();
+    const lowercaseQuery = trimmedQuery.replace(/\s/g, '').toLowerCase();
 
     preparedGoods = preparedGoods.filter(movie => movie.title
+      .replace(/\s/g, '')
       .toLowerCase()
       .includes(lowercaseQuery)
       || movie.description
+        .replace(/\s/g, '')
         .toLowerCase()
         .includes(lowercaseQuery));
   }
