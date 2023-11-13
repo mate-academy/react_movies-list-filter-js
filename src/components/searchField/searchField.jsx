@@ -9,6 +9,7 @@ export const SearchField = ({ filterBy, query }) => (
       <div className="control">
         <input
           value={query}
+          // eslint-disable-next-line no-restricted-globals
           onChange={() => filterBy(event.target.value)}
           type="text"
           id="search-query"
