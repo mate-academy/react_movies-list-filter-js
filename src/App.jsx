@@ -59,7 +59,7 @@ export const App = () => {
       </div>
 
       <div className="sidebar">
-        Sidebar goes here
+        Sidebar goes her
       </div>
     </div>
   );
