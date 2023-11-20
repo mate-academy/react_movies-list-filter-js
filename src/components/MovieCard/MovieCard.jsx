@@ -4,7 +4,10 @@ export const MovieCard = ({ movie }) => (
   <div className="card">
     <div className="card-image">
       <figure className="image is-4by3">
-        <img src={movie.imgUrl} alt="Film logo" />
+        <img
+          src={movie.imgUrl}
+          alt="Film logo"
+        />
       </figure>
     </div>
 
@@ -17,7 +20,9 @@ export const MovieCard = ({ movie }) => (
         </div>
 
         <div className="media-content">
-          <p className="title is-8">{movie.title}</p>
+          <p className="title is-8">
+            {movie.title}
+          </p>
         </div>
       </div>
 
