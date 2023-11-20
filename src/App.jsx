@@ -32,10 +32,9 @@ export const App = () => {
         <div className="box">
           <div
             className="field"
-            // filterBy={(newQuery) => {
-            //   setQuery(newQuery);
-            // }}
           >
+
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 
             <label htmlFor="search-query" className="label">
               Search movie
@@ -59,7 +58,7 @@ export const App = () => {
       </div>
 
       <div className="sidebar">
-        Sidebar goes her
+        Sidebar goes here
       </div>
     </div>
   );
