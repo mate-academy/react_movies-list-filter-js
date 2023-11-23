@@ -6,7 +6,7 @@ import { MoviesList } from './components/MoviesList';
 
 function getPreperedMovies(movies, { query }) {
   if (query) {
-    const queryUpperCase = query.toUpperCase();
+    const queryUpperCase = query.toUpperCase().trim();
 
     return movies.filter(movie => movie.title
       .toUpperCase()
@@ -24,12 +24,6 @@ export const App = () => {
 
   const visibleMovies = getPreperedMovies(moviesFromServer, { query });
 
-  const handleChange = (event) => {
-    const value = (event.target.value).trim();
-
-    setQuery(value);
-  };
-
   return (
     <div className="page">
       <div className="page-content">
@@ -42,7 +36,8 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={handleChange}
+                value={query}
+                onChange={event => setQuery(event.target.value)}
                 type="text"
                 id="search-query"
                 className="input"
