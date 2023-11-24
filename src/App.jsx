@@ -11,16 +11,17 @@ const FilterMovies = (movies, searchQuerry) => {
   return movies.filter((movie) => {
     const preparedSearchQuerry = searchQuerry.toLowerCase().trim();
     const preparedMovies = movie.title.toLowerCase();
+    const preparedDescription = movie.description.toLowerCase();
 
-    return preparedMovies.includes(preparedSearchQuerry);
+    return preparedMovies.includes(preparedSearchQuerry)
+      || preparedDescription.includes(preparedSearchQuerry);
   });
 };
 
 export const App = () => {
-  const [movies, SetMovies] = useState(moviesFromServer);
   const [searchQuerry, setSearchQuerry] = useState('');
 
-  const visibleMovies = FilterMovies(movies, searchQuerry);
+  const visibleMovies = FilterMovies(moviesFromServer, searchQuerry);
 
   return (
     <div className="page">
