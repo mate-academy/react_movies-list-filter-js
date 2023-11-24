@@ -19,7 +19,6 @@ function getPreparedMovies(movies, { sortField, query }) {
 }
 
 export const App = () => {
-  // const [sortMovies, setSortMovies] = useState(moviesFromServer);
   const [query, setQuery] = useState('');
   const visibleMovies = getPreparedMovies(
     moviesFromServer,
