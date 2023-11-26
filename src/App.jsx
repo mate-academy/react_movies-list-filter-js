@@ -14,8 +14,8 @@ function getPreparedMovies(movies, { query }) {
       const preparedQuery = query.toLowerCase();
 
       return (
-        preparedTitle.includes(preparedQuery)
-        || preparedDescription.includes(preparedQuery)
+        preparedTitle.includes(preparedQuery.trim())
+        || preparedDescription.includes(preparedQuery.trim())
       );
     });
   }
