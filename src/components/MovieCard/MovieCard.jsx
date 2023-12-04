@@ -1,7 +1,7 @@
 import './MovieCard.scss';
 
 export const MovieCard = ({ movie }) => (
-  <div className="card">
+  <li className="card">
     <div className="card-image">
       <figure className="image is-4by3">
         <img src={movie.imgUrl} alt="Film logo" />
@@ -27,5 +27,5 @@ export const MovieCard = ({ movie }) => (
         <a href={movie.imdbUrl}>IMDB</a>
       </div>
     </div>
-  </div>
+  </li>
 );
