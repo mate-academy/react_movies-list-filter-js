@@ -3,9 +3,9 @@ import { MovieCard } from '../MovieCard';
 import moviesFromServer from '../../api/movies.json';
 
 export const MoviesList = ({
-  lookForWord,
+  visibleMovies,
 }) => {
-  const trimmedLookingForWOrd = lookForWord.trim().toLowerCase();
+  const trimmedLookingForWOrd = visibleMovies.trim().toLowerCase();
   const filtered = trimmedLookingForWOrd !== ''
     ? (
       moviesFromServer.filter(movie => movie.title.toLowerCase().includes(

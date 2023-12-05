@@ -29,7 +29,7 @@ export const App = () => {
         </div>
 
         <MoviesList
-          lookForWord={lookingForWord}
+          visibleMovies={lookingForWord}
         />
       </div>
 
