@@ -1,10 +1,29 @@
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
+import moviesFromServer from '../../api/movies.json';
 
-export const MoviesList = ({ movies }) => (
-  <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
-    ))}
-  </div>
-);
+export const MoviesList = ({
+  visibleMovies,
+}) => {
+  const trimmedLookingForWOrd = visibleMovies.trim().toLowerCase();
+  const filtered = trimmedLookingForWOrd !== ''
+    ? (
+      moviesFromServer.filter(movie => movie.title.toLowerCase().includes(
+        trimmedLookingForWOrd,
+      )
+      || movie.description.toLowerCase().includes(
+        trimmedLookingForWOrd,
+      )))
+    : moviesFromServer;
+
+  return (
+    <div className="movies">
+      {filtered.map(item => (
+        <MovieCard
+          key={item.imdbId}
+          movie={item}
+        />
+      ))}
+    </div>
+  );
+};
