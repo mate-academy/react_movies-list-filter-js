@@ -7,7 +7,7 @@ import { MoviesList } from './components/MoviesList';
 function getPreparedMoviesList(movies, { query }) {
   let preparedMoviesList = [...movies];
 
-  const queryToLower = query.toLowerCase();
+  const queryToLower = query.toLowerCase().trim();
 
   if (query) {
     preparedMoviesList = preparedMoviesList.filter(
