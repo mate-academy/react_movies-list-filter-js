@@ -9,8 +9,8 @@ function getPreparedMoves(moves, query) {
   const lowerQuery = query.toLowerCase();
 
   getVisibleMovies = getVisibleMovies.filter(
-    move => move.title.toLowerCase().includes(lowerQuery)
-      || move.description.toLowerCase().includes(lowerQuery),
+    move => move.title.toLowerCase().includes(lowerQuery.trim())
+      || move.description.toLowerCase().includes(lowerQuery.trim()),
   );
 
   return getVisibleMovies;
@@ -22,7 +22,7 @@ export const App = () => {
   const visibleMovies = getPreparedMoves(moviesFromServer, query);
 
   function handleChange(e) {
-    setQuery((e.target.value).trim());
+    setQuery(e.target.value);
   }
 
   return (
