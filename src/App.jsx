@@ -2,7 +2,7 @@ import './App.scss';
 import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { Field } from './components/Field';
+import { Field } from './Field/Field';
 
 function filterMovies(movies, query) {
   return movies.filter((movie) => {
