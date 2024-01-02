@@ -1,4 +1,5 @@
 import './MoviesList.scss';
+// eslint-disable-next-line
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies }) => (
