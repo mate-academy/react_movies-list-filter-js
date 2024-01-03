@@ -10,12 +10,12 @@ export const App = () => {
 
   useEffect(() => {
     const filtered = movies.filter(movie => movie.title
-      .toLowerCase().includes(filterValue.trim().toLowerCase())
-      || movie.description.trim().toLowerCase()
-        .includes(filterValue.toLowerCase()));
+      .toLowerCase().includes(filterValue)
+      || movie.description.toLowerCase()
+        .includes(filterValue));
 
     setFilteredMovies(filtered);
-  }, [filterValue]);
+  }, [filterValue, movies]);
 
   return (
     <div className="page">
@@ -33,7 +33,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setIFilterValue(e.target.value)}
+                onChange={e => setIFilterValue(e.target.value
+                  .trim().toLowerCase())}
               />
             </div>
           </div>
