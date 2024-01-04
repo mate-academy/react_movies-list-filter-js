@@ -9,7 +9,11 @@ import moviesFromServer from './api/movies.json';
 function getPreperedMovies(movies, { query }) {
   let preperedMovies = [...movies];
 
-  preperedMovies = preperedMovies.filter((movie) => (movie.title.includes(query) || movie.description.includes(query)));
+  preperedMovies = preperedMovies.filter(
+    movie => (
+      movie.title.includes(query) || movie.description.includes(query)
+    ),
+  );
 
   return preperedMovies;
 }
@@ -19,7 +23,7 @@ export const App = () => {
 
   const visibleMovies = getPreperedMovies(
     moviesFromServer,
-    { query }
+    { query },
   );
 
   return (
@@ -39,4 +43,4 @@ export const App = () => {
       </div>
     </div>
   );
-}
+};
