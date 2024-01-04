@@ -11,7 +11,8 @@ function getPreperedMovies(movies, { query }) {
 
   preperedMovies = preperedMovies.filter(
     movie => (
-      movie.title.includes(query) || movie.description.includes(query)
+      movie.title.toLowerCase().includes(query.trim().toLowerCase())
+      || movie.description.toLowerCase().includes(query.trim().toLowerCase())
     ),
   );
 
