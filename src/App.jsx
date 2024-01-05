@@ -17,6 +17,8 @@ function getPreparedMovies(movies, query) {
       if (movie.description.toLowerCase().includes(preparedQuery)) {
         return movie.description.toLowerCase().includes(preparedQuery);
       }
+
+      return false;
     });
   }
 
