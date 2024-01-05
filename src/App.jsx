@@ -1,33 +1,43 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function filterMoviesByQuery(query) {
+  if (query) {
+    return moviesFromServer.filter(({ title, description }) => {
+      const titleContainsQuery = title.toLocaleLowerCase().includes(query);
+      const descriptionContainsQuery
+        = description.toLocaleLowerCase().includes(query);
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
-          </div>
-        </div>
+      return titleContainsQuery || descriptionContainsQuery;
+    });
+  }
+
+  return moviesFromServer;
+}
+
+export const App = () => {
+  const [query, setQuery] = useState(null);
+  const filteredMovies = filterMoviesByQuery(query);
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <SearchBar filterBy={(newQuery) => {
+          const normalizedQuerry = newQuery.trim().toLowerCase();
+
+          setQuery(normalizedQuerry);
+        }}
+        />
+
+        <MoviesList movies={filteredMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">
+        Sidebar goes here
+      </div>
     </div>
-
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
-  </div>
-);
+  );
+};
