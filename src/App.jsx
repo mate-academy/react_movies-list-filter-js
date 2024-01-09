@@ -8,9 +8,10 @@ function findMovies(movies, query) {
   let listOfMovies = [...movies];
 
   if (normalizedQuery) {
-    listOfMovies = listOfMovies.filter(movie => 
-      movie.title.toLowerCase().includes(normalizedQuery)
-        || movie.description.toLowerCase().includes(normalizedQuery));
+    listOfMovies = listOfMovies.filter(
+      movie => movie.title.toLowerCase().includes(normalizedQuery)
+        || movie.description.toLowerCase().includes(normalizedQuery),
+    );
   }
 
   return listOfMovies;
