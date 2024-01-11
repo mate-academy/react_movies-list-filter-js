@@ -2,7 +2,6 @@ import './App.scss';
 import React, { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-// import { filter } from 'cypress/types/bluebird';
 
 function filterBy(query) {
   const fixedQuery = query.toLowerCase().trim();
@@ -15,14 +14,7 @@ function filterBy(query) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  // const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
   const visibleMovies = filterBy(query);
-
-  // function inputHandle(newQuery) {
-  //   setQuery(newQuery);
-  //   setVisibleMovies(filterBy(query));
-  //   console.log(query);
-  // }
 
   return (
     <div className="page">
