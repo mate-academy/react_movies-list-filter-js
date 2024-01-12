@@ -11,8 +11,9 @@ export const App = () => {
   };
 
   // eslint-disable-next-line max-len
-  const filteredMovies = moviesFromServer.filter(movie => movie.title.toLowerCase().includes(searchQuery.toLowerCase())
-    || movie.description.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredMovies = moviesFromServer.filter(movie => movie.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+    // eslint-disable-next-line max-len
+    || movie.description.toLowerCase().includes(searchQuery.trim().toLowerCase()));
 
   return (
     <div className="page">
