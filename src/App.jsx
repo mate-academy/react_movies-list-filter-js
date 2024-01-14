@@ -1,20 +1,19 @@
-import "./App.scss";
-import { MoviesList } from "./components/MoviesList";
-import moviesFromServer from "./api/movies.json";
-import { useState } from "react";
+import './App.scss';
+import { useState } from 'react';
+import { MoviesList } from './components/MoviesList';
+import moviesFromServer from './api/movies.json';
 
 function filterMovies(movies, { query }) {
   const preparedMovies = [...movies];
 
   return preparedMovies.filter(
-    (movie) =>
-      movie.title.toLowerCase().includes(query.trim().toLowerCase()) ||
-      movie.description.toLowerCase().includes(query.trim().toLowerCase())
+    movie => movie.title.toLowerCase().includes(query.trim().toLowerCase())
+      || movie.description.toLowerCase().includes(query.trim().toLowerCase()),
   );
 }
 
 export const App = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const visibleMovies = filterMovies(moviesFromServer, { query });
 
   return (
@@ -33,7 +32,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => setQuery(event.currentTarget.value)}
+                onChange={event => setQuery(event.currentTarget.value)}
               />
             </div>
           </div>
