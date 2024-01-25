@@ -1,4 +1,6 @@
 import { useState } from 'react';
+// import { event } from 'cypress/types/jquery';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
@@ -8,8 +10,10 @@ function getMovies(movies, query) {
 
   if (query) {
     preparedMovies = preparedMovies
-      .filter(movie => movie.title.toLowerCase().includes(query.toLowerCase())
-        || movie.description.toLowerCase().includes(query.toLowerCase()));
+      .filter(movie => movie.title.toLowerCase()
+        .includes(query.trim().toLowerCase())
+        || movie.description.toLowerCase()
+          .includes(query.trim().toLowerCase()));
   }
 
   return preparedMovies;
