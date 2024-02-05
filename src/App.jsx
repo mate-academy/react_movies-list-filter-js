@@ -8,8 +8,8 @@ function getVisibleMovies(movies, que) {
 
   prepearedMovies
     = prepearedMovies.filter(movie => movie.title
-      .toLowerCase().includes(que.toLowerCase())
-      || movie.description.toLowerCase().includes(que.toLowerCase()));
+      .toLowerCase().includes(que.toLowerCase().trim())
+      || movie.description.toLowerCase().includes(que.toLowerCase().trim()));
 
   return prepearedMovies;
 }
