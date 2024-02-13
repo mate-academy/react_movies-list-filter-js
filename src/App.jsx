@@ -26,8 +26,6 @@ export const App = () => (
       <MoviesList movies={moviesFromServer} />
     </div>
 
-    <div className="sidebar">
-      Sidebar goes here
-    </div>
+    <div className="sidebar">Sidebar goes here</div>
   </div>
 );
