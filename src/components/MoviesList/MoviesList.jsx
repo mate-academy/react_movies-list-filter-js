@@ -7,7 +7,7 @@ function getPrepareMovies(movies, query) {
   if (query.toLowerCase()) {
     preparedMovies = preparedMovies.filter(movie => {
       return (
-        movie.title.toLowerCase().includes(query.toLowerCase()) ||
+        movie.title.toLowerCase().includes(query.toLowerCase().trim()) ||
         movie.description.toLowerCase().includes(query.toLowerCase().trim())
       );
     });
