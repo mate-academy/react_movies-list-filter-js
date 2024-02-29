@@ -9,11 +9,11 @@ function getMovieList(movies, { query }) {
   if (query) {
     const newQuery = query.toLowerCase().trim();
 
-    movieList = movieList.filter(
-      movie =>
-        movie.title.toLowerCase().includes(newQuery) ||
-        movie.description.toLowerCase().includes(newQuery),
-    );
+    movieList = movieList.filter(movie => {
+      return [movie.title, movie.description]
+        .map(item => item.toLowerCase())
+        .some(item => item.includes(newQuery));
+    });
   }
 
   return movieList;
