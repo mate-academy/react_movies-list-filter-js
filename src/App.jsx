@@ -15,7 +15,6 @@ export const App = () => {
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
-
             <div className="control">
               <input
                 value={searchInputValue}
