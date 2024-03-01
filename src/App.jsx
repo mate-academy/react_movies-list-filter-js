@@ -35,6 +35,10 @@ export const App = () => {
 
             <div className="control">
               <input
+                value={query}
+                onChange={event => {
+                  setQuery(event.target.value);
+                }}
                 type="text"
                 id="search-query"
                 className="input"
@@ -44,7 +48,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
