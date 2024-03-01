@@ -4,10 +4,7 @@ import { MovieCard } from '../MovieCard';
 export const MoviesList = ({ filterBy, movies }) => {
   const visibleMovies = movies.filter(
     movie =>
-      movie.title
-        .toLowerCase()
-        .trim()
-        .includes(filterBy.toLowerCase().trim()) ||
+      movie.title.toLowerCase().includes(filterBy.toLowerCase().trim()) ||
       movie.description
         .toLowerCase()
         .trim()
