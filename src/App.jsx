@@ -5,10 +5,13 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleFilms = moviesFromServer.filter(
-    movie => movie.title.toLowerCase().includes(query.toLowerCase()),
-    // eslint-disable-next-line function-paren-newline
-  );
+
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return (
+      movie.title.toLowerCase().includes(query.trim().toLowerCase()) ||
+      movie.description.toLowerCase().includes(query.trim().toLowerCase())
+    );
+  });
 
   return (
     <div className="page">
@@ -34,7 +37,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleFilms} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
