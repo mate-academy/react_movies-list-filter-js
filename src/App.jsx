@@ -10,9 +10,9 @@ function preperedFilms(films, query) {
     textFull: `${film.title + film.description}`,
   }));
 
-  return comletedFilms.filter(film =>
-    film.textFull.toUpperCase().includes(complatedQuery),
-  );
+  return comletedFilms.filter(film => {
+    return film.textFull.toUpperCase().includes(complatedQuery);
+  });
 }
 
 export const App = () => {
