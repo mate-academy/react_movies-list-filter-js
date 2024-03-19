@@ -1,15 +1,16 @@
+/* eslint-disable max-len */
 const page = {
   searchField: () => cy.get('#search-query'),
   movies: () => cy.get('.card'),
 
   assertMovieTitle: (index, title) => {
     page.movies().eq(index).find('.title').should('have.text', title);
-  }
-}
+  },
+};
 
 let failed = false;
 
-Cypress.on('fail', (e) => {
+Cypress.on('fail', e => {
   failed = true;
   throw e;
 });
@@ -18,7 +19,7 @@ describe('Page', () => {
   beforeEach(() => {
     if (failed) Cypress.runner.stop();
 
-    cy.visit('/')
+    cy.visit('/');
   });
 
   it('should have an empty search field', () => {
@@ -33,13 +34,12 @@ describe('Page', () => {
   });
 
   it('should allow to enter some text', () => {
-    page.searchField()
-      .type('Hello')
-      .should('have.value', 'Hello');
+    page.searchField().type('Hello').should('have.value', 'Hello');
   });
 
   it('should allow to remove entered text', () => {
-    page.searchField()
+    page
+      .searchField()
       .type('Hello')
       .type('{selectAll}{backspace}')
       .should('have.value', '');
@@ -76,7 +76,7 @@ describe('Page', () => {
   it('should search by an upper case part of a title', () => {
     page.searchField().type('DAY AFTER');
 
-    page.movies().should('have.length', 1)
+    page.movies().should('have.length', 1);
     page.assertMovieTitle(0, 'The Day After Tomorrow');
   });
 
@@ -104,7 +104,7 @@ describe('Page', () => {
   it('should show all the matched movies', () => {
     page.searchField().type('love');
 
-    page.movies().should('have.length', 3)
+    page.movies().should('have.length', 3);
 
     page.assertMovieTitle(0, 'Inception');
     page.assertMovieTitle(1, 'Love Actually');
