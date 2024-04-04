@@ -6,7 +6,10 @@ import './App.scss';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const toSort =  moviesFromServer.filter((movie) => movie.title.toLowerCase().includes(query.trim().toLowerCase()));
+  const toSort = moviesFromServer.filter(movie =>
+    movie.title.toLowerCase().includes(query.trim().toLowerCase())
+    || movie.description.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
   return (
     <div className="page">
@@ -25,7 +28,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {
+                onChange={event => {
                   setQuery(event.currentTarget.value);
                 }}
               />
@@ -38,6 +41,5 @@ export const App = () => {
 
       <div className="sidebar">Sidebar goes here</div>
     </div>
-  )
-}
-
+  );
+};
