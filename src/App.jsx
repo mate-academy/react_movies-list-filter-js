@@ -30,7 +30,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={query}
+                value={query.trimStart()}
                 type="query"
                 id="search-query"
                 className="input"
