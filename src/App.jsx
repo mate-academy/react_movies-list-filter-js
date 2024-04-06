@@ -5,10 +5,12 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterMovies(list, query) {
+  const preparedQuery = query.trim().toLowerCase();
+
   return list.filter(card => {
     return (
-      card.title.toLowerCase().includes(query.toLowerCase()) ||
-      card.description.toLowerCase().includes(query.toLowerCase())
+      card.title.toLowerCase().includes(preparedQuery) ||
+      card.description.toLowerCase().includes(preparedQuery)
     );
   });
 }
@@ -30,7 +32,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                value={query.trimStart()}
+                value={query}
                 type="query"
                 id="search-query"
                 className="input"
