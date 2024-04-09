@@ -9,9 +9,7 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = e => {
-    let searchTerm = e.target.value.trimLeft();
-
-    searchTerm = searchTerm.replace(/\s{2,}/g, ' '); // Замінюємо всі послідовності пробілів довжиною більше 2 на один пробіл
+    const searchTerm = e.target.value;
 
     setQuery(searchTerm);
 
@@ -20,8 +18,8 @@ export const App = () => {
       const description = movie.description.toLowerCase();
 
       return (
-        title.includes(searchTerm.toLowerCase()) ||
-        description.includes(searchTerm.toLowerCase())
+        title.includes(searchTerm.toLowerCase().trim()) ||
+        description.includes(searchTerm.toLowerCase().trim())
       );
     });
 
