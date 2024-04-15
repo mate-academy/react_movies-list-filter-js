@@ -1,8 +1,12 @@
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { useState } from 'react';
 
-export const App = () => (
+export const App = () => {
+  const [query, setQuery] = useState('');
+
+  return (
   <div className="page">
     <div className="page-content">
       <div className="box">
@@ -18,14 +22,18 @@ export const App = () => (
               id="search-query"
               className="input"
               placeholder="Type search word"
+              onChange={(event) => {
+                setQuery(event.currentTarget.value.toLocaleLowerCase().trim())
+              }}
             />
           </div>
         </div>
       </div>
 
-      <MoviesList movies={moviesFromServer} />
-    </div>
+      <MoviesList movies={moviesFromServer.filter(e => e.title.toLowerCase().includes(query) || e.description.toLowerCase().includes(query))} />
+      </div>
 
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+      <div className="sidebar">Sidebar goes here</div>
+    </div>
+  );
+};
