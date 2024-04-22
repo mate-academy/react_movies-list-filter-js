@@ -9,8 +9,10 @@ export const App = () => {
   function getPreparedMovies(movies, searchQuery) {
     const preparedMovies = movies.filter(
       movie =>
-        movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.description.toLowerCase().includes(searchQuery.toLowerCase()),
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase().trim()) ||
+        movie.description
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase().trim()),
     );
 
     return preparedMovies;
