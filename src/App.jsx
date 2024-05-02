@@ -4,22 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [visibleMovies, setVisibleMovies] = useState(moviesFromServer);
+  const [query, setQuery] = useState('');
 
-  const handleInputChange = event => {
-    const searchQuery = event.target.value.trim().toLowerCase();
+  const visibleMovies = moviesFromServer.filter(
+    movie =>
+      movie.title.toLowerCase().includes(query.trim().toLowerCase()) ||
+      movie.description.toLowerCase().includes(query.trim().toLowerCase()),
+  );
 
-    filterMovies(searchQuery);
-  };
-
-  const filterMovies = searchQuery => {
-    const filteredMovies = moviesFromServer.filter(
-      movie =>
-        movie.title.toLowerCase().includes(searchQuery) ||
-        movie.description.toLowerCase().includes(searchQuery),
-    );
-
-    setVisibleMovies(filteredMovies);
+  const handleChange = event => {
+    setQuery(event.target.value);
   };
 
   return (
@@ -36,7 +30,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={handleInputChange}
+                onChange={handleChange}
               />
             </div>
           </div>
