@@ -5,18 +5,17 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, query) {
-  const preparedMovies = [...movies];
   const normalizedQuery = query.trim().toLowerCase();
 
   if (normalizedQuery) {
-    preparedMovies.filter(
+    movies.filter(
       movie =>
         movie.title.toLowerCase().includes(normalizedQuery) ||
         movie.description.toLowerCase().includes(normalizedQuery),
     );
   }
 
-  return preparedMovies;
+  return movies;
 }
 
 export const App = () => {
