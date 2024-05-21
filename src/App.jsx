@@ -3,7 +3,6 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-
 export const App = () => {
   const [query, setQuery] = useState('');
 
