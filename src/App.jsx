@@ -8,8 +8,16 @@ export const App = () => {
 
   function getFiltredMovies() {
     if (query !== '') {
-      return moviesFromServer.filter(movie =>
-        movie.title.toLowerCase().trim().includes(query.trim().toLowerCase()),
+      return moviesFromServer.filter(
+        movie =>
+          movie.title
+            .toLowerCase()
+            .trim()
+            .includes(query.trim().toLowerCase()) ||
+          movie.description
+            .toLowerCase()
+            .trim()
+            .includes(query.trim().toLowerCase()),
       );
     }
 
