@@ -9,7 +9,7 @@ export const App = () => {
   function getFiltredMovies() {
     if (query !== '') {
       return moviesFromServer.filter(movie =>
-        movie.title.toLowerCase().trim().includes(query.trim()),
+        movie.title.toLowerCase().trim().includes(query.trim().toLowerCase()),
       );
     }
 
@@ -36,7 +36,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 onChange={event => {
-                  setQuery(event.currentTarget.value.toLowerCase());
+                  setQuery(event.currentTarget.value);
                 }}
               />
             </div>
