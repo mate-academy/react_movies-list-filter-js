@@ -9,11 +9,15 @@ function getPrepearedMovies(movies, query) {
   const normalizedQuery = query.trim().toLowerCase();
 
   if (query) {
-    preparedMovies = preparedMovies.filter(
-      movie =>
-        movie.title.toLowerCase().includes(normalizedQuery) ||
-        movie.description.toLowerCase().includes(normalizedQuery),
-    );
+    preparedMovies = preparedMovies.filter(movie => {
+      const normalizedTitle = movie.title.toLowerCase();
+      const normalizedDescription = movie.description.toLowerCase();
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedDescription.includes(normalizedQuery)
+      );
+    });
   }
 
   return preparedMovies;
@@ -28,7 +32,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
