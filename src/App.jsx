@@ -1,3 +1,5 @@
+// App.jsx
+
 import './App.scss';
 import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
@@ -7,15 +9,15 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = event => {
-    const inputValue = event.target.value.trim();
+    const inputValue = event.target.value;
 
     setQuery(inputValue);
   };
 
   const visibleMovies = moviesFromServer.filter(
     movie =>
-      movie.title.toLowerCase().includes(query.toLowerCase()) ||
-      movie.description.toLowerCase().includes(query.toLowerCase()),
+      movie.title.toLowerCase().includes(query.trim().toLowerCase()) ||
+      movie.description.toLowerCase().includes(query.trim().toLowerCase())
   );
 
   return (
