@@ -7,12 +7,16 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   const handleInputChange = event => {
-    setQuery(event.target.value.trim());
+    setQuery(event.target.value);
   };
 
   const visibleMovies = moviesFromServer.filter(item =>
-      item.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()) ||
-      item.description.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
+      item.title
+        .toLocaleLowerCase()
+        .includes(query.toLocaleLowerCase().trim()) ||
+      item.description
+        .toLocaleLowerCase()
+        .includes(query.toLocaleLowerCase().trim()),
   );
 
   return (
