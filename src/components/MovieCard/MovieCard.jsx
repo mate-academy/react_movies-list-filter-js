@@ -1,3 +1,4 @@
+import React from 'react';
 import './MovieCard.scss';
 
 export const MovieCard = ({ movie }) => (
