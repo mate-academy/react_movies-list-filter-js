@@ -1,4 +1,4 @@
-import './MovieCard.scss';
+import "./MovieCard.scss";
 
 export const MovieCard = ({ movie }) => (
   <div className="card">
