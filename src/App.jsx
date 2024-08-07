@@ -7,7 +7,7 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer].Filter(movie => {
+  const visibleMovies = [...moviesFromServer].filter(movie => {
     const { title, description } = {
       title: movie.title.toLowerCase(),
       description: movie.description.toLowerCase(),
