@@ -1,9 +1,15 @@
 import './App.scss';
+import React, { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
+export const App = () => {
+
+const [query,setQuery] = useState('');
+
+
+  return(
+    <div className="page">
     <div className="page-content">
       <div className="box">
         <div className="field">
@@ -18,14 +24,17 @@ export const App = () => (
               id="search-query"
               className="input"
               placeholder="Type search word"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
             />
           </div>
         </div>
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <MoviesList movies={moviesFromServer} query = {query} />
     </div>
 
     <div className="sidebar">Sidebar goes here</div>
   </div>
-);
+  )
+}
