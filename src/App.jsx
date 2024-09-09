@@ -50,4 +50,4 @@ export const App = () => {
       <div className="sidebar">Sidebar goes here</div>
     </div>
   );
-};
+}; /* add test scrin */
