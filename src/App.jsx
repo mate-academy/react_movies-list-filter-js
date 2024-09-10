@@ -14,8 +14,6 @@ function getPreparedMovies(movies, query) {
   );
 }
 
-// коментар для того щоб повторно задеплоїти задачу
-
 export const App = () => {
   const [queryFilter, setQueryFilter] = useState('');
 
