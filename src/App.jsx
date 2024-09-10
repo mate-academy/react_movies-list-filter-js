@@ -8,11 +8,12 @@ function getPreparedMovies(movies, { query }) {
   let preparedMovies = [...movies];
 
   if (query) {
-    preparedMovies = preparedMovies.filter(movies => {
+    preparedMovies = preparedMovies.filter(movie => {
       const cleanQuery = query.trim().toLowerCase();
+
       return (
-        movies.title.toLowerCase().includes(cleanQuery) ||
-        movies.description.toLowerCase().includes(cleanQuery)
+        movie.title.toLowerCase().includes(cleanQuery) ||
+        movie.description.toLowerCase().includes(cleanQuery)
       );
     });
   }
@@ -23,7 +24,7 @@ function getPreparedMovies(movies, { query }) {
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  let visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
