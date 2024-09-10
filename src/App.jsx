@@ -12,9 +12,9 @@ function getPreparedMovies(movies, query) {
       movie.title.toLowerCase().includes(normalizedQuery) ||
       movie.description.toLowerCase().includes(normalizedQuery),
   );
-}
+}git add ./src
 
-//some comment
+// some comment
 
 export const App = () => {
   const [queryFilter, setQueryFilter] = useState('');
