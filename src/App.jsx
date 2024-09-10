@@ -14,6 +14,8 @@ function getPreparedMovies(movies, query) {
   );
 }
 
+//some comment
+
 export const App = () => {
   const [queryFilter, setQueryFilter] = useState('');
 
