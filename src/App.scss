@@ -24,6 +24,16 @@ iframe {
   gap: 20px;
 }
 
-.card-image img {
-  object-fit: contain;
+.card-image {
+  padding-top: var(--bulma-card-content-padding);
+
+  & img {
+    object-fit: contain;
+  }
+}
+
+// for some reason bulma adds margin-bottom: var(--bulma-block-spacing);
+// for all elements except the last one (with too high specificity)
+.card {
+  margin-bottom: 0 !important;
 }
