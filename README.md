@@ -15,5 +15,3 @@ The `App`contains a `MoviesList` and a search field. Implement filtering using a
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://modeltoIT.github.io/react_movies-list-filter-js/) and add it to the PR description.
-
-[//]: # (  {/*eslint-disable-next-line jsx-a11y/label-has-associated-control*/})
