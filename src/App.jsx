@@ -10,16 +10,6 @@ export const App = () => {
     setQuery(event.target.value);
   };
 
-  const visibleMovies = moviesFromServer.filter(movie => {
-    const normalizedQuery = query.trim().toLowerCase();
-    const title = movie.title.toLowerCase();
-    const description = movie.description.toLowerCase();
-
-    return (
-      title.includes(normalizedQuery) || description.includes(normalizedQuery)
-    );
-  });
-
   return (
     <div className="page">
       <div className="page-content">
@@ -43,7 +33,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={moviesFromServer} query={query} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
