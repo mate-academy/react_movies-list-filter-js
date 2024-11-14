@@ -1,31 +1,63 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function getCorrectMovies(movies, { search }) {
+  const newMovies = [...movies];
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+  if (search) {
+    const lowSearch = search.toLowerCase().trim();
+
+    return newMovies.filter(movie => {
+      const lowMovieTitle = movie.title.toLowerCase();
+      const lowMovieInfo = movie.description.toLowerCase();
+
+      if (
+        lowMovieTitle.includes(lowSearch) ||
+        lowMovieInfo.includes(lowSearch)
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  return newMovies;
+}
+
+export const App = () => {
+  const [search, setSearch] = useState('');
+  const visibleMovies = getCorrectMovies(moviesFromServer, { search });
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                value={search}
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                onChange={e => setSearch(e.currentTarget.value)}
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
