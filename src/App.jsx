@@ -1,31 +1,31 @@
 import './App.scss';
+
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
+
 import moviesFromServer from './api/movies.json';
+import { SearhField } from './components/SearchField';
+import { filterMovies } from './utils';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+export const App = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = filterMovies(moviesFromServer, query);
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
-          </div>
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <SearhField
+            filterBy={newQuery => {
+              setQuery(newQuery);
+            }}
+          />
         </div>
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
