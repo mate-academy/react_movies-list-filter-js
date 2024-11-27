@@ -27,3 +27,29 @@ iframe {
 .card-image img {
   object-fit: contain;
 }
+
+.button {
+  margin-left: 20px;
+
+&__active {
+  background-color: gray;
+}
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bb {
+   display: flex;
+justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+
