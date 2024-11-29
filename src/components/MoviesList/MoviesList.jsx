@@ -1,3 +1,4 @@
+
 import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
