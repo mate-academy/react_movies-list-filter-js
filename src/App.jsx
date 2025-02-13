@@ -1,31 +1,39 @@
-import './App.scss';
-import { MoviesList } from './components/MoviesList';
+import React, { useState } from 'react';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+export const App = () => {
+  const [query, setQuery] = useState('');
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
-          </div>
-        </div>
-      </div>
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    const normalizedQuery = query.trim().toLowerCase();
 
-      <MoviesList movies={moviesFromServer} />
+    return (
+      title.toLowerCase().includes(normalizedQuery) ||
+      description.toLowerCase().includes(normalizedQuery)
+    );
+  });
+
+  return (
+    <div className="app">
+      <input
+        id="search-query"
+        type="text"
+        placeholder="Search..."
+        value={query}
+        onChange={event => setQuery(event.target.value)}
+      />
+      <MoviesList movies={visibleMovies} />
     </div>
+  );
+};
 
-    <div className="sidebar">Sidebar goes here</div>
+const MoviesList = ({ movies }) => (
+  <div className="movies-list">
+    {movies.map(({ id, title, description }) => (
+      <div key={id} className="card">
+        <h2 className="title">{title}</h2>
+        <p>{description}</p>
+      </div>
+    ))}
   </div>
 );

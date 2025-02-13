@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const page = {
   searchField: () => cy.get('#search-query'),
-  movies: () => cy.get('.card'),
+  movies: () => cy.get('.movie-card'), // замість .card
 
   assertMovieTitle: (index, title) => {
     page.movies().eq(index).find('.title').should('have.text', title);
@@ -23,7 +23,7 @@ describe('Page', () => {
   });
 
   it('should have an empty search field', () => {
-    page.searchField().should('have.value', '');
+    page.searchField().should('exist').and('be.visible').and('have.value', '');
   });
 
   it('should show all the movies by default', () => {

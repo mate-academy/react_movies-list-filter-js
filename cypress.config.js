@@ -4,6 +4,7 @@ module.exports = defineConfig({
   e2e: {
     baseUrl: 'http://localhost:3000',
     specPattern: 'cypress/integration/**/*.spec.{js,ts,jsx,tsx}',
+    browser: 'chrome',
   },
   video: true,
   viewportHeight: 1920,
