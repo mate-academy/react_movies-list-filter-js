@@ -1,17 +1,30 @@
-# Movies list - Filter
+# Movies List Filter
 
-The `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.
+## 🎮 About the Project
+A **React-based movie catalog** with filtering functionality.  
+Users can **search for movies** by title and dynamically filter the list.
 
-> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)
+## 🚀 Tech Stack
+- **HTML** (BEM methodology for structured markup)  
+- **CSS** (Bulma for styling)  
+- **JavaScript** (Dynamic logic)  
+- **React** (Component-based architecture)  
+- **ReactDOM** (Efficient rendering)  
 
-- On every change save the input value into the `query`;
-- create a `visibleMovies` variable containing filtered movies;
-- check if `movie.title` or `movie.description` contains `query`;
-- ignore leading and trailing spaces;
-- search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).
+## 🛠️ Tools & Dependencies
+- **ESLint** – Ensuring code quality  
+- **Prettier** – Code formatting for readability  
+- **Cypress** – End-to-end testing  
+- **Mochawesome** – Test reporting  
+- **Babel** – JavaScript compiler for modern syntax  
 
-## Instructions
-- Install Prettier Extention and use this [VSCode settings](https://mate-academy.github.io/fe-program/tools/vscode/settings.json) to enable format on save.
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_movies-list-filter-js/) and add it to the PR description.
+## 📌 Features
+✅ Displays a **list of movies**  
+✅ Allows **filtering by title**  
+✅ Fully **responsive and structured UI**  
+
+## 🌐 Demo
+🔗 [Live Demo](https://AndriiZakharenko.github.io/movies-list-filter/)
+
+## 📜 License
+This project is forked from 💻 [Mate Academy](https://github.com/mate-academy/react_movies-list-filter-js)
