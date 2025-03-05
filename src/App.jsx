@@ -1,31 +1,55 @@
+import React, { useState } from 'react';
 import './App.scss';
-import { MoviesList } from './components/MoviesList';
-import moviesFromServer from './api/movies.json';
+import MoviesList from './MoviesList';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+const moviesFromServer = [
+    {
+        id: 1,
+        title: 'Inception',
+        description: 'A thief who steals corporate secrets through dream-sharing technology.',
+    },
+    {
+        id: 2,
+        title: 'Interstellar',
+        description: 'A team of explorers travel through a wormhole in space to ensure humanity\'s survival.',
+    },
+    {
+        id: 3,
+        title: 'The Dark Knight',
+        description: 'Batman sets out to dismantle the remaining criminal organizations that plague Gotham.',
+    },
+];
 
-          <div className="control">
+function App() {
+    const [query, setQuery] = useState('');
+
+    // Filtered movies based on query
+    const visibleMovies = moviesFromServer.filter(movie => {
+        const lowerCaseQuery = query.trim().toLowerCase();
+
+        return (
+            movie.title.toLowerCase().includes(lowerCaseQuery) ||
+            movie.description.toLowerCase().includes(lowerCaseQuery)
+        );
+    });
+
+    return (
+        <div className="App">
+            <h1 className="title">Movies List</h1>
+
+            {/* Search input field */}
             <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
+                type="text"
+                className="input"
+                placeholder="Search movies..."
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
             />
-          </div>
+
+            {/* Movies list filtered by query */}
+            <MoviesList movies={visibleMovies} />
         </div>
-      </div>
+    );
+}
 
-      <MoviesList movies={moviesFromServer} />
-    </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+export default App;
