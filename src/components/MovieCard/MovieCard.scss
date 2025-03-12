@@ -1,3 +1,16 @@
 .card-image img {
   object-fit: contain;
 }
+
+.card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
