@@ -34,8 +34,8 @@ export const App = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={e => {
-                  setQuery(e.target.value);
+                onChange={change => {
+                  setQuery(change.target.value);
                 }}
                 type="text"
                 id="search-query"
