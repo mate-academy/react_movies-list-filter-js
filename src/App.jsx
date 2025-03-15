@@ -9,33 +9,28 @@ export const App = () => {
     const [visibleMovies,setVisibleMovies] = useState(moviesFromServer)
     // Add this useEffect to run the filtering whenever query changes
     
+    // Function to filter movies based on the query
     const filterMovies = () => {
-    const filteredMovies = moviesFromServer.filter(movie => {
-      // Normalize the query by trimming whitespace and converting to lowercase
-      const normalizedQuery = query.trim().toLowerCase();
-      
-      // If query is empty after trimming, return all movies
-      if (normalizedQuery === '') {
-        return true;
-      }
-      
-      // Check if movie title or description contains the normalized query
-      const titleContainsQuery = movie.title.toLowerCase().includes(normalizedQuery);
-      const descriptionContainsQuery = movie.description.toLowerCase().includes(normalizedQuery);
-      
-      // Return true if either title or description contains the query
-      return titleContainsQuery || descriptionContainsQuery;
-    });
-    
-    // Update the visibleMovies state with the filtered results
-    setVisibleMovies(filteredMovies);
-  };
-    
-    
-    
+      const filteredMovies = moviesFromServer.filter(movie => {
+        const normalizedQuery = query.trim().toLowerCase();
+
+        if (normalizedQuery === '') {
+          return true;
+        }
+
+        const titleContainsQuery = movie.title.toLowerCase().includes(normalizedQuery);
+        const descriptionContainsQuery = movie.description.toLowerCase().includes(normalizedQuery);
+
+        return titleContainsQuery || descriptionContainsQuery;
+      });
+
+      setVisibleMovies(filteredMovies);
+    };
+
+    // Effect to run the filtering whenever the query changes
     useEffect(() => {
       filterMovies();
-    }, [query]); // This dependency array ensures the effect runs when query changes
+    }, [query]);
         
 
     
