@@ -7,27 +7,21 @@ export const App = () => {
 
     const [query, setQuery] = useState('') 
     const [visibleMovies,setVisibleMovies] = useState(moviesFromServer)
-    // Add this useEffect to run the filtering whenever query changes
-    
-    // Function to filter movies based on the query
     const filterMovies = () => {
       const filteredMovies = moviesFromServer.filter(movie => {
         const normalizedQuery = query.trim().toLowerCase();
-
         if (normalizedQuery === '') {
           return true;
         }
-
         const titleContainsQuery = movie.title.toLowerCase().includes(normalizedQuery);
         const descriptionContainsQuery = movie.description.toLowerCase().includes(normalizedQuery);
-
         return titleContainsQuery || descriptionContainsQuery;
       });
 
       setVisibleMovies(filteredMovies);
     };
 
-    // Effect to run the filtering whenever the query changes
+    
     useEffect(() => {
       filterMovies();
     }, [query]);
