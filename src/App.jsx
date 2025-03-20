@@ -4,18 +4,17 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterByQuery(movies, query) {
-  let filterMovies = [...movies];
   const normalizedQuery = query.trim().toLowerCase();
 
   if (normalizedQuery) {
-    filterMovies = filterMovies.filter(
+    movies.filter(
       movie =>
         movie.title.toLowerCase().includes(normalizedQuery) ||
         movie.description.toLowerCase().includes(normalizedQuery),
     );
   }
 
-  return filterMovies;
+  return movies;
 }
 
 export const App = () => {
@@ -39,8 +38,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => {
-                  setQuery(event.target.value);
+                onChange={inputEvent => {
+                  setQuery(inputEvent.target.value);
                 }}
               />
             </div>
