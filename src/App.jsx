@@ -5,6 +5,10 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
+function searchMovie(searchField, query) {
+  return searchField.toLowerCase().includes(query);
+}
+
 export const App = () => {
   const [query, setQuery] = useState('');
 
@@ -12,8 +16,8 @@ export const App = () => {
 
   const visibleMovies = moviesFromServer.filter(
     movie =>
-      movie.title.toLowerCase().includes(preparedQuery) ||
-      movie.description.toLowerCase().includes(preparedQuery),
+      searchMovie(movie.title, preparedQuery) ||
+      searchMovie(movie.description, preparedQuery),
   );
 
   return (
