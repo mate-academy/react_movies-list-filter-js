@@ -14,7 +14,8 @@ export const App = () => {
   const cleanQuery = query.replace(/^"|"$/g, '').trim().toLowerCase();
 
   const visibleMovies = moviesFromServer.filter(({ title, description }) => {
-    if (!cleanQuery) return true; // vazio
+    // vazio
+    if (!cleanQuery) return true;
 
     const titleLower = title.toLowerCase();
     const descriptionLower = description.toLowerCase();
