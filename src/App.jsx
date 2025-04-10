@@ -1,19 +1,19 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
 
 export const App = () => {
   let visibleMovies = moviesFromServer;
   const [query, setQuery] = useState('');
 
   if (query) {
-    const search = query.toLocaleLowerCase().trim();
+    const searchMovie = query.toLocaleLowerCase().trim();
 
     visibleMovies = visibleMovies.filter(
       movie =>
-        movie.title.toLowerCase().includes(search) ||
-        movie.description.toLowerCase().includes(search),
+        movie.title.toLowerCase().includes(searchMovie) ||
+        movie.description.toLowerCase().includes(searchMovie),
     );
   }
 
