@@ -4,26 +4,24 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  let visibleMovies = moviesFromServer;
   const [query, setQuery] = useState('');
 
-  if (query) {
-    visibleMovies = moviesFromServer.filter(
-      movie =>
-        movie.title.trim().toLowerCase().includes(query.trim().toLowerCase()) ||
-        movie.description
-          .trim()
-          .toLowerCase()
-          .includes(query.trim().toLowerCase()),
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const title = movie.title.trim().toLowerCase();
+    const description = movie.description.trim().toLowerCase();
+
+    return (
+      title.includes(normalizedQuery) || description.includes(normalizedQuery)
     );
-  }
+  });
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -35,15 +33,15 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => {
-                  setQuery(event.target.value);
-                }}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList
+          movies={normalizedQuery ? visibleMovies : moviesFromServer}
+        />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
