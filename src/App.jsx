@@ -1,31 +1,53 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function filterMoviesBy(movies, value) {
+  let prepMovies = [...movies];
+  const newValue = value.trim().toLowerCase();
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+  prepMovies = prepMovies.filter(
+    movie =>
+      movie.title.toLowerCase().includes(newValue) ||
+      movie.description.toLowerCase().includes(newValue),
+  );
+
+  return prepMovies;
+}
+
+export const App = () => {
+  const [value, setValue] = useState('');
+  const visibleMovies = filterMoviesBy(moviesFromServer, value);
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                onChange={event => {
+                  setValue(event.target.value);
+                }}
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
