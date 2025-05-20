@@ -3,8 +3,8 @@ import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies }) => (
   <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
-    ))}
+    {movies.length > 0
+      ? movies.map(movie => <MovieCard key={movie.imdbId} movie={movie} />)
+      : null}
   </div>
 );
