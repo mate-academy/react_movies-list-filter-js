@@ -8,7 +8,7 @@ export const MoviesFilterQuery = ({ query, setQuery }) => {
       <div className="control">
         <input
           value={query}
-          onChange={(event) => {
+          onChange={event => {
             setQuery(event.target.value);
           }}
           type="text"
@@ -18,5 +18,5 @@ export const MoviesFilterQuery = ({ query, setQuery }) => {
         />
       </div>
     </>
-  )
-}
+  );
+};

@@ -18,10 +18,7 @@ export const App = () => {
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 
-            <MoviesFilterQuery
-              query={query}
-              setQuery={setQuery}
-            />
+            <MoviesFilterQuery query={query} setQuery={setQuery} />
           </div>
         </div>
 
@@ -30,5 +27,5 @@ export const App = () => {
 
       <div className="sidebar">Sidebar goes here</div>
     </div>
-  )
+  );
 };
