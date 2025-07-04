@@ -4,14 +4,13 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  console.log('App')
-  
   const [query, setQuery] = useState('');
   const visibleMovies = moviesFromServer.filter(movie => {
     return (
       movie.title.toLowerCase().includes(query.toLowerCase().trim()) ||
       movie.description.toLowerCase().includes(query.toLowerCase().trim())
-  )}); 
+    );
+  });
 
   return (
     <div className="page">
