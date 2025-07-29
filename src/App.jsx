@@ -8,7 +8,7 @@ function prepareGoods(goods, { query }) {
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  if (query) {
+  if (normalizedQuery) {
     preparedGoods = preparedGoods.filter(
       good =>
         good.title.toLowerCase().includes(normalizedQuery) ||
