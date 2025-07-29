@@ -22,7 +22,7 @@ export const App = () => {
   return (
     <div className="page">
       <div className="page-content">
-        <Box setQuery={setQuery} />
+        <Box query={query} setQuery={setQuery} />
 
         <MoviesList movies={visibleMovies} />
       </div>

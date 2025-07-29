@@ -1,4 +1,4 @@
-export const Field = ({ setQuery }) => {
+export const Field = ({ query, setQuery }) => {
   const handleChange = event => {
     setQuery(event.target.value);
   };
@@ -16,6 +16,7 @@ export const Field = ({ setQuery }) => {
           id="search-query"
           className="input"
           placeholder="Type search word"
+          value={query}
         />
       </div>
     </div>

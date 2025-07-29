@@ -1,9 +1,9 @@
 import { Field } from './components/FieldComponent/Field';
 
-export const Box = ({ setQuery }) => {
+export const Box = ({ query, setQuery }) => {
   return (
     <div className="box">
-      <Field setQuery={setQuery} />
+      <Field query={query} setQuery={setQuery} />
     </div>
   );
 };
