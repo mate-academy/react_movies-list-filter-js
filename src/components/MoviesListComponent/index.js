@@ -1,1 +1,1 @@
-export * from './MoviesList.jsx';
+export * from './MoviesList';
