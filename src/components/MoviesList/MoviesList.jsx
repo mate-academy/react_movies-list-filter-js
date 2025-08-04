@@ -1,10 +1,19 @@
+import React from 'react';
+import { MovieCard } from '../MovieCard/MovieCard';
 import './MoviesList.scss';
-import { MovieCard } from '../MovieCard';
 
-export const MoviesList = ({ movies }) => (
-  <div className="movies">
-    {movies.map(movie => (
-      <MovieCard key={movie.imdbId} movie={movie} />
-    ))}
-  </div>
-);
+export function MoviesList({ movies }) {
+  if (movies.length === 0) {
+    return <p className="no-results">No movies found.</p>;
+  }
+
+  return (
+    <div className="MoviesList">
+      {movies.map(movie => (
+        <MovieCard key={movie.id} movie={movie} />
+      ))}
+    </div>
+  );
+}
+
+export default MoviesList;
