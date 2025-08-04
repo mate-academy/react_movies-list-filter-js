@@ -1,9 +1,31 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
+// функція яка готує масив до рендеру
+function getPreparedMovies(movies, { query }) {
+  let preparedMovies = [...movies];
+  // виріщую таску з чутливістю регістру
+  const normalizedQuery = query.trim().toLowerCase();
+
+  // якшо шось ввели то створюю через фільтр новий масив що відповідає умову query
+  if (normalizedQuery) {
+    preparedMovies = preparedMovies.filter(movie => movie.title.toLowerCase().includes(normalizedQuery) || movie.description.toLowerCase().includes(normalizedQuery) );
+  }
+
+  return preparedMovies;
+
+}
+
+export const App = () => {
+// стейт куди пишуться запит на пошук, по дефолту він пустий
+  const [query, setQuery] = useState('');
+  // викликаю створену функцію шо вище, з масивом з апішки, і передаю туди також "query"
+  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+
+  return (
+      <div className="page">
     <div className="page-content">
       <div className="box">
         <div className="field">
@@ -14,6 +36,12 @@ export const App = () => (
 
           <div className="control">
             <input
+              value={query}
+                // onChange відповідає і аналізує зміни в інпуті при вводі тексту, їх ловить і передає в state
+                // event.target вказує в якому саме елементі відбулись зміни, стукається до value цього елемента
+              onChange={(event) => {
+                setQuery(event.target.value)
+              }}
               type="text"
               id="search-query"
               className="input"
@@ -21,11 +49,15 @@ export const App = () => (
             />
           </div>
         </div>
-      </div>
+        </div>
 
-      <MoviesList movies={moviesFromServer} />
+        {/* відправляю як пропс наш масив з фільмами */}
+
+      <MoviesList movies={visibleMovies} />
     </div>
 
     <div className="sidebar">Sidebar goes here</div>
   </div>
-);
+
+  )
+}
