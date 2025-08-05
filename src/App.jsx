@@ -10,8 +10,8 @@ export const App = () => {
   if (query) {
     visibleMovies = visibleMovies.filter(
       movie =>
-        movie.title.toLowerCase().includes(query) ||
-        movie.description.toLowerCase().includes(query),
+        movie.title.toLowerCase().includes(query.toLowerCase()) ||
+        movie.description.toLowerCase().includes(query.toLowerCase()),
     );
   }
 
@@ -31,7 +31,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setQuery(e.target.value.trim().toLowerCase())}
+                onChange={e => setQuery(e.target.value.trim())}
               />
             </div>
           </div>
