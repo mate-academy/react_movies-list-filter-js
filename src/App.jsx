@@ -1,17 +1,19 @@
 import './App.scss';
-import React, { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import React, { useState } from 'react';
 
 export const App = () => {
+  // Стан для введеного тексту (query)
   const [query, setQuery] = useState('');
 
+  // Обробка фільтрації фільмів
   const visibleMovies = moviesFromServer.filter(movie => {
     const preparedQuery = query.trim().toLowerCase();
 
     return (
-      movie.title.toLowerCase().includes(preparedQuery) ||
-      movie.description.toLowerCase().includes(preparedQuery)
+      movie.title.toLowerCase().includes(preparedQuery)
+      || movie.description.toLowerCase().includes(preparedQuery)
     );
   });
 
@@ -20,6 +22,7 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -31,7 +34,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={event => setQuery(event.target.value)}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
