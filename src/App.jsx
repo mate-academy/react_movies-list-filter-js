@@ -6,15 +6,20 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  let visibleMovies = [...moviesFromServer];
+  const getVisibleMovies = () => {
+    return moviesFromServer.filter(movie => {
+      if (!query) return true;
 
-  if (query) {
-    visibleMovies = visibleMovies.filter(
-      movie =>
-        movie.title.toLowerCase().includes(query.toLowerCase()) ||
-        movie.description.toLowerCase().includes(query.toLowerCase()),
-    );
-  }
+      const lowerQuery = query.toLowerCase();
+
+      return (
+        movie.title.toLowerCase().includes(lowerQuery) ||
+        movie.description.toLowerCase().includes(lowerQuery)
+      );
+    });
+  };
+
+  const visibleMovies = getVisibleMovies();
 
   return (
     <div className="page">
