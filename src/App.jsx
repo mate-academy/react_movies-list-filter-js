@@ -26,7 +26,7 @@ export const App = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
                 type="text"
                 id="search-query"
                 className="input"
@@ -41,5 +41,5 @@ export const App = () => {
 
       <div className="sidebar">Sidebar goes here</div>
     </div>
-      );
+  );
 };
