@@ -4,18 +4,15 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  let filteredMovies = [...moviesFromServer];
+  const [query, setQuery] = useState('');
 
-  if (searchQuery) {
-    const searchQueryStandardized = searchQuery.trim().toLowerCase();
+  const searchQueryStandardized = query.trim().toLowerCase();
 
-    filteredMovies = moviesFromServer.filter(
-      movie =>
-        movie.title.toLowerCase().includes(searchQueryStandardized) ||
-        movie.description.toLowerCase().includes(searchQueryStandardized),
-    );
-  }
+  const filteredMovies = moviesFromServer.filter(
+    movie =>
+      movie.title.toLowerCase().includes(searchQueryStandardized) ||
+      movie.description?.toLowerCase().includes(searchQueryStandardized),
+  );
 
   return (
     <div className="page">
@@ -33,8 +30,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                value={query}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
