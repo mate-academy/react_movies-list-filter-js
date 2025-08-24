@@ -3,32 +3,30 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedMovies(movies, query) {
-  let visibleMovies = [...movies];
+function getFilt(que, movies) {
+  const formatQuery = que.trim().toLowerCase();
 
-  const preparedQuery = query.toLowerCase().trim();
-
-  if (query) {
-    visibleMovies = visibleMovies.filter(
-      movie =>
-        movie.title.toLowerCase().includes(preparedQuery) ||
-        movie.description.toLowerCase().includes(preparedQuery),
-    );
+  if (!formatQuery) {
+    return movies;
   }
 
-  return visibleMovies;
+  return movies.filter(
+    movie =>
+      movie.title.toLowerCase().includes(formatQuery) ||
+      movie.description.toLowerCase().includes(formatQuery),
+  );
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, query);
+
+  const filteredMovies = getFilt(query, moviesFromServer);
 
   return (
     <div className="page">
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
@@ -39,13 +37,15 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => {
+                  setQuery(event.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies} />
+        <MoviesList movies={filteredMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
