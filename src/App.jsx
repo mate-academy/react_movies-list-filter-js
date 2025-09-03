@@ -1,14 +1,14 @@
-import {useMemo, useState} from 'react';
+import { useMemo, useState } from 'react';
 
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [query, setQuery] = useState('');
 
   const visibleMovies = useMemo(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const normalizedQuery = query.trim().toLowerCase();
 
     if (!normalizedQuery) {
       return moviesFromServer;
@@ -22,7 +22,7 @@ export const App = () => {
 
       return titleMatch || descriptionMatch;
     });
-  }, [searchQuery]);
+  }, [query]);
 
   return (
     <div className='page'>
@@ -35,17 +35,17 @@ export const App = () => {
 
             <div className='control'>
               <input
-                type='text'
-                id='search-query'
-                className='input'
-                placeholder='Type search word'
-                value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={query}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
-        
+
         <MoviesList movies={visibleMovies} />
       </div>
     </div>
