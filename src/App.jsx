@@ -1,31 +1,71 @@
+import { useState } from 'react';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+function filter(films, { query }) {
+  let masFilms = films;
+  const normalizedQuery = query.toLowerCase();
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+  if (normalizedQuery) {
+    if (!normalizedQuery) {
+      return films;
+    }
+
+    masFilms = masFilms.filter(film => {
+      if (film.title.toLowerCase().startsWith(normalizedQuery)) {
+        return true;
+      }
+
+      const words = film.description.toLowerCase().split(/\s+/);
+
+      return words.some((word, index) => {
+        const subPhrase = words.slice(index).join(' ');
+
+        return subPhrase.startsWith(normalizedQuery);
+      });
+    });
+  }
+
+  return masFilms;
+}
+
+export const App = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = filter(moviesFromServer, { query });
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                value={query}
+                onChange={event => {
+                  console.log(visibleMovies);
+                  setQuery(event.target.value);
+                }}
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+              />
+            </div>
           </div>
         </div>
+
+        {/* <MoviesList movies={moviesFromServer} /> */}
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
