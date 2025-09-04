@@ -5,30 +5,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filter(films, { query }) {
-  let masFilms = films;
-  const normalizedQuery = query.toLowerCase();
+  const normalizedQuery = query.trim().toLowerCase();
 
-  if (normalizedQuery) {
-    if (!normalizedQuery) {
-      return films;
-    }
+  if (!normalizedQuery) return films;
 
-    masFilms = masFilms.filter(film => {
-      if (film.title.toLowerCase().startsWith(normalizedQuery)) {
-        return true;
-      }
+  return films.filter(film => {
+    const title = film.title.toLowerCase();
+    const desc = (film.description || '').toLowerCase();
 
-      const words = film.description.toLowerCase().split(/\s+/);
-
-      return words.some((word, index) => {
-        const subPhrase = words.slice(index).join(' ');
-
-        return subPhrase.startsWith(normalizedQuery);
-      });
-    });
-  }
-
-  return masFilms;
+    return title.includes(normalizedQuery) || desc.includes(normalizedQuery);
+  });
 }
 
 export const App = () => {
@@ -49,7 +35,6 @@ export const App = () => {
               <input
                 value={query}
                 onChange={event => {
-                  console.log(visibleMovies);
                   setQuery(event.target.value);
                 }}
                 type="text"
