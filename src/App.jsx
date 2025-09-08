@@ -3,24 +3,24 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedGoods(query, goods) {
-  let preparedGoods = goods;
+function getVisibleMovies(query, goods) {
+  let visibleMovies = goods;
   const normalizedQuery = query.trim().toLowerCase();
 
-  if (query.length) {
-    preparedGoods = preparedGoods.filter(
+  if (normalizedQuery.length) {
+    visibleMovies = visibleMovies.filter(
       good =>
-        good.title.toLowerCase().includes(normalizedQuery) ||
-        good.description.toLowerCase().includes(normalizedQuery),
+        (good.title || '').toLowerCase().includes(normalizedQuery) ||
+        (good.description || '').toLowerCase().includes(normalizedQuery),
     );
   }
 
-  return preparedGoods;
+  return visibleMovies;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const preparedGoods = getPreparedGoods(query, moviesFromServer);
+  const visibleMovies = getVisibleMovies(query, moviesFromServer);
 
   return (
     <div className="page">
@@ -34,8 +34,8 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={e => {
-                  setQuery(e.target.value);
+                onChange={event => {
+                  setQuery(event.target.value);
                 }}
                 type="text"
                 id="search-query"
@@ -46,7 +46,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={preparedGoods} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
