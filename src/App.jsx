@@ -1,31 +1,54 @@
+import { useState } from 'react';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+const normalize = (text = '') => text.toLowerCase().trim();
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+export const App = () => {
+  const [query, setQuery] = useState('');
+
+  const normalizedQuery = normalize(query);
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const description = normalize(movie.description);
+    const title = normalize(movie.title);
+
+    return title.includes(normalizedQuery) ||
+      description.includes(normalizedQuery);
+
+  });
+
+  const handleFilter = event => {
+    setQuery(event.target.value);
+  };
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                value={query}
+                onChange={handleFilter}
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList movies={visibleMovies} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
