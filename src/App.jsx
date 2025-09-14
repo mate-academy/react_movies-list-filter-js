@@ -11,8 +11,8 @@ export const App = () => {
 
   const visibleMovies = moviesFromServer.filter(
     movie =>
-      movie.title.toLowerCase().includes(normalizedQuery) ||
-      movie.description.toLowerCase().includes(normalizedQuery),
+      (movie.title ?? '').toLowerCase().includes(normalizedQuery) ||
+      (movie.description ?? '').toLowerCase().includes(normalizedQuery),
   );
 
   return (
@@ -32,7 +32,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
