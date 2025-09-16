@@ -8,8 +8,8 @@ function getFilteredMovies(movies, query) {
   const trimmedQuery = query.trim().toLowerCase();
 
   return movies.filter(movie => {
-    const title = movie.title.toLowerCase();
-    const description = movie.description.toLowerCase();
+    const title = (movie.title || '').toLowerCase();
+    const description = (movie.description || '').toLowerCase();
 
     return title.includes(trimmedQuery) || description.includes(trimmedQuery);
   });
