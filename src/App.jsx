@@ -8,11 +8,15 @@ function filterMovies(movies, { query }) {
   const normalizedQuery = query.trim().toLowerCase();
 
   if (normalizedQuery) {
-    filteredMovies = filteredMovies.filter(
-      movie =>
-        movie.title.toLowerCase().includes(normalizedQuery) ||
-        movie.description.includes(normalizedQuery),
-    );
+    filteredMovies = filteredMovies.filter(movie => {
+      const normalizedTitle = movie.title.toLowerCase();
+      const normalizedDescription = (movie.description || '').toLowerCase();
+
+      return (
+        normalizedTitle.includes(normalizedQuery) ||
+        normalizedDescription.includes(normalizedQuery)
+      );
+    });
   }
 
   return filteredMovies;
@@ -35,8 +39,8 @@ export const App = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={e => {
-                  setQuery(e.target.value);
+                onChange={event => {
+                  setQuery(event.target.value);
                 }}
                 type="text"
                 id="search-query"
