@@ -10,9 +10,11 @@ export const App = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const text = query.trim().toLowerCase();
 
+    const normalizedTitle = (movie.title || '').toLowerCase();
+    const normalizedDescription = (movie.description || '').toLowerCase();
+
     return (
-      movie.title.toLowerCase().includes(text) ||
-      movie.description.toLowerCase().includes(text)
+      normalizedTitle.includes(text) || normalizedDescription.includes(text)
     );
   });
 
@@ -32,7 +34,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
                 placeholder="Type search word"
               />
             </div>
