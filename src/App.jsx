@@ -5,25 +5,23 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterMovies(list, query) {
-  let readyMovies = [...list];
-
   if (query) {
     const readyQery = query.toLowerCase().trim();
 
-    readyMovies = readyMovies.filter(
+    return list.filter(
       film =>
         film.title.toLowerCase().includes(readyQery) ||
         film.description.toLowerCase().includes(readyQery),
     );
   }
 
-  return readyMovies;
+  return list;
 }
 
 export const App = () => {
-  const [qery, setQery] = useState('');
+  const [query, setQery] = useState('');
 
-  const visibleMovies = filterMovies(moviesFromServer, qery);
+  const visibleMovies = filterMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -41,7 +39,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                value={qery}
+                value={query}
                 onChange={event => {
                   setQery(event.target.value);
                 }}
