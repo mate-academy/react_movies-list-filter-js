@@ -8,11 +8,15 @@ function filterMovies(list, query) {
   if (query) {
     const readyQery = query.toLowerCase().trim();
 
-    return list.filter(
-      film =>
-        film.title.toLowerCase().includes(readyQery) ||
-        film.description.toLowerCase().includes(readyQery),
-    );
+    return list.filter(film => {
+      const normalaizeTitle = (film.title || '').toLowerCase();
+      const normalaizeDescr = (film.description || '').toLowerCase();
+
+      return (
+        normalaizeTitle.includes(readyQery) ||
+        normalaizeDescr.includes(readyQery)
+      );
+    });
   }
 
   return list;
