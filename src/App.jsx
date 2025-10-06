@@ -20,7 +20,7 @@ export const App = () => {
     );
   }
 
-  const movies = prepareMovies(moviesFromServer, query);
+  const visibleMovies = prepareMovies(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -45,7 +45,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={movies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
