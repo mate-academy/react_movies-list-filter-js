@@ -9,16 +9,14 @@ export const App = () => {
   const [query, setQuery] = useState('');
 
   function getPrepearedMovies(moviesToChange, newQuery) {
-    let prepearedMovies = [...moviesToChange];
-    const normalizeQuery = newQuery.trim();
+    let prepearedMovies = moviesToChange;
+    const normalizeQuery = newQuery.toLowerCase().trim();
 
     if (newQuery) {
       prepearedMovies = prepearedMovies.filter(
         movie =>
-          movie.title.toLowerCase().includes(normalizeQuery.toLowerCase()) ||
-          movie.description
-            .toLowerCase()
-            .includes(normalizeQuery.toLowerCase()),
+          movie.title.toLowerCase().includes(normalizeQuery) ||
+          movie.description.toLowerCase().includes(normalizeQuery),
       );
     }
 
