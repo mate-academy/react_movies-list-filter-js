@@ -8,7 +8,7 @@ export const App = () => {
   const visibleMovies = moviesFromServer.filter(movie => {
     const searchQuery = query.trim().toLocaleLowerCase();
     const movieTitle = movie.title.toLocaleLowerCase();
-    const movieDescription = movie.description.toLocaleLowerCase();
+    const movieDescription = (movie.description || '').toLocaleLowerCase();
 
     return (
       movieTitle.includes(searchQuery) ||
