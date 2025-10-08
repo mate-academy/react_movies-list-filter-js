@@ -1,8 +1,21 @@
+import { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
+export const App = () => {
+  const [query, setQuery] = useState('');
+
+   let visibleMovies = [...moviesFromServer];
+
+    if (query) {
+      visibleMovies = visibleMovies.filter( movie => movie.title.toLowerCase().includes(query.trim().toLowerCase() ) ||
+    movie.description.toLowerCase().includes(query.trim().toLowerCase()) );
+    }
+  const handleSortByQuery = (query) => {
+    setQuery(query);
+  }
+  return (
   <div className="page">
     <div className="page-content">
       <div className="box">
@@ -18,14 +31,16 @@ export const App = () => (
               id="search-query"
               className="input"
               placeholder="Type search word"
+              onChange={(event) => handleSortByQuery(event.target.value)}
             />
           </div>
         </div>
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <MoviesList movies={visibleMovies} />
     </div>
 
     <div className="sidebar">Sidebar goes here</div>
   </div>
-);
+  );
+};
