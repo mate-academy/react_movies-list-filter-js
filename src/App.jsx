@@ -8,8 +8,9 @@ export const App = () => {
 
   let visibleMovies;
 
-  if (query) {
-    const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = query.trim().toLowerCase();
+  if (normalizedQuery) {
+
 
     visibleMovies = moviesFromServer.filter(
       movie =>
@@ -19,6 +20,7 @@ export const App = () => {
   } else {
     visibleMovies = moviesFromServer;
   }
+
   const handleSortByQuery = query1 => {
     setQuery(query1);
   };
