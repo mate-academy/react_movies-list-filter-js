@@ -1,5 +1,5 @@
 export const Box = ({ query, onQuery }) => {
-  let normalizeQuery = query.trimStart();
+  // const normalizeQuery = query.trimStart();
 
   return (
     <div className="box">
@@ -15,7 +15,7 @@ export const Box = ({ query, onQuery }) => {
             id="search-query"
             className="input"
             placeholder="Type search word"
-            value={normalizeQuery}
+            value={query}
             onChange={event => {
               onQuery(event.target.value);
             }}
