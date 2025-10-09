@@ -6,16 +6,15 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
+  const normalizedQuery = query.trim().toLowerCase();
+
   const visibleMovies = moviesFromServer.filter(movie => {
-    if (movie.title.toLowerCase().includes(query.trim().toLowerCase())) {
-      return true;
-    }
+    const title = movie.title.toLowerCase();
+    const description = (movie.description || '').toLowerCase();
 
-    if (movie.description.toLowerCase().includes(query.trim().toLowerCase())) {
-      return true;
-    }
-
-    return false;
+    return (
+      title.includes(normalizedQuery) || description.includes(normalizedQuery)
+    );
   });
 
   return (
