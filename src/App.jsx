@@ -19,8 +19,8 @@ export const App = () => {
   // Фільтруємо список фільмів за назвою або описом
   // (filter() повертає новий масив, не змінюючи оригінальний)
   const visibleMovies = moviesFromServer.filter(movie => {
-    const title = movie.title.toLowerCase();
-    // Якщо опису немає — повертаємо порожній рядок, щоб уникнути помилки
+    const title = movie.title ? movie.title.toLowerCase() : '';
+    // Якщо опису або заголовку немає — повертаємо порожній рядок, щоб уникнути помилки
     const description = movie.description
       ? movie.description.toLowerCase()
       : '';
