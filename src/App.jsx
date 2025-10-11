@@ -18,9 +18,9 @@ const prepareMovies = (movies, { query }) => {
 };
 
 export const App = () => {
-  const [filterQuery, setFilterQuery] = useState('');
+  const [query, setQuery] = useState('');
 
-  const visibleMovies = prepareMovies(moviesFromServer, { query: filterQuery });
+  const visibleMovies = prepareMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
@@ -35,11 +35,11 @@ export const App = () => {
             <div className="control">
               <input
                 type="text"
-                value={filterQuery}
+                value={query}
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setFilterQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
