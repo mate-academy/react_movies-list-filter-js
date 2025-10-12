@@ -5,25 +5,20 @@ import moviesFromServer from './api/movies.json';
 
 function getPreparedMovies(movies, { query }) {
   const preparedMovies = movies;
+  const normalizedQuery = (query || '').trim().toLowerCase();
 
-  if (query) {
-    const filteredMovies = preparedMovies.filter(movie => {
-      const normalizedQuery = query.trim().toLowerCase();
-
-      if (!normalizedQuery) {
-        return movies;
-      }
-
-      return (
-        movie.title.toLowerCase().includes(normalizedQuery) ||
-        movie.description.toLowerCase().includes(normalizedQuery)
-      );
-    });
-
-    return filteredMovies;
+  if (!normalizedQuery) {
+    return preparedMovies;
   }
 
-  return preparedMovies;
+  const filteredMovies = preparedMovies.filter(movie => {
+    return (
+      movie.title.toLowerCase().includes(normalizedQuery) ||
+      (movie.description || '').toLowerCase().includes(normalizedQuery)
+    );
+  });
+
+  return filteredMovies;
 }
 
 export const App = () => {
