@@ -3,18 +3,20 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedMovies(goods, { query }) {
-  const preparedMovies = [...goods];
+function getPreparedMovies(movies, { query }) {
+  const preparedMovies = movies;
 
   if (query) {
     const filteredMovies = preparedMovies.filter(movie => {
-      const titleLowerCase = movie.title.toLowerCase();
-      const descriptionLowerCase = movie.description.toLowerCase();
-      const queryLowerCase = query.toLowerCase();
+      const normalizedQuery = query.trim().toLowerCase();
+
+      if (!normalizedQuery) {
+        return movies;
+      }
 
       return (
-        titleLowerCase.includes(queryLowerCase.trim()) ||
-        descriptionLowerCase.includes(queryLowerCase.trim())
+        movie.title.toLowerCase().includes(normalizedQuery) ||
+        movie.description.toLowerCase().includes(normalizedQuery)
       );
     });
 
