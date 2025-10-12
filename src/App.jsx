@@ -45,7 +45,7 @@ export const App = () => {
                 onChange={event => {
                   const filterBy = event.currentTarget.value;
 
-                  return setQuery(filterBy);
+                  setQuery(filterBy);
                 }}
               />
             </div>
