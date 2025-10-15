@@ -6,13 +6,14 @@ import { useState } from 'react';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  // Фільтруємо фільми
   const visibleMovies = moviesFromServer.filter((movie) => {
     const lowerQuery = query.trim().toLowerCase();
-    return (
-      movie.title.toLowerCase().includes(lowerQuery) ||
-      movie.description.toLowerCase().includes(lowerQuery)
-    );
+
+    // безпечна нормалізація
+    const title = (movie.title || '').toLowerCase();
+    const description = (movie.description || '').toLowerCase();
+
+    return title.includes(lowerQuery) || description.includes(lowerQuery);
   });
 
   return (
@@ -30,13 +31,12 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(event) => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        {/* Передаємо visibleMovies, а не весь масив */}
         <MoviesList movies={visibleMovies} />
       </div>
 
