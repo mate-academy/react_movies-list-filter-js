@@ -13,7 +13,7 @@ function filteredMovies(movies, query) {
   return movies.filter(
     movie =>
       movie.title.toLowerCase().includes(queryNormalized) ||
-      movie.description?.toLowerCase().includes(queryNormalized),
+      (movie.description || '').toLowerCase().includes(queryNormalized),
   );
 }
 
