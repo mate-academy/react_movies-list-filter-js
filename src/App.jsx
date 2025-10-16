@@ -13,7 +13,7 @@ function filteredMovies(movies, query) {
   return movies.filter(
     movie =>
       movie.title.toLowerCase().includes(queryNormalized) ||
-      movie.description.toLowerCase().includes(queryNormalized),
+      movie.description?.toLowerCase().includes(queryNormalized),
   );
 }
 
@@ -38,7 +38,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
