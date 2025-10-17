@@ -5,25 +5,20 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies, { query }) {
-  let preparedMovies = [...movies];
+  const queryNormalized = query.trim().toLowerCase();
 
-  if (query) {
-    preparedMovies = preparedMovies.filter(movie => {
-      const title = movie.title.trim().toLowerCase();
-      const description = movie.description.trim().toLowerCase();
-
-      if (
-        title.includes(query.trim().toLowerCase()) ||
-        description.includes(query.trim().toLowerCase())
-      ) {
-        return movie;
-      }
-
-      return false;
-    });
+  if (!queryNormalized) {
+    return movies;
   }
 
-  return preparedMovies;
+  return movies.filter(movie => {
+    const title = movie.title.trim().toLowerCase();
+    const description = movie.description.trim().toLowerCase();
+
+    return (
+      title.includes(queryNormalized) || description.includes(queryNormalized)
+    );
+  });
 }
 
 export const App = () => {
@@ -48,8 +43,8 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={evet => {
-                  setQuery(evet.target.value);
+                onChange={event => {
+                  setQuery(event.target.value);
                 }}
               />
             </div>
