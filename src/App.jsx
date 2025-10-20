@@ -4,16 +4,16 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
-  const [query, setQuery] = useState('');
+  const [quary, setquary] = useState('');
 
-  const normalizedQuery = query.trim().toLowerCase();
+  const normalizedquary = quary.trim().toLowerCase();
 
   const visibleMovies = moviesFromServer.filter(movie => {
     const title = (movie.title || '').toLowerCase();
     const description = (movie.description || '').toLowerCase();
 
     return (
-      title.includes(normalizedQuery) || description.includes(normalizedQuery)
+      title.includes(normalizedquary) || description.includes(normalizedquary)
     );
   });
 
@@ -22,18 +22,18 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            <label htmlFor="search-query" className="label">
+            <label htmlFor="search-quary" className="label">
               Search movie
             </label>
             <div className="control">
               <input
                 type="text"
-                id="search-query"
+                id="search-quary"
                 className="input"
                 placeholder="Type search word"
-                value={query}
+                value={quary}
                 onChange={event => {
-                  setQuery(event.target.value);
+                  setquary(event.target.value);
                 }}
               />
             </div>
