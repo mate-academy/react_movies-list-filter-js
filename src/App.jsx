@@ -6,10 +6,8 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  // Trim spaces and make search case-insensitive
   const normalizedQuery = query.trim().toLowerCase();
 
-  // Filter movies by title or description
   const visibleMovies = moviesFromServer.filter(
     movie =>
       movie.title.toLowerCase().includes(normalizedQuery) ||
@@ -33,7 +31,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
