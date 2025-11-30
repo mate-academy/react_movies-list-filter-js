@@ -10,43 +10,40 @@ export const App = () => {
     setQuery(event.target.value);
   };
 
-  const visibleMovies = moviesFromServer.filter(item =>
-      item.title
-        .toLocaleLowerCase()
-        .includes(query.toLocaleLowerCase().trim()) ||
-      item.description
-        .toLocaleLowerCase()
-        .includes(query.toLocaleLowerCase().trim()),
-  );
+  const normalizedQuery = query.toLocaleLowerCase().trim();
+const visibleMovies = moviesFromServer.filter(item =>
+  item.title.toLocaleLowerCase().includes(normalizedQuery) ||
+  item.description.toLocaleLowerCase().includes(normalizedQuery),
+);
 
   return (
-    <div className="page">
-      <div className="page-content">
-        <div className="box">
-          <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="search-query" className="label">
-              Search movie
+  <div className="page">
+    <div className="page-content">
+      <div className="box">
+        <div className="field">
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label htmlFor="search-query" className="label">
+            Search movie
             </label>
 
-            <div className="control">
-              <input
-                type="text"
-                id="search-query"
-                className="input"
-                placeholder="Type search word"
-                value={query}
-                onChange={handleInputChange}
-              />
+          <div className="control">
+            <input
+              type="text"
+              id="search-query"
+              className="input"
+              placeholder="Type search word"
+              value={query}
+              onChange={handleInputChange}
+            />
 
-            </div>
           </div>
         </div>
-
-        <MoviesList movies={visibleMovies} />
       </div>
 
-      <div className="sidebar">Sidebar goes here</div>
+      <MoviesList movies={visibleMovies} />
+    </div>
+
+    <div className="sidebar">Sidebar goes here</div>
     </div>
   );
 };
