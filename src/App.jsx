@@ -40,8 +40,8 @@ export const App = () => {
   );
 
   return (
-    <div className="pag">
-      <div className="pag-content">
+    <div className="page">
+      <div className="page-content">
         <div className="box">
           <div className="field">
             <label htmlFor="search-query" className="label">
