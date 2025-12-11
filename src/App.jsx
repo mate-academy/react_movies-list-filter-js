@@ -27,7 +27,7 @@ export const App = () => {
           placeholder="Search movies..."
           className="input"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={event => setQuery(event.target.value)}
         />
 
         <MoviesList movies={visibleMovies} />
