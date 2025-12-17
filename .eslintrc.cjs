@@ -75,6 +75,12 @@ module.exports = {
         ignoreComments: false,
       },
     ],
+
+    'react/jsx-indent': 'off',
+    'react/jsx-indent-props': 'off',
+    indent: 'off', // Отключаем indent, так как Prettier его контролирует
+    '@typescript-eslint/indent': 'off', // На случай если используете TS
+
     'no-unused-expressions': [
       'error',
       {
