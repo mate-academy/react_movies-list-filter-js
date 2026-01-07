@@ -1,8 +1,20 @@
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { useState } from 'react';
 
-export const App = () => (
+export const App = () => {
+  const [query, setQuery] = useState('');
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const movieTitle = movie.title.toLowerCase();
+    const movieDescription = (movie.description || '').toLowerCase();
+    const normalizedQuery = query.trim().toLowerCase();
+
+
+    return movieTitle.includes(normalizedQuery) || movieDescription.includes(normalizedQuery)
+  });
+
+  return (
   <div className="page">
     <div className="page-content">
       <div className="box">
@@ -18,14 +30,17 @@ export const App = () => (
               id="search-query"
               className="input"
               placeholder="Type search word"
+              value={query}
+              onChange={event=> setQuery(event.target.value)}
             />
           </div>
         </div>
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <MoviesList movies={visibleMovies} />
     </div>
 
     <div className="sidebar">Sidebar goes here</div>
   </div>
-);
+  );
+};
