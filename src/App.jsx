@@ -1,14 +1,18 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
 
 function getPreparedMovies(movies, query) {
-  let preparedMovies = [...movies];
+  let preparedMovies = movies;
 
   preparedMovies = preparedMovies.filter(movie => {
-    return movie.title.toLowerCase().includes(query.trim().toLowerCase())
-      || movie.description.toLowerCase().includes(query.trim().toLowerCase());
+    const queryLowerCaseAndWithoutSpace = query.trim().toLowerCase();
+
+    return (
+      movie.title.toLowerCase().includes(queryLowerCaseAndWithoutSpace) ||
+      movie.description.toLowerCase().includes(queryLowerCaseAndWithoutSpace)
+    );
   });
 
   return preparedMovies;
@@ -29,15 +33,13 @@ export const App = () => {
             </label>
 
             <div className="control">
-
               <input
                 type="text"
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
-
             </div>
           </div>
         </div>
@@ -48,4 +50,4 @@ export const App = () => {
       <div className="sidebar">Sidebar goes here</div>
     </div>
   );
-}
+};
