@@ -7,15 +7,15 @@ import { SearchInput } from './components/SearchInput/SearchInput';
 export const App = () => {
   const [query, setQuery] = useState(''); // стан для інпуту пошуку
 
-  const onChangeValue = e => {
-    setQuery(e.target.value);
+  const onChangeValue = event => {
+    setQuery(event.target.value);
   };
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  const visibleMovies = moviesFromServer.filter(m => {
-    const title = m.title.toLowerCase();
-    const desc = m.description.toLowerCase();
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const title = movie.title.toLowerCase();
+    const desc = movie.description.toLowerCase();
 
     return title.includes(normalizedQuery) || desc.includes(normalizedQuery);
   });
