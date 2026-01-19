@@ -17,8 +17,8 @@ export const App = () => {
     );
   });
 
-  function handleChange(e) {
-    setQuery(e.target.value);
+  function handleChange(event) {
+    setQuery(event.target.value);
   }
 
   return (
