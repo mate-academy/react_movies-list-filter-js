@@ -6,8 +6,8 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const handleQueryChange = e => {
-    setQuery(e.target.value);
+  const handleQueryChange = event => {
+    setQuery(event.target.value);
   };
 
   const visibleMovies = moviesFromServer.filter(movie => {
