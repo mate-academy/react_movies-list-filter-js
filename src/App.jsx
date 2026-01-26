@@ -7,6 +7,14 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
+  const compare = (content, text) => {
+    return content.toLowerCase().includes(text.trim().toLowerCase());
+  };
+
+  const visibleMovies = moviesFromServer.filter(movie => {
+    return compare(movie.title, query) || compare(movie.description, query);
+  });
+
   return (
     <div className="page">
       <div className="page-content">
@@ -24,13 +32,13 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setQuery(e.currentTarget.value)}
+                onChange={event => setQuery(event.currentTarget.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={query} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
