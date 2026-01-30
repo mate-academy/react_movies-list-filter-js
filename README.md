@@ -1,17 +1,67 @@
-# Movies list - Filter
+# Movies List – Filter (JS)
 
-The `App`contains a `MoviesList` and a search field. Implement filtering using a `useState` hook.
+Aplicação em React que permite filtrar uma lista de filmes em tempo real a partir de um campo de busca.
 
-> Here is [the working version](https://mate-academy.github.io/react_movies-list-filter/)
+[DEMO LINK](https://Igor-hrm.github.io/react_movies-list-filter-js/)
 
-- On every change save the input value into the `query`;
-- create a `visibleMovies` variable containing filtered movies;
-- check if `movie.title` or `movie.description` contains `query`;
-- ignore leading and trailing spaces;
-- search should be case insensitive (`Inception` can be found by entering `inc` or `Inc` or even `iNC`).
+---
 
-## Instructions
-- Install Prettier Extention and use this [VSCode settings](https://mate-academy.github.io/fe-program/tools/vscode/settings.json) to enable format on save.
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_movies-list-filter-js/) and add it to the PR description.
+## Sobre o projeto
+
+Este projeto implementa um sistema de busca dinâmica para uma lista de filmes.
+O filtro funciona tanto pelo título quanto pela descrição, reagindo a cada alteração no campo de input.
+
+A busca é tolerante a variações de caixa e espaços extras, garantindo uma melhor experiência de uso.
+
+---
+
+## Tecnologias utilizadas
+
+- React
+- JavaScript
+- CSS
+- GitHub Pages
+
+---
+
+## Funcionalidades implementadas
+
+- Campo de busca controlado com `useState`
+- Filtro em tempo real da lista de filmes
+- Busca por título **ou** descrição
+- Busca case insensitive
+- Ignora espaços no início e no fim da busca
+- Lista renderizada dinamicamente conforme o filtro
+
+---
+
+## Regras de funcionamento
+
+- A cada alteração no input, o valor é salvo no estado `query`
+- O texto digitado é tratado com `trim()` para remover espaços extras
+- A comparação é feita usando texto em minúsculas
+- Um filme é exibido se:
+  - o título **ou**
+  - a descrição
+    contiver o texto pesquisado
+
+---
+
+## Conceitos praticados
+
+- `useState`
+- Componentização em React
+- Filtros em arrays (`filter`)
+- Manipulação de strings
+- Renderização condicional
+- Fluxo de dados controlados (controlled inputs)
+
+---
+
+## Como rodar o projeto localmente
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/Igor-hrm/react_movies-list-filter-js.git
+```
