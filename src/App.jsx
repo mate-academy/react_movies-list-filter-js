@@ -6,10 +6,9 @@ import moviesFromServer from './api/movies.json';
 
 function getFilterFilm(movies, { query }) {
   const preparedQuery = query.trim().toLowerCase();
-  let filterFilm = [...movies];
 
   if (preparedQuery) {
-    filterFilm = filterFilm.filter(movie => {
+    return movies.filter(movie => {
       const titleMatch = movie.title.toLowerCase().includes(preparedQuery);
       const desMatch = movie.description?.toLowerCase().includes(preparedQuery);
 
@@ -17,7 +16,7 @@ function getFilterFilm(movies, { query }) {
     });
   }
 
-  return filterFilm;
+  return movies;
 }
 
 export const App = () => {
