@@ -4,9 +4,7 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function getPreparedMovies(movies, { query }) {
-  let preparedMovies = [...movies];
-
+function getFilteredMovies(movies, { query }) {
   if (query) {
     const normalizedQuery = query.trim().toLowerCase();
 
@@ -14,17 +12,17 @@ function getPreparedMovies(movies, { query }) {
       return whereToFind.toLowerCase().includes(normalizedQuery);
     };
 
-    preparedMovies = preparedMovies.filter(movie => {
+    return movies.filter(movie => {
       return hasQuery(movie.title) || hasQuery(movie.description);
     });
   }
 
-  return preparedMovies;
+  return movies;
 }
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const visibleMovies = getPreparedMovies(moviesFromServer, { query });
+  const visibleMovies = getFilteredMovies(moviesFromServer, { query });
 
   return (
     <div className="page">
