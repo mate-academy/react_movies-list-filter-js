@@ -5,7 +5,9 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function filterMovies(movies, query) {
-  if (!query) {
+  const normalizedQuery = query.toLowerCase().trim();
+
+  if (!normalizedQuery) {
     return movies;
   }
 
@@ -14,8 +16,8 @@ function filterMovies(movies, query) {
     const movieDescription = movie.description.toLowerCase();
 
     return (
-      movieName.includes(query.toLowerCase().trim()) ||
-      movieDescription.includes(query.toLowerCase().trim())
+      movieName.includes(normalizedQuery) ||
+      movieDescription.includes(normalizedQuery)
     );
   });
 }
@@ -37,7 +39,7 @@ export const App = () => {
             <div className="control">
               <input
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
                 type="text"
                 id="search-query"
                 className="input"
