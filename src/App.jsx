@@ -13,11 +13,13 @@ export const App = () => {
     return text.trim().toLowerCase();
   };
 
+  const normalizedQuery = normalizeText(query);
+
   if (query) {
     visibleMovies = moviesFromServer.filter(
       movie =>
-        normalizeText(movie.title).includes(normalizeText(query)) ||
-        normalizeText(movie.description).includes(normalizeText(query)),
+        normalizeText(movie.title).includes(normalizedQuery) ||
+        normalizeText(movie.description).includes(normalizedQuery),
     );
   }
 
