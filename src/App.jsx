@@ -1,31 +1,56 @@
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
+import { useState } from 'react';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+export const App = () => {
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+  const [query, setQuery] = useState("");
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const visibleMovies = [...moviesFromServer].filter(({ title, description }) => {
+    const newTitle = title.toLowerCase()
+    const newDescrip = description.toLowerCase()
+
+    return newTitle.includes(normalizedQuery)
+      || newDescrip.includes(normalizedQuery);
+  })
+
+  const filterBy = (newQuery) => {
+    setQuery(newQuery);
+
+  }
+
+  return (
+
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                onChange={(event) => {
+                  filterBy(event.currentTarget.value);
+                }}
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList movies={visibleMovies}
+        />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  )
+}
