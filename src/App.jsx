@@ -6,9 +6,9 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
   const normalizedQuery = query.trim().toLowerCase();
-  const visibleMovies = moviesFromServer.filter(m => {
-    const title = m.title.toLowerCase();
-    const desc = m.description.toLowerCase();
+  const visibleMovies = moviesFromServer.filter(movie => {
+    const title = movie.title.toLowerCase();
+    const desc = movie.description.toLowerCase();
 
     return title.includes(normalizedQuery) || desc.includes(normalizedQuery);
   });
@@ -30,8 +30,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => {
-                  setQuery(e.target.value);
+                onChange={event => {
+                  setQuery(event.target.value);
                 }}
               />
             </div>
