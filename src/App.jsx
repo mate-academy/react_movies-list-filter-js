@@ -1,8 +1,13 @@
+import { useState } from 'react';
+
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
+export const App = () => {
+ const [ search , setsearch ] = useState('');
+
+ return (
   <div className="page">
     <div className="page-content">
       <div className="box">
@@ -13,7 +18,8 @@ export const App = () => (
           </label>
 
           <div className="control">
-            <input
+            <input 
+              onChange={(e) => setsearch(e.target.value)} 
               type="text"
               id="search-query"
               className="input"
@@ -23,9 +29,12 @@ export const App = () => (
         </div>
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <MoviesList 
+      search={search}
+      movies={moviesFromServer} />
     </div>
 
     <div className="sidebar">Sidebar goes here</div>
   </div>
-);
+ );
+}
