@@ -11,9 +11,10 @@ export const MoviesList = ({ movies, search }) => {
           if (!normalizedSearch) {
             return true;
           }
+
           return (
-            movie.title.toLowerCase().includes(normalizedSearch) 
-            || movie.description.toLowerCase().includes(normalizedSearch)
+            movie.title.toLowerCase().includes(normalizedSearch) ||
+            movie.description.toLowerCase().includes(normalizedSearch)
           );
         })
         .map(movie => (

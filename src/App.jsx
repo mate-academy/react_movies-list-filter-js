@@ -5,36 +5,34 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
- const [ search , setsearch ] = useState('');
+  const [search, setsearch] = useState('');
 
- return (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
 
-          <div className="control">
-            <input 
-              onChange={(e) => setsearch(e.target.value)} 
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+            <div className="control">
+              <input
+                onChange={e => setsearch(e.target.value)}
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+              />
+            </div>
           </div>
         </div>
+
+        <MoviesList search={search} movies={moviesFromServer} />
       </div>
 
-      <MoviesList 
-      search={search}
-      movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
- );
-}
+  );
+};
