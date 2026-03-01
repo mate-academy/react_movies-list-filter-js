@@ -1,4 +1,5 @@
 import './MovieCard.scss';
+// import { movie } from '../../constants';
 
 export const MovieCard = ({ movie }) => (
   <div className="card">
