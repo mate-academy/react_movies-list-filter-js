@@ -1,21 +1,20 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
 
 function filterMovies(movies, query) {
-  let visibleMovies = [...movies];
   const normalizedQuery = query.trim().toLowerCase();
 
   if (normalizedQuery) {
-    return visibleMovies.filter(
+    return movies.filter(
       movie =>
         movie.title.trim().toLowerCase().includes(normalizedQuery) ||
         movie.description.trim().toLowerCase().includes(normalizedQuery),
     );
   }
 
-  return visibleMovies;
+  return movies;
 }
 
 export const App = () => {
