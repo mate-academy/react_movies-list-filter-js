@@ -6,10 +6,10 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   // Стан для збереження введеного запиту
   const [query, setQuery] = useState('');
+  const lowerQuery = query.trim().toLowerCase();
 
   // Фільтруємо фільми на основі запиту
   const visibleMovies = moviesFromServer.filter(movie => {
-    const lowerQuery = query.trim().toLowerCase();
     const titleMatch = movie.title.toLowerCase().includes(lowerQuery);
     const descriptionMatch = movie.description
       .toLowerCase()
@@ -34,7 +34,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)} // Зберігаємо введене значення
+                onChange={event => setQuery(event.target.value)} // Зберігаємо введене значення
               />
             </div>
           </div>
