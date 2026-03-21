@@ -5,16 +5,18 @@ import moviesFromServer from './api/movies.json';
 
 const cleaningString = str => {
   const cleanStr = str.trim();
+
   return cleanStr ? cleanStr.toLowerCase() : '';
 };
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = [...moviesFromServer].filter(movie => {
+  const visibleMovies = moviesFromServer.filter(movie => {
     const cleanTitle = cleaningString(movie.title);
     const cleanDescription = cleaningString(movie.description);
     const cleanQuery = cleaningString(query);
+
     return (
       cleanTitle.includes(cleanQuery) || cleanDescription.includes(cleanQuery)
     );
