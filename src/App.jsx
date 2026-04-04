@@ -1,26 +1,24 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
-
-
 
 export const App = () => {
-  let [query, setQuery] = useState('');
-  let visibleMovies = moviesFromServer
-  if (query)
-  {
-    visibleMovies=[...visibleMovies].
-    filter(movie => movie.
-      description.
-      toLowerCase().
-      includes(query.trim().toLowerCase())
-      ||
-      movie.
-      title.
-      toLowerCase().
-      includes(query.trim().toLowerCase()))
+  const [query, setQuery] = useState('');
+  let visibleMovies = moviesFromServer;
+
+  if (query) {
+    // CHECKLIST ITEM #2: Create a variable for the normalized query
+    const normalizedQuery = query.trim().toLowerCase();
+
+    // CHECKLIST ITEM #3: Call filter directly on the array (no need for [...spread])
+    visibleMovies = moviesFromServer.filter(
+      movie =>
+        movie.description.toLowerCase().includes(normalizedQuery) ||
+        movie.title.toLowerCase().includes(normalizedQuery),
+    );
   }
+
   return (
     <div className="page">
       <div className="page-content">
@@ -37,14 +35,16 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={(event) => {setQuery(event.target.value)}}
+                value={query}
+                onChange={event => {
+                  setQuery(event.target.value);
+                }}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList
-        movies={visibleMovies}/>
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
