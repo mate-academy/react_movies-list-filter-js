@@ -13,8 +13,7 @@ export const App = () => {
     const queryLowerCase = query.toLowerCase().trim();
 
     return (
-      name.includes(queryLowerCase) ||
-      description.toLowerCase().includes(queryLowerCase)
+      name.includes(queryLowerCase) || description.includes(queryLowerCase)
     );
   });
 
@@ -35,7 +34,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
