@@ -17,8 +17,8 @@ export const App = () => {
     });
   }
 
-  const [querySort, setQuerySort] = useState('');
-  const visibleList = sortBy(moviesFromServer, querySort);
+  const [query, setQuery] = useState('');
+  const visibleList = sortBy(moviesFromServer, query);
 
   return (
     <div className="page">
@@ -36,7 +36,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => setQuerySort(e.target.value)}
+                onChange={changeEvent => setQuery(changeEvent.target.value)}
               />
             </div>
           </div>
