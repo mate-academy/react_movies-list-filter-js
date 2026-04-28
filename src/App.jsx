@@ -6,7 +6,7 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const visibleMovies = () => {
+  const getFilteredMovies = () => {
     const normalizedQuery = query.toLowerCase().trim();
 
     return moviesFromServer.filter(
@@ -15,6 +15,8 @@ export const App = () => {
         movie.description.toLowerCase().includes(normalizedQuery),
     );
   };
+
+  const visibleMovies = getFilteredMovies();
 
   return (
     <div className="page">
@@ -39,7 +41,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={visibleMovies()} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
