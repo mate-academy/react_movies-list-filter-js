@@ -1,20 +1,25 @@
 import './App.scss';
+
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const handleInputChange = e => {
-    setQuery(e.target.value);
+  const handleInputChange = event => {
+    setQuery(event.target.value);
   };
+
   const visibleMovies = moviesFromServer.filter(movie => {
     const queryLower = query.toLowerCase().trim();
     const titleLower = movie.title.toLowerCase();
     const descriptionLower = movie.description.toLowerCase();
+
     return (
       titleLower.includes(queryLower) || descriptionLower.includes(queryLower)
     );
   });
+
   return (
     <div className="page">
       <div className="page-content">
@@ -42,4 +47,3 @@ export const App = () => {
     </div>
   );
 };
-
