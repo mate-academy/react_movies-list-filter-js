@@ -5,10 +5,10 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function getVisibleMovies(movies, searchField) {
-  let preparedMovies = [...movies];
+  let preparedMovies = movies;
 
   if (searchField) {
-    preparedMovies = preparedMovies.filter(movie => {
+    preparedMovies = movies.filter(movie => {
       return (
         movie.title.toLowerCase().includes(searchField.toLowerCase().trim()) ||
         movie.description
