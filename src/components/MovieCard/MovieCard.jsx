@@ -1,31 +1,31 @@
-import './MovieCard.scss';
+import React from 'react';
 
-export const MovieCard = ({ movie }) => (
-  <div className="card">
-    <div className="card-image">
-      <figure className="image is-4by3">
-        <img src={movie.imgUrl} alt="Film logo" />
-      </figure>
-    </div>
+export const MovieCard = ({ movie }) => {
+  const { title, description, imgUrl, imdbUrl } = movie;
 
-    <div className="card-content">
-      <div className="media">
-        <div className="media-left">
-          <figure className="image is-48x48">
-            <img src="images/imdb-logo.jpeg" alt="imdb" />
-          </figure>
+  return (
+    <li className="movies-list__item">
+      <div className="movie-card card" data-cy="movie">
+        <div className="movie-card__image">
+          <img src={imgUrl} alt={title} />
         </div>
-
-        <div className="media-content">
-          <p className="title is-8">{movie.title}</p>
+        <div className="movie-card__info">
+          <h2 className="movie-card__title title" data-cy="movieTitle">
+            {title}
+          </h2>
+          <p className="movie-card__description" data-cy="movieDescription">
+            {description}
+          </p>
+          <a
+            href={imdbUrl}
+            className="movie-card__link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            More details
+          </a>
         </div>
       </div>
-
-      <div className="content">
-        {movie.description}
-        <br />
-        <a href={movie.imdbUrl}>IMDB</a>
-      </div>
-    </div>
-  </div>
-);
+    </li>
+  );
+};
