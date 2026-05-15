@@ -6,7 +6,7 @@ export const MoviesList = ({ movies, query }) => {
   const normalizedQuery = query.trim().toLowerCase();
 
   // 2. Створюємо масив тільки з тих фільмів, що нам підходять
-  const filteredMovies = movies.filter(movie => {
+  const visibleMovies = movies.filter(movie => {
     const titleMatch = movie.title.toLowerCase().includes(normalizedQuery);
 
     // Тут нам треба додати таку ж перевірку для movie.description
@@ -21,7 +21,7 @@ export const MoviesList = ({ movies, query }) => {
   // 3. Повертаємо JSX
   return (
     <div className="movies">
-      {filteredMovies.map(movie => (
+      {visibleMovies.map(movie => (
         <MovieCard key={movie.imdbId} movie={movie} />
       ))}
     </div>

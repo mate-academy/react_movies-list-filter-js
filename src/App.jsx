@@ -23,15 +23,13 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
         </div>
 
-        <MoviesList
-        movies={moviesFromServer}
-        query={query} />
+        <MoviesList movies={moviesFromServer} query={query} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
