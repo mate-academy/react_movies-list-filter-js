@@ -4,21 +4,20 @@ import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
 function prepareMovies(goods, query) {
-  let sorted = [...goods];
   const newQuery = query.trim().toLowerCase();
 
-  sorted = sorted.filter(
+  goods = goods.filter(
     good =>
       good.title.toLowerCase().includes(newQuery) ||
       good.description.toLowerCase().includes(newQuery),
   );
 
-  return sorted;
+  return goods;
 }
 
 export const App = () => {
   const [sortField, setSortField] = useState('');
-  const prepare = prepareMovies(moviesFromServer, sortField);
+  const visibleMovies = prepareMovies(moviesFromServer, sortField);
 
   return (
     <div className="page">
@@ -43,7 +42,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={prepare} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
