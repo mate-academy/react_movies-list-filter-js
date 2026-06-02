@@ -3,21 +3,21 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function prepareMovies(goods, query) {
+function filterMovies(movies, query) {
   const newQuery = query.trim().toLowerCase();
 
-  goods = goods.filter(
-    good =>
-      good.title.toLowerCase().includes(newQuery) ||
-      good.description.toLowerCase().includes(newQuery),
+  movies.filter(
+    movie =>
+      movie.title.toLowerCase().includes(newQuery) ||
+      movie.description.toLowerCase().includes(newQuery),
   );
 
-  return goods;
+  return movies;
 }
 
 export const App = () => {
   const [sortField, setSortField] = useState('');
-  const visibleMovies = prepareMovies(moviesFromServer, sortField);
+  const visibleMovies = filterMovies(moviesFromServer, sortField);
 
   return (
     <div className="page">
