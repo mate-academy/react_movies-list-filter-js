@@ -6,13 +6,11 @@ import moviesFromServer from './api/movies.json';
 function filterMovies(movies, query) {
   const newQuery = query.trim().toLowerCase();
 
-  movies.filter(
+  return movies.filter(
     movie =>
       movie.title.toLowerCase().includes(newQuery) ||
       movie.description.toLowerCase().includes(newQuery),
   );
-
-  return movies;
 }
 
 export const App = () => {
