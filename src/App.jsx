@@ -10,7 +10,7 @@ export const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const query = searchQuery.trim().toLowerCase();
 
-  const filterMovies = searchTerm => {
+  const visibleMovies = searchTerm => {
     const query = searchTerm.trim().toLowerCase();
     const filtered = moviesFromServer.filter(
       movie =>
@@ -42,7 +42,7 @@ export const App = () => {
                   const { value } = event.target;
 
                   setSearchQuery(value);
-                  filterMovies(value.trim().toLowerCase());
+                  visibleMovies(value.trim().toLowerCase());
                 }}
               />
             </div>
