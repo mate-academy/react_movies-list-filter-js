@@ -4,17 +4,15 @@ import './App.scss';
 import { MoviesList } from './components/MoviesList';
 
 const getVisibleMovies = (movies, query) => {
-  const copyMovies = [...movies];
-
   if (query) {
-    return copyMovies.filter(
+    return movies.filter(
       ({ title, description }) =>
         title.toLowerCase().trim().includes(query.toLowerCase().trim()) ||
         description.toLowerCase().trim().includes(query.toLowerCase().trim()),
     );
   }
 
-  return copyMovies;
+  return movies;
 };
 
 export const App = () => {
@@ -39,8 +37,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={e => {
-                  const { value } = e.target;
+                onChange={event => {
+                  const { value } = event.target;
 
                   setQuery(value);
                 }}
