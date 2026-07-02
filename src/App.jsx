@@ -28,7 +28,7 @@ export const App = () => {
             <div className="control">
               <input
                 value={searchQuery}
-                onChange={e => setSearchQuery(e.target.value)}
+                onChange={event => setSearchQuery(event.target.value)}
                 type="text"
                 id="search-query"
                 className="input"
