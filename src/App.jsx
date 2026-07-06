@@ -13,11 +13,11 @@ export const App = () => {
       return true;
     }
 
-    const matchesTitle = movie.title.toLowerCase().startsWith(normalizedQuery);
+    const matchesTitle = movie.title.toLowerCase().includes(normalizedQuery);
 
     const matchesDescription = (movie.description || '')
       .toLowerCase()
-      .startsWith(normalizedQuery);
+      .includes(normalizedQuery);
 
     return matchesTitle || matchesDescription;
   });
