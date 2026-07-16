@@ -3,17 +3,17 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function tofilter(list, query) {
+function tofilter(movies, query) {
   const cleanquery = query.trim().toLowerCase();
 
   if (!cleanquery) {
-    return list;
+    return movies;
   }
 
-  return list.filter(film => {
-    const title = film.title.trim().toLowerCase().includes(cleanquery);
+  return movies.filter(movie => {
+    const title = movie.title.trim().toLowerCase().includes(cleanquery);
 
-    const description = film.description.toLowerCase().includes(cleanquery);
+    const description = movie.description.toLowerCase().includes(cleanquery);
 
     return title || description;
   });
@@ -29,7 +29,6 @@ export const App = () => {
       <div className="page-content">
         <div className="box">
           <div className="field">
-            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor="search-query" className="label">
               Search movie
             </label>
