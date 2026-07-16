@@ -13,9 +13,7 @@ function tofilter(list, query) {
   return list.filter(film => {
     const title = film.title.trim().toLowerCase().includes(cleanquery);
 
-    const description = (film.description || '')
-      .toLowerCase()
-      .includes(cleanquery);
+    const description = film.description.toLowerCase().includes(cleanquery);
 
     return title || description;
   });
