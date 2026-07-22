@@ -7,7 +7,10 @@ export const App = () => {
   const [text, setText] = useState('');
 
   const moviesSearch = moviesFromServer.filter(m => {
-    return m.title.toLowerCase().includes(text.toLowerCase().trim());
+    return (
+      m.title.toLowerCase().includes(text.toLowerCase().trim()) ||
+      m.description.toLowerCase().includes(text.toLowerCase().trim())
+    );
   });
 
   return (
