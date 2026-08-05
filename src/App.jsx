@@ -1,18 +1,18 @@
 import './App.scss';
+import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
-import { useState } from 'react';
 
 export const App = () => {
   const [query, setQuery] = useState('');
 
-  const filterBy = (newQuery) => {
+  const filterBy = newQuery => {
     setQuery(newQuery);
   };
 
- const normalizedQuery = query.trim().toLowerCase();
+  const normalizedQuery = query.trim().toLowerCase();
 
-  const visibleMovies = moviesFromServer.filter((movie) => {
+  const visibleMovies = moviesFromServer.filter(movie => {
     const title = movie.title.toLowerCase();
     const description = movie.description.toLowerCase();
 
@@ -24,7 +24,6 @@ export const App = () => {
   return (
     <div className="page">
       <div className="page-content">
-
         <div className="box">
           <div className="field">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -34,7 +33,7 @@ export const App = () => {
 
             <div className="control">
               <input
-                onChange={(event) => {
+                onChange={event => {
                   filterBy(event.target.value);
                 }}
                 type="text"
@@ -46,7 +45,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={filteredMovies} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
