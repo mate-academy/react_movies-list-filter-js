@@ -1,31 +1,53 @@
 import './MovieCard.scss';
 
-export const MovieCard = ({ movie }) => (
-  <div className="card">
-    <div className="card-image">
-      <figure className="image is-4by3">
-        <img src={movie.imgUrl} alt="Film logo" />
-      </figure>
-    </div>
+function checkIfFound({ description, title }, query) {
+  const trimQuery = query.trim().toLowerCase();
 
-    <div className="card-content">
-      <div className="media">
-        <div className="media-left">
-          <figure className="image is-48x48">
-            <img src="images/imdb-logo.jpeg" alt="imdb" />
+  if (title.toLowerCase().includes(trimQuery)) {
+    return true;
+  }
+
+  if (description.toLowerCase().includes(trimQuery)) {
+    return true;
+  }
+
+  return false;
+}
+
+export const MovieCard = ({ movie, query }) => {
+  const isFound = checkIfFound(movie, query);
+
+  if (isFound) {
+    return (
+      <div className="card">
+        <div className="card-image">
+          <figure className="image is-4by3">
+            <img src={movie.imgUrl} alt="Film logo" />
           </figure>
         </div>
 
-        <div className="media-content">
-          <p className="title is-8">{movie.title}</p>
+        <div className="card-content">
+          <div className="media">
+            <div className="media-left">
+              <figure className="image is-48x48">
+                <img src="images/imdb-logo.jpeg" alt="imdb" />
+              </figure>
+            </div>
+
+            <div className="media-content">
+              <p className="title is-8">{movie.title}</p>
+            </div>
+          </div>
+
+          <div className="content">
+            {movie.description}
+            <br />
+            <a href={movie.imdbUrl}>IMDB</a>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      <div className="content">
-        {movie.description}
-        <br />
-        <a href={movie.imdbUrl}>IMDB</a>
-      </div>
-    </div>
-  </div>
-);
+  return null;
+};
