@@ -15,6 +15,7 @@ function getFilteredMovies(query) {
 
 export const App = () => {
   const [query, setQuery] = useState('');
+  const visibleMovies = getFilteredMovies(query);
 
   return (
     <div className="page">
@@ -40,7 +41,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={getFilteredMovies(query)} filter={query} />
+        <MoviesList movies={visibleMovies} filter={query} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
