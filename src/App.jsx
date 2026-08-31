@@ -6,6 +6,24 @@ import moviesFromServer from './api/movies.json';
 export const App = () => {
   const [queryState, setQueryState] = useState('');
 
+  const visibleMovies = moviesFromServer.filter(({ title, description }) => {
+    if (queryState === '') {
+      return true;
+    }
+
+    const trimQuery = queryState.trim().toLowerCase();
+
+    if (title.toLowerCase().includes(trimQuery)) {
+      return true;
+    }
+
+    if (description.toLowerCase().includes(trimQuery)) {
+      return true;
+    }
+
+    return false;
+  });
+
   return (
     <div className="page">
       <div className="page-content">
@@ -30,7 +48,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesFromServer} query={queryState} />
+        <MoviesList movies={visibleMovies} query={queryState} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
