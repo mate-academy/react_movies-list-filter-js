@@ -22,8 +22,8 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onInput={e => {
-                  setQueryState(e.target.value);
+                onInput={event => {
+                  setQueryState(event.target.value);
                 }}
               />
             </div>
