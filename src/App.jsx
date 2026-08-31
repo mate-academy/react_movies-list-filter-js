@@ -8,7 +8,7 @@ export const App = () => {
 
   const normalizedQuery = query.trim().toLowerCase();
 
-  const filteredMoviesList = moviesFromServer.filter(movie => {
+  const visibleMovies = moviesFromServer.filter(movie => {
     const titleNormalized = movie.title.toLowerCase();
     const descriptionNormalized = movie.description.toLowerCase();
 
@@ -44,7 +44,7 @@ export const App = () => {
             </div>
           </div>
         </div>
-        <MoviesList movies={filteredMoviesList} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
