@@ -1,31 +1,53 @@
+import { useState } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-export const App = () => (
-  <div className="page">
-    <div className="page-content">
-      <div className="box">
-        <div className="field">
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="search-query" className="label">
-            Search movie
-          </label>
+export const App = () => {
+  const [query, setQuery] = useState('');
 
-          <div className="control">
-            <input
-              type="text"
-              id="search-query"
-              className="input"
-              placeholder="Type search word"
-            />
+  const normalizedQuery = query.trim().toLowerCase();
+
+  const filteredMoviesList = moviesFromServer.filter(movie => {
+    const titleNormalized = movie.title.toLowerCase();
+    const descriptionNormalized = movie.description.toLowerCase();
+
+    return (
+      titleNormalized.includes(normalizedQuery) ||
+      descriptionNormalized.includes(normalizedQuery)
+    );
+  });
+
+  const handleChangeInput = event => {
+    setQuery(event.target.value);
+  };
+
+  return (
+    <div className="page">
+      <div className="page-content">
+        <div className="box">
+          <div className="field">
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="search-query" className="label">
+              Search movie
+            </label>
+
+            <div className="control">
+              <input
+                type="text"
+                id="search-query"
+                className="input"
+                placeholder="Type search word"
+                value={query}
+                onChange={handleChangeInput}
+              />
+            </div>
           </div>
         </div>
+        <MoviesList movies={filteredMoviesList} />
       </div>
 
-      <MoviesList movies={moviesFromServer} />
+      <div className="sidebar">Sidebar goes here</div>
     </div>
-
-    <div className="sidebar">Sidebar goes here</div>
-  </div>
-);
+  );
+};
