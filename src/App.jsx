@@ -13,8 +13,8 @@ export const App = () => {
     const normalizedQuery = query.trim().toLowerCase();
 
     return (
-      movie.title.toLowerCase().includes(normalizedQuery)
-      || movie.description.toLowerCase().includes(normalizedQuery)
+      movie.title.toLowerCase().includes(normalizedQuery) ||
+      movie.description.toLowerCase().includes(normalizedQuery)
     );
   });
 
