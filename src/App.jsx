@@ -15,7 +15,6 @@ export const App = () => {
         movie =>
           movie.title.toLowerCase().includes(normalQuery) ||
           movie.description.toLowerCase().includes(normalQuery),
-        // eslint-disable-next-line function-paren-newline
       );
     }
 
