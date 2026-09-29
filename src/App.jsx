@@ -1,12 +1,15 @@
 import { useState } from 'react';
+
 import './App.scss';
+
 import { MoviesList } from './components/MoviesList';
+
 import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const movies = [...moviesFromServer];
-  const filteredMovies = movies.filter(movie => {
+
+  const filteredMovies = moviesFromServer.filter(movie => {
     const value = query.trim().toLowerCase();
 
     return (
@@ -32,7 +35,7 @@ export const App = () => {
                 className="input"
                 placeholder="Type search word"
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={event => setQuery(event.target.value)}
               />
             </div>
           </div>
