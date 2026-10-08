@@ -2,10 +2,11 @@ import './MoviesList.scss';
 import { MovieCard } from '../MovieCard';
 
 export const MoviesList = ({ movies, searchQuery }) => {
-  const isIncludes = item =>
-    item.title.toLowerCase().includes(searchQuery) ||
-    item.description.toLowerCase().includes(searchQuery);
-  const visibleMovies = movies.filter(movie => isIncludes(movie));
+  const normalizedQuery = searchQuery.toLowerCase().trim();
+  const checkIsIncludes = item =>
+    item.title.toLowerCase().includes(normalizedQuery) ||
+    item.description.toLowerCase().includes(normalizedQuery);
+  const visibleMovies = movies.filter(movie => checkIsIncludes(movie));
 
   return (
     <div className="movies">

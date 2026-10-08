@@ -5,7 +5,7 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const handleInputChange = value => setQuery(value.toLowerCase().trim());
+  const handleInputChange = value => setQuery(value);
 
   return (
     <div className="page">
@@ -19,6 +19,7 @@ export const App = () => {
 
             <div className="control">
               <input
+                value={query}
                 type="text"
                 id="search-query"
                 className="input"
