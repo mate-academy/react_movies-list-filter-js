@@ -5,13 +5,12 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  let moviesList = [...moviesFromServer];
+  let visibleMovies = moviesFromServer;
 
-  function getPreparedMovie(movies, queryElem) {
-    let prePreparedMovie = [...movies];
+  function getFilteredMovies(movies, queryElem) {
+    const normalizedQuery = queryElem.trim().toLowerCase();
 
-    prePreparedMovie = prePreparedMovie.filter(movie => {
-      const normalizedQuery = queryElem.trim().toLowerCase();
+    const result = movies.filter(movie => {
       const normalizedMovieTitle = movie.title.toLowerCase();
       const normalizedMovieDescription = movie.description.toLowerCase();
 
@@ -25,11 +24,11 @@ export const App = () => {
       return false;
     });
 
-    return prePreparedMovie;
+    return result;
   }
 
   if (query) {
-    moviesList = getPreparedMovie(moviesList, query);
+    visibleMovies = getFilteredMovies(visibleMovies, query);
   }
 
   return (
@@ -57,7 +56,7 @@ export const App = () => {
           </div>
         </div>
 
-        <MoviesList movies={moviesList} />
+        <MoviesList movies={visibleMovies} />
       </div>
 
       <div className="sidebar">Sidebar goes here</div>
